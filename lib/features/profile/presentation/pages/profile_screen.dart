@@ -249,6 +249,7 @@ class ProfileScreen extends StatelessWidget {
   }
 
   void _showLogoutDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final parentContext = context;
     showDialog(
       context: context,
@@ -257,20 +258,20 @@ class ProfileScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         title: Text(
-          'تسجيل الخروج',
+          l10n.logoutTitle,
           style: GoogleFonts.cairo(
             fontWeight: FontWeight.bold,
           ),
         ),
         content: Text(
-          'هل أنت متأكد من رغبتك في تسجيل الخروج؟',
+          l10n.logoutConfirm,
           style: GoogleFonts.cairo(),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
-              'إلغاء',
+              l10n.cancel,
               style: GoogleFonts.cairo(
                 color: const Color(0xFF718096),
               ),
@@ -291,7 +292,7 @@ class ProfileScreen extends StatelessWidget {
               backgroundColor: Colors.red,
             ),
             child: Text(
-              'تسجيل الخروج',
+              l10n.logoutTitle,
               style: GoogleFonts.cairo(
                 color: Colors.white,
               ),

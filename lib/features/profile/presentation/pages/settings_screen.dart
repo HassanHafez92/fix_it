@@ -17,6 +17,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     // Ensure settings are loaded after the first frame so provider is available
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -36,7 +37,7 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          'الإعدادات',
+          l10n.settings,
           style: GoogleFonts.cairo(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -63,7 +64,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'حدث خطأ في تحميل الإعدادات',
+                    l10n.errorLoadingSettings,
                     style: GoogleFonts.cairo(
                       fontSize: 16,
                       color: const Color(0xFF2D3748),
@@ -75,7 +76,7 @@ class SettingsScreen extends StatelessWidget {
                       safeAddEvent<SettingsBloc>(context, LoadSettings());
                     },
                     child: Text(
-                      'إعادة المحاولة',
+                      l10n.retry,
                       style: GoogleFonts.cairo(),
                     ),
                   ),
@@ -94,24 +95,24 @@ class SettingsScreen extends StatelessWidget {
 
                   // App Preferences
                   SettingsSection(
-                    title: 'تفضيلات التطبيق',
+                    title: l10n.preferences,
                     children: [
                       SettingsSelectionItem(
                         icon: Icons.language,
-                        title: 'اللغة',
-                        subtitle: _getLanguageDisplayName(settings.language),
+                        title: l10n.language,
+                        subtitle: _getLanguageDisplayName(context, settings.language),
                         onTap: () => _showLanguageSelector(context, settings),
                       ),
                       SettingsSelectionItem(
                         icon: Icons.monetization_on,
-                        title: 'العملة',
-                        subtitle: _getCurrencyDisplayName(settings.currency),
+                        title: l10n.currency,
+                        subtitle: _getCurrencyDisplayName(context, settings.currency),
                         onTap: () => _showCurrencySelector(context, settings.currency),
                       ),
                       SettingsSelectionItem(
                         icon: Icons.palette,
-                        title: 'المظهر',
-                        subtitle: _getThemeDisplayName(settings.theme),
+                        title: l10n.theme,
+                        subtitle: _getThemeDisplayName(context, settings.theme),
                         onTap: () => _showThemeSelector(context, settings.theme),
                       ),
                     ],
@@ -121,12 +122,12 @@ class SettingsScreen extends StatelessWidget {
 
                   // Notifications
                   SettingsSection(
-                    title: 'الإشعارات',
+                    title: l10n.notifications,
                     children: [
                       SettingsSwitchItem(
                         icon: Icons.notifications,
-                        title: 'الإشعارات الفورية',
-                        subtitle: 'تلقي إشعارات فورية للطلبات والعروض',
+                        title: l10n.pushNotifications,
+                        subtitle: l10n.pushNotificationsDesc,
                         value: settings.pushNotificationsEnabled,
                         onChanged: (value) {
                           safeAddEvent<SettingsBloc>(
@@ -138,8 +139,8 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       SettingsSwitchItem(
                         icon: Icons.email,
-                        title: 'إشعارات البريد الإلكتروني',
-                        subtitle: 'تلقي تحديثات عبر البريد الإلكتروني',
+                        title: l10n.emailNotifications,
+                        subtitle: l10n.emailNotificationsDesc,
                         value: settings.emailNotificationsEnabled,
                         onChanged: (value) {
                           safeAddEvent<SettingsBloc>(
@@ -156,12 +157,12 @@ class SettingsScreen extends StatelessWidget {
 
                   // Privacy & Security
                   SettingsSection(
-                    title: 'الخصوصية والأمان',
+                    title: l10n.privacyAndSecurity,
                     children: [
                       SettingsSwitchItem(
                         icon: Icons.location_on,
-                        title: 'خدمات الموقع',
-                        subtitle: 'السماح للتطبيق بالوصول لموقعك',
+                        title: l10n.locationServices,
+                        subtitle: l10n.locationServicesDesc,
                         value: settings.locationServicesEnabled,
                         onChanged: (value) {
                           safeAddEvent<SettingsBloc>(
@@ -173,8 +174,8 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       SettingsSwitchItem(
                         icon: Icons.share,
-                        title: 'مشاركة البيانات',
-                        subtitle: 'مشاركة البيانات لتحسين الخدمة',
+                        title: l10n.dataSharing,
+                        subtitle: l10n.dataSharingDesc,
                         value: settings.dataSharingEnabled,
                         onChanged: (value) {
                           safeAddEvent<SettingsBloc>(
@@ -191,12 +192,12 @@ class SettingsScreen extends StatelessWidget {
 
                   // Reset Settings
                   SettingsSection(
-                    title: 'إعادة تعيين',
+                    title: l10n.reset,
                     children: [
                       SettingsSelectionItem(
                         icon: Icons.restore,
-                        title: 'إعادة تعيين الإعدادات',
-                        subtitle: 'استعادة الإعدادات الافتراضية',
+                        title: l10n.resetSettings,
+                        subtitle: l10n.resetSettingsDesc,
                         iconColor: Colors.orange,
                         onTap: () => _showResetDialog(context),
                       ),
@@ -215,44 +216,48 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  String _getLanguageDisplayName(String language) {
+  String _getLanguageDisplayName(BuildContext context, String language) {
+    final l10n = AppLocalizations.of(context)!;
     switch (language) {
       case 'ar':
-        return 'العربية';
+        return l10n.arabic;
       case 'en':
-        return 'English';
+        return l10n.english;
       default:
-        return 'العربية';
+        return l10n.arabic;
     }
   }
 
-  String _getCurrencyDisplayName(String currency) {
+  String _getCurrencyDisplayName(BuildContext context, String currency) {
+    final l10n = AppLocalizations.of(context)!;
     switch (currency) {
       case 'SAR':
-        return 'ريال سعودي (SAR)';
+        return l10n.currencySAR;
       case 'USD':
-        return 'دولار أمريكي (USD)';
+        return l10n.currencyUSD;
       case 'EUR':
-        return 'يورو (EUR)';
+        return l10n.currencyEUR;
       default:
-        return 'ريال سعودي (SAR)';
+        return l10n.currencySAR;
     }
   }
 
-  String _getThemeDisplayName(String theme) {
+  String _getThemeDisplayName(BuildContext context, String theme) {
+    final l10n = AppLocalizations.of(context)!;
     switch (theme) {
       case 'light':
-        return 'فاتح';
+        return l10n.light;
       case 'dark':
-        return 'داكن';
+        return l10n.dark;
       case 'system':
-        return 'تلقائي';
+        return l10n.system;
       default:
-        return 'تلقائي';
+        return l10n.system;
     }
   }
 
   void _showLanguageSelector(BuildContext context, dynamic currentSettings) {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -265,15 +270,15 @@ class SettingsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'اختر اللغة',
+              l10n.selectLanguage,
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 16),
-            _buildLanguageOption(context, 'ar', 'العربية', currentSettings),
-            _buildLanguageOption(context, 'en', 'English', currentSettings),
+            _buildLanguageOption(context, 'ar', l10n.arabic, currentSettings),
+            _buildLanguageOption(context, 'en', l10n.english, currentSettings),
           ],
         ),
       ),
@@ -327,19 +332,20 @@ class SettingsScreen extends StatelessWidget {
   }
 
   void _showResetDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        title: Text('إعادة تعيين الإعدادات', style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
+        title: Text(l10n.resetSettings, style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
         content: Text(
-          'هل أنت متأكد من رغبتك في إعادة تعيين جميع الإعدادات إلى القيم الافتراضية؟',
+          l10n.resetSettingsConfirm,
           style: GoogleFonts.cairo(),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('إلغاء', style: GoogleFonts.cairo()),
+            child: Text(l10n.cancel, style: GoogleFonts.cairo()),
           ),
           ElevatedButton(
                         onPressed: () {
@@ -347,7 +353,7 @@ class SettingsScreen extends StatelessWidget {
               safeAddEvent<SettingsBloc>(context, ResetSettings());
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
-            child: Text('إعادة تعيين', style: GoogleFonts.cairo(color: Colors.white)),
+            child: Text(l10n.reset, style: GoogleFonts.cairo(color: Colors.white)),
           ),
         ],
       ),

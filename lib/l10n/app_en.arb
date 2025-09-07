@@ -103,7 +103,19 @@
   "languageChangedSuccess": "Language changed successfully!",
   "@languageChangedSuccess": {
     "description": "Success message for language change"
-  }
+  },
+  "errorLoadingSettings": "Error loading settings",
+  "theme": "Theme",
+  "privacyAndSecurity": "Privacy & Security",
+  "resetSettings": "Reset Settings",
+  "resetSettingsDesc": "Restore default settings",
+  "resetSettingsConfirm": "Are you sure you want to reset all settings to their default values?",
+  "light": "Light",
+  "dark": "Dark",
+  "system": "System",
+  "currencyUSD": "US Dollar (USD)",
+  "currencyEUR": "Euro (EUR)",
+  "currencySAR": "Saudi Riyal (SAR)"
   ,
   "errorLoadingData": "Error loading data",
   "@errorLoadingData": {
