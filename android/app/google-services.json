@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "606950507205",
+    "project_id": "fix-it-fe14d",
+    "storage_bucket": "fix-it-fe14d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606950507205:android:abd6914470f7aec65d66ac",
+        "android_client_info": {
+          "package_name": "com.example.fix_it"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606950507205-cv2nloqnglas2p06s4g4vm48a00kr3co.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fix_it",
+            "certificate_hash": "612196983eea1711ac2ca3ba1b7dba52da62c759"
+          }
+        },
+        {
+          "client_id": "606950507205-mpt61ivp6qohll9hdiv2inhrmoe1i2uc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0YiviGlY43ptSfehjbBVEvNmErQksRE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606950507205-mpt61ivp6qohll9hdiv2inhrmoe1i2uc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

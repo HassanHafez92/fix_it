@@ -1,0 +1,629 @@
+{
+  "@@locale": "en",
+  "appTitle": "Fix It",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings page title"
+  },
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "Notifications section title"
+  },
+  "pushNotifications": "Push Notifications",
+  "@pushNotifications": {
+    "description": "Push notifications setting"
+  },
+  "pushNotificationsDesc": "Receive notifications on your device",
+  "@pushNotificationsDesc": {
+    "description": "Push notifications description"
+  },
+  "emailNotifications": "Email Notifications",
+  "@emailNotifications": {
+    "description": "Email notifications setting"
+  },
+  "emailNotificationsDesc": "Receive notifications via email",
+  "@emailNotificationsDesc": {
+    "description": "Email notifications description"
+  },
+  "bookingReminders": "Booking Reminders",
+  "@bookingReminders": {
+    "description": "Booking reminders setting"
+  },
+  "bookingRemindersDesc": "Get reminded about upcoming bookings",
+  "@bookingRemindersDesc": {
+    "description": "Booking reminders description"
+  },
+  "privacy": "Privacy",
+  "@privacy": {
+    "description": "Privacy section title"
+  },
+  "locationServices": "Location Services",
+  "@locationServices": {
+    "description": "Location services setting"
+  },
+  "locationServicesDesc": "Allow app to access your location",
+  "@locationServicesDesc": {
+    "description": "Location services description"
+  },
+  "dataSharing": "Data Sharing",
+  "@dataSharing": {
+    "description": "Data sharing setting"
+  },
+  "dataSharingDesc": "Share anonymous usage data to improve the app",
+  "@dataSharingDesc": {
+    "description": "Data sharing description"
+  },
+  "preferences": "Preferences",
+  "@preferences": {
+    "description": "Preferences section title"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language setting"
+  },
+  "currency": "Currency",
+  "@currency": {
+    "description": "Currency setting"
+  },
+  "about": "About",
+  "@about": {
+    "description": "About menu item"
+  },
+  "helpSupport": "Help & Support",
+  "@helpSupport": {
+    "description": "Help and support menu item"
+  },
+  "termsOfService": "Terms of Service",
+  "@termsOfService": {
+    "description": "Terms of service menu item"
+  },
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": {
+    "description": "Privacy policy menu item"
+  },
+  "selectLanguage": "Select Language",
+  "@selectLanguage": {
+    "description": "Language selection dialog title"
+  },
+  "selectCurrency": "Select Currency",
+  "@selectCurrency": {
+    "description": "Currency selection dialog title"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "settingsUpdatedSuccess": "Settings updated successfully!",
+  "@settingsUpdatedSuccess": {
+    "description": "Success message for settings update"
+  },
+  "languageChangedSuccess": "Language changed successfully!",
+  "@languageChangedSuccess": {
+    "description": "Success message for language change"
+  }
+  ,
+  "errorLoadingData": "Error loading data",
+  "@errorLoadingData": {
+    "description": "Error shown when profile/data fails to load"
+  },
+  "profileUpdateSubtitle": "Update your personal information",
+  "@profileUpdateSubtitle": { "description": "Subtitle for edit profile menu item" },
+  "changePasswordSubtitle": "Update your password",
+  "@changePasswordSubtitle": { "description": "Subtitle for change password menu item" },
+  "managePaymentSubtitle": "Manage your cards and payment methods",
+  "@managePaymentSubtitle": { "description": "Subtitle for payment methods menu item" },
+  "viewBookingsSubtitle": "View your past bookings",
+  "@viewBookingsSubtitle": { "description": "Subtitle for bookings menu item" },
+  "notificationsSubtitle": "Manage your notification preferences",
+  "@notificationsSubtitle": { "description": "Subtitle for notifications menu item" },
+  "helpSupportSubtitle": "FAQs and contact us",
+  "@helpSupportSubtitle": { "description": "Subtitle for help & support menu item" },
+  "aboutSubtitle": "Information about Fix It",
+  "@aboutSubtitle": { "description": "Subtitle for about menu item" },
+  "logoutSubtitle": "Sign out of your account",
+  "@logoutSubtitle": { "description": "Subtitle for logout menu item" },
+  "profileTitle": "Profile",
+  "@profileTitle": {
+    "description": "Title for the profile screen"
+  },
+  "profile": "Profile",
+  "@profile": {
+    "description": "Short label for profile"
+  },
+  "editProfile": "Edit Profile",
+  "@editProfile": {
+    "description": "Edit profile menu item"
+  },
+  "changePassword": "Change Password",
+  "@changePassword": {
+    "description": "Change password menu item"
+  },
+  "paymentMethods": "Payment Methods",
+  "@paymentMethods": {
+    "description": "Payment methods menu item"
+  },
+  "bookings": "Bookings",
+  "@bookings": {
+    "description": "Bookings menu item"
+  },
+  "logoutTitle": "Logout",
+  "@logoutTitle": {
+    "description": "Logout dialog title"
+  },
+  "logoutConfirm": "Are you sure you want to logout?",
+  "@logoutConfirm": {
+    "description": "Logout confirmation text"
+  },
+  "english": "English",
+  "@english": {
+    "description": "Language name English"
+  },
+  "arabic": "Arabic",
+  "@arabic": {
+    "description": "Language name Arabic"
+  }
+  ,
+  "services": "Services",
+  "@services": {
+    "description": "Services screen title"
+  },
+  "searchServices": "Search Services",
+  "@searchServices": {
+    "description": "Search services dialog title"
+  },
+  "tryAgain": "Try Again",
+  "@tryAgain": {
+    "description": "Try again button text"
+  },
+  "somethingWentWrong": "Something went wrong",
+  "@somethingWentWrong": {
+    "description": "Generic error text"
+  },
+  "noServicesAvailable": "No services available",
+  "@noServicesAvailable": {
+    "description": "Empty services list text"
+  },
+  "searchHint": "Search services...",
+  "@searchHint": {
+    "description": "Search field placeholder"
+  },
+  "categories": "Categories",
+  "@categories": {
+    "description": "Categories section title"
+  },
+  "searchResults": "Search Results",
+  "@searchResults": {
+    "description": "Search results header"
+  },
+  "allServices": "All Services",
+  "@allServices": {
+    "description": "All services header"
+  }
+  ,
+  "search": "Search",
+  "@search": {
+    "description": "Search button text"
+  }
+  ,
+  "noServicesFound": "No services found",
+  "@noServicesFound": {
+    "description": "No services found text"
+  },
+  "tryAdjustingSearch": "Try adjusting your search or filters",
+  "@tryAdjustingSearch": {
+    "description": "Suggestion when no services found"
+  },
+  "oopsSomethingWrong": "Oops! Something went wrong",
+  "@oopsSomethingWrong": {
+    "description": "Error header"
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Retry button text"
+  },
+  "filterServices": "Filter Services",
+  "@filterServices": {
+    "description": "Filter bottom sheet title"
+  },
+  "comingSoon": "Coming Soon...",
+  "@comingSoon": {
+    "description": "Placeholder for upcoming features"
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Close button text"
+  },
+  "serviceDetails": "Service Details",
+  "@serviceDetails": {
+    "description": "Service details screen title"
+  },
+  "errorLoadingService": "Error loading service",
+  "@errorLoadingService": {
+    "description": "Service details error header"
+  },
+  "available": "Available",
+  "@available": {
+    "description": "Availability label"
+  },
+  "unavailable": "Unavailable",
+  "@unavailable": {
+    "description": "Availability label"
+  },
+  "price": "Price",
+  "@price": {
+    "description": "Price label"
+  },
+  "duration": "Duration",
+  "@duration": {
+    "description": "Duration label"
+  },
+  "descriptionLabel": "Description",
+  "@descriptionLabel": {
+    "description": "Description section title"
+  },
+  "categoryLabel": "Category: {category}",
+  "@categoryLabel": {
+    "description": "Category label with interpolation",
+    "placeholders": {
+      "category": {}
+    }
+  },
+  "gallery": "Gallery",
+  "@gallery": {
+    "description": "Gallery section title"
+  },
+  "bookNow": "Book Now",
+  "@bookNow": {
+    "description": "Book now button"
+  },
+  "contactProvider": "Contact Provider",
+  "@contactProvider": {
+    "description": "Contact provider button"
+  }
+  ,
+  "minutesShort": "m",
+  "@minutesShort": {
+    "description": "Short minutes suffix"
+  },
+  "reviews": "reviews",
+  "@reviews": {
+    "description": "Reviews label"
+  }
+  ,
+  "termsComingSoon": "Terms of Service screen coming soon!",
+  "@termsComingSoon": {
+    "description": "Placeholder text for terms of service"
+  },
+  "privacyComingSoon": "Privacy Policy screen coming soon!",
+  "@privacyComingSoon": {
+    "description": "Placeholder text for privacy policy"
+  },
+  "spanish": "Spanish",
+  "@spanish": { "description": "Language name Spanish" },
+  "french": "French",
+  "@french": { "description": "Language name French" },
+  "german": "German",
+  "@german": { "description": "Language name German" }
+  ,
+  "providers": "Providers",
+  "@providers": { "description": "Providers screen title" },
+  "serviceProviders": "Service Providers",
+  "@serviceProviders": { "description": "Label for service providers listing" },
+  "noProvidersFound": "No providers found",
+  "@noProvidersFound": { "description": "Empty providers list text" },
+  "tryAdjustingFilters": "Try adjusting your search or filters",
+  "@tryAdjustingFilters": { "description": "Suggestion when no providers found" },
+  "nearby": "Nearby",
+  "@nearby": { "description": "Nearby toggle label" },
+  "sort": "Sort",
+  "@sort": { "description": "Sort control label" },
+  "filters": "Filters",
+  "@filters": { "description": "Filters label" },
+  "distance": "Distance",
+  "@distance": { "description": "Distance sort/label" },
+  "rating": "Rating",
+  "@rating": { "description": "Rating label" },
+  "min": "Min",
+  "@min": { "description": "Min label" },
+  "max": "Max",
+  "@max": { "description": "Max label" },
+  "verifiedProvidersOnly": "Verified Providers Only",
+  "@verifiedProvidersOnly": { "description": "Verified only filter label" },
+  "reset": "Reset",
+  "@reset": { "description": "Reset button text" },
+  "apply": "Apply",
+  "@apply": { "description": "Apply button text" },
+  "availableLabel": "Available",
+  "@availableLabel": { "description": "Available status label for providers" },
+  "busyLabel": "Busy",
+  "@busyLabel": { "description": "Busy status label for providers" },
+  "reviewsLabel": "Reviews",
+  "@reviewsLabel": { "description": "Reviews section title for providers" },
+  "availableTimeSlotsTitle": "Available Time Slots",
+  "@availableTimeSlotsTitle": { "description": "Title for available time slots section" },
+  "noAvailableTimeSlots": "No available time slots for this day",
+  "@noAvailableTimeSlots": { "description": "Empty state when no time slots are available" },
+  "selectDateToViewSlots": "Select a date to view available time slots",
+  "@selectDateToViewSlots": { "description": "Prompt to select a date to view time slots" },
+  "selectDate": "Select Date",
+  "@selectDate": { "description": "Title for the select date step" },
+  "choosePreferredDate": "Choose your preferred date for the service",
+  "@choosePreferredDate": { "description": "Subtitle for date selection step" },
+  "selectTime": "Select Time",
+  "@selectTime": { "description": "Title for time selection step" },
+  "availableTimesForDate": "Available times for {date}",
+  "@availableTimesForDate": { "description": "Available times header with date", "placeholders": { "date": {} } },
+  "pleaseSelectDateFirst": "Please select a date first",
+  "@pleaseSelectDateFirst": { "description": "Prompt to select a date before viewing times" },
+  "failedToLoadTimeSlots": "Failed to load time slots",
+  "@failedToLoadTimeSlots": { "description": "Error header when time slots fail to load" },
+  "bookingDetails": "Booking Details",
+  "@bookingDetails": { "description": "Title for booking details step" },
+  "addLocationAndDetails": "Add your location and any additional details",
+  "@addLocationAndDetails": { "description": "Subtitle for booking details step" },
+  "confirmBooking": "Confirm Booking",
+  "@confirmBooking": { "description": "Title for confirmation step" },
+  "reviewBookingBeforeConfirming": "Review your booking details before confirming",
+  "@reviewBookingBeforeConfirming": { "description": "Subtitle for confirmation step" },
+  "back": "Back",
+  "@back": { "description": "Back button text" },
+  "next": "Next",
+  "@next": { "description": "Next button text" },
+  "confirmBookingQuestion": "Are you sure you want to book this provider on {date} at {time}?",
+  "@confirmBookingQuestion": { "description": "Confirmation question shown when booking; placeholders: date,time", "placeholders": { "date": {}, "time": {} } },
+  "useSearchBarToFindProviders": "Use the search bar above to find providers",
+  "@useSearchBarToFindProviders": { "description": "Helper text shown on providers initial screen" },
+  "kmShort": "km",
+  "@kmShort": { "description": "Short kilometers unit" },
+  "plusSign": "+",
+  "@plusSign": { "description": "Plus sign used after minimum rating" },
+  "noReviewsYet": "No reviews yet",
+  "@noReviewsYet": { "description": "Empty reviews text" },
+  "failedToLoadReviews": "Failed to load reviews",
+  "@failedToLoadReviews": { "description": "Reviews load failure text" },
+  "contactInformation": "Contact Information",
+  "@contactInformation": { "description": "Provider contact information header" },
+  "phone": "Phone",
+  "@phone": { "description": "Phone label" },
+  "email": "Email",
+  "@email": { "description": "Email label" },
+  "locationLabel": "Location",
+  "@locationLabel": { "description": "Location label" },
+  "verified": "Verified",
+  "@verified": { "description": "Verified tag" },
+  "verifiedProvider": "Verified Provider",
+  "@verifiedProvider": { "description": "Verified provider badge text" },
+  "callLabel": "Call",
+  "@callLabel": { "description": "Call button label" },
+  "emailLabel": "Email",
+  "@emailLabel": { "description": "Email button label" },
+  "couldNotSubmitReview": "Could not submit review",
+  "@couldNotSubmitReview": { "description": "Snackbar when review submission fails" },
+  "leaveAReview": "Leave a Review",
+  "@leaveAReview": { "description": "Title for review screen" },
+  "rateProvider": "Rate the provider",
+  "@rateProvider": { "description": "Label for review rating prompt" },
+  "shareYourExperience": "Share your experience",
+  "@shareYourExperience": { "description": "Hint text for review input" }
+  ,
+  "allChatsMarkedRead": "All chats marked as read",
+  "@allChatsMarkedRead": { "description": "Snackbar when marking all chats as read" },
+  "failedToMarkChatsRead": "Failed to mark chats as read",
+  "@failedToMarkChatsRead": { "description": "Snackbar when failing to mark chats as read" },
+  "chatArchived": "Chat archived",
+  "@chatArchived": { "description": "Snackbar when archiving a chat" },
+  "failedToArchiveChat": "Failed to archive chat",
+  "@failedToArchiveChat": { "description": "Snackbar when failing to archive a chat" },
+  "chatMuted": "Chat muted",
+  "@chatMuted": { "description": "Snackbar when muting a chat" },
+  "failedToMuteChat": "Failed to mute chat",
+  "@failedToMuteChat": { "description": "Snackbar when failing to mute a chat" },
+  "userUnblocked": "User unblocked",
+  "@userUnblocked": { "description": "Snackbar when a user is unblocked" },
+  "userBlocked": "User blocked",
+  "@userBlocked": { "description": "Snackbar when a user is blocked" },
+  "chatDeleted": "Chat deleted",
+  "@chatDeleted": { "description": "Snackbar when a chat is deleted" },
+  "failedToDeleteChat": "Failed to delete chat",
+  "@failedToDeleteChat": { "description": "Snackbar when failing to delete a chat" },
+  "unblock": "Unblock",
+  "@unblock": { "description": "Unblock button text" },
+  "startNewConversation": "Start New Conversation",
+  "@startNewConversation": { "description": "Title for starting a new conversation" }
+  ,
+  "bookingUpdated": "Booking updated",
+  "@bookingUpdated": { "description": "Snackbar when a booking is updated" },
+  "couldNotOpenMaps": "Could not open maps",
+  "@couldNotOpenMaps": { "description": "Error when maps cannot be opened" },
+  "locationNotAvailable": "Location not available",
+  "@locationNotAvailable": { "description": "Error when location is not available" },
+  "couldNotOpenReviewScreen": "Could not open review screen",
+  "@couldNotOpenReviewScreen": { "description": "Error when review screen cannot be opened" },
+  "pleaseProvideCancellationReason": "Please provide a cancellation reason",
+  "@pleaseProvideCancellationReason": { "description": "Prompt asking user to provide a cancellation reason" },
+  "bookingRescheduledSuccess": "Booking rescheduled successfully!",
+  "@bookingRescheduledSuccess": { "description": "Snackbar when booking rescheduled" },
+  "rescheduleUndone": "Reschedule undone",
+  "@rescheduleUndone": { "description": "Snackbar when reschedule undone" },
+  "unableToUndoReschedule": "Unable to undo reschedule",
+  "@unableToUndoReschedule": { "description": "Snackbar when undo reschedule fails" },
+  "failedToPickImage": "Failed to pick image: {error}",
+  "@failedToPickImage": { "description": "Error when failing to pick image", "placeholders": { "error": {} } },
+  "locationServicesDisabled": "Location services are disabled.",
+  "@locationServicesDisabled": { "description": "Snackbar when location services disabled" },
+  "locationPermissionDenied": "Location permission denied",
+  "@locationPermissionDenied": { "description": "Snackbar when location permission denied" },
+  "currentLocationDetected": "Current location detected",
+  "@currentLocationDetected": { "description": "Snackbar when current location is detected" }
+  ,
+  "serviceLocation": "Service Location",
+  "@serviceLocation": { "description": "Label for service location section" },
+  "enterYourAddress": "Enter your address",
+  "@enterYourAddress": { "description": "Address input label" },
+  "addressHint": "Street, City, State, ZIP",
+  "@addressHint": { "description": "Address input hint" },
+  "useCurrentLocation": "Use Current Location",
+  "@useCurrentLocation": { "description": "Button label to use current GPS location" },
+  "selectOnMap": "Select on Map",
+  "@selectOnMap": { "description": "Button label to pick a location on the map" },
+  "additionalNotes": "Additional Notes",
+  "@additionalNotes": { "description": "Notes section title" },
+  "describeIssueLabel": "Describe the issue or special instructions",
+  "@describeIssueLabel": { "description": "Label asking user to describe the issue" },
+  "describeIssueHint": "e.g., Leaky faucet in kitchen, bring specific tools...",
+  "@describeIssueHint": { "description": "Hint text for issue description" },
+  "servicePriority": "Service Priority",
+  "@servicePriority": { "description": "Priority/urgent section title" },
+  "urgentService": "Urgent Service",
+  "@urgentService": { "description": "Urgent service toggle title" },
+  "priorityScheduling": "Priority scheduling with additional fees",
+  "@priorityScheduling": { "description": "Description for urgent scheduling" },
+  "standardScheduling": "Standard scheduling",
+  "@standardScheduling": { "description": "Description for standard scheduling" },
+  "urgentServicesNote": "Urgent services may have additional charges and faster response times.",
+  "@urgentServicesNote": { "description": "Note about urgent services" },
+  "attachments": "Attachments",
+  "@attachments": { "description": "Attachments section title" },
+  "addPhotosToDescribe": "Add photos to help describe the issue",
+  "@addPhotosToDescribe": { "description": "Hint telling user to add photos" },
+  "takePhoto": "Take Photo",
+  "@takePhoto": { "description": "Camera button label" },
+  "choosePhoto": "Choose Photo",
+  "@choosePhoto": { "description": "Gallery pick button label" },
+  "importantInformation": "Important Information",
+  "@importantInformation": { "description": "Important information section title" },
+  "serviceGuarantee": "Service Guarantee",
+  "@serviceGuarantee": { "description": "Guarantee title" },
+  "serviceGuaranteeDesc": "All services come with quality guarantee",
+  "@serviceGuaranteeDesc": { "description": "Guarantee description" },
+  "payment": "Payment",
+  "@payment": { "description": "Payment title" },
+  "paymentDesc": "Pay securely after service completion",
+  "@paymentDesc": { "description": "Payment description" },
+  "communication": "Communication",
+  "@communication": { "description": "Communication title" },
+  "communicationDesc": "Track your service provider in real-time",
+  "@communicationDesc": { "description": "Communication description" },
+  "reviewsDesc": "Rate and review after service completion",
+  "@reviewsDesc": { "description": "Reviews description" },
+  "tapOnMapToPickLocation": "Tap on the map to pick a location",
+  "@tapOnMapToPickLocation": { "description": "Prompt to tap on the map to pick a location" },
+  "locationSelectedFromMap": "Location selected from map",
+  "@locationSelectedFromMap": { "description": "Snackbar when a location is picked from the map" }
+  ,
+  "bookService": "Book Service",
+  "@bookService": { "description": "FAB label to book a service" },
+  "myBookings": "My Bookings",
+  "@myBookings": { "description": "Title for bookings screen" },
+  "upcoming": "Upcoming",
+  "@upcoming": { "description": "Upcoming bookings label" },
+  "history": "History",
+  "@history": { "description": "Booking history label" },
+  "cancelled": "Cancelled",
+  "@cancelled": { "description": "Cancelled bookings label" },
+  "inProgress": "In Progress",
+  "@inProgress": { "description": "In progress bookings label" },
+  "completed": "Completed",
+  "@completed": { "description": "Completed bookings label" },
+  "failedToLoadBookings": "Failed to load bookings",
+  "@failedToLoadBookings": { "description": "Error when bookings fail to load" },
+  "noBookingsYet": "No bookings yet",
+  "@noBookingsYet": { "description": "Empty bookings list text" },
+  "serviceProvider": "Service Provider",
+  "@serviceProvider": { "description": "Label indicating the role of the provider" },
+  "urgent": "URGENT",
+  "@urgent": { "description": "Urgent badge text" },
+  "modify": "Modify",
+  "@modify": { "description": "Modify button text" },
+  "callProvider": "Call Provider",
+  "@callProvider": { "description": "Call provider option text" },
+  "trackProvider": "Track Provider",
+  "@trackProvider": { "description": "Track provider option text" },
+  "track": "Track",
+  "@track": { "description": "Track button text" },
+  "review": "Review",
+  "@review": { "description": "Review button text" },
+  "rescheduled": "Rescheduled",
+  "@rescheduled": { "description": "Rescheduled status text" },
+  "noXBookingsPrefix": "No",
+  "@noXBookingsPrefix": { "description": "Prefix for no X bookings message" },
+  "noXBookingsSuffix": "bookings",
+  "@noXBookingsSuffix": { "description": "Suffix for no X bookings message" },
+  "bookYourFirstService": "Book your first service to get started",
+  "@bookYourFirstService": { "description": "Prompt to book first service" },
+  "trySelectingDifferentFilter": "Try selecting a different filter",
+  "@trySelectingDifferentFilter": { "description": "Prompt when filtered results empty" },
+  "browseServices": "Browse Services",
+  "@browseServices": { "description": "Button label to browse services" },
+  "unknownState": "Unknown state",
+  "@unknownState": { "description": "Fallback unknown state text" },
+  "bookingCancelledSuccess": "Booking cancelled successfully",
+  "@bookingCancelledSuccess": { "description": "Snackbar on booking cancelled" }
+  ,
+  "messages": "Messages",
+  "@messages": { "description": "Chat tab title" },
+  "searchConversationsHint": "Search conversations...",
+  "@searchConversationsHint": { "description": "Search hint for conversations" },
+  "noMatchingConversations": "No matching conversations",
+  "@noMatchingConversations": { "description": "Empty state when search yields no results" },
+  "noConversationsYet": "No conversations yet",
+  "@noConversationsYet": { "description": "Empty chats list text" },
+  "trySearchingDifferentKeywords": "Try searching with different keywords",
+  "@trySearchingDifferentKeywords": { "description": "Suggestion when search returns no results" },
+  "startConversationWithProvider": "Start a conversation with a service provider",
+  "@startConversationWithProvider": { "description": "Prompt to start conversation" },
+  "findServiceProvider": "Find Service Provider",
+  "@findServiceProvider": { "description": "Option to find provider" },
+  "searchAndMessageProviders": "Search and message providers",
+  "@searchAndMessageProviders": { "description": "Subtitle for finding providers" },
+  "fromRecentBookings": "From Recent Bookings",
+  "@fromRecentBookings": { "description": "Option to message from recent bookings" },
+  "messageProvidersFromBookings": "Message providers from your bookings",
+  "@messageProvidersFromBookings": { "description": "Subtitle for recent bookings option" },
+  "contactSupport": "Contact Support",
+  "@contactSupport": { "description": "Contact support option title" },
+  "getHelpFromSupport": "Get help from our support team",
+  "@getHelpFromSupport": { "description": "Subtitle for contact support" }
+  ,
+  "newBooking": "New Booking",
+  "@newBooking": { "description": "Label for creating a new booking" },
+  "ourServices": "Our Services",
+  "plumbing": "Plumbing",
+  "electrical": "Electrical",
+  "cleaning": "Cleaning",
+  "painting": "Painting",
+  "carpentry": "Carpentry",
+  "acRepair": "AC Repair",
+  "quickActions": "Quick Actions",
+  "genericErrorMessage": "An unexpected error occurred. Please try again.",
+  "networkErrorMessage": "No internet connection. Please check your connection and try again.",
+  "serverErrorMessage": "Server error. Please try again later.",
+  "authErrorMessage": "Session expired. Please log in again.",
+  "signInSuccessMessage": "Signed in successfully",
+  "signUpSuccessMessage": "Account created successfully",
+  "bookingCreatedMessage": "Booking created successfully",
+  "profileUpdatedMessage": "Profile updated successfully",
+  "emailValidationMessage": "Please enter a valid email address",
+  "passwordValidationMessage": "Password must be at least 8 characters long",
+  "nameValidationMessage": "Please enter your name",
+  "phoneValidationMessage": "Please enter a valid phone number",
+  "pleaseEnterEmail": "Please enter your email",
+  "pleaseEnterAValidEmail": "Please enter a valid email",
+  "pleaseEnterPassword": "Please enter your password",
+  "passwordTooShort": "Password must be at least 8 characters long",
+  "pleaseEnterName": "Please enter your name",
+  "nameTooShort": "Name must be at least 2 characters long",
+  "pleaseEnterPhone": "Please enter your phone number",
+  "pleaseEnterAValidPhone": "Please enter a valid phone number",
+  "pleaseConfirmPassword": "Please confirm your password",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "pleaseEnterValue": "Please enter {fieldName}",
+  "pleaseEnterAddress": "Please enter your address",
+  "addressTooShort": "Please enter a more detailed address",
+  "pleaseEnterPrice": "Please enter the price",
+  "pleaseEnterAValidPrice": "Please enter a valid price",
+  "priceGreaterThanZero": "Price must be greater than zero"
+}

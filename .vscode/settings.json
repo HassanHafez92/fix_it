@@ -1,0 +1,33 @@
+{
+  "Codegeex.CompletionDelay": 1,
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "files.associations": {
+    "*.pro": "properties",
+    "proguard-rules.pro": "properties"
+  },
+  "Codegeex.RepoIndex": true,
+  "CodeGPT.apiKey": "CodeGPT Plus Beta",
+  "Codegeex.CommitMessageStyle": "ConventionalCommits",
+  "files.exclude": {
+    "**/pub-cache/**": true,
+    "**/.pub-cache/**": true,
+    "**/hosted/pub.dev/**": true
+  },
+  "search.exclude": {
+    "**/pub-cache/**": true,
+    "**/.pub-cache/**": true,
+    "**/hosted/pub.dev/**": true
+  },
+  "files.watcherExclude": {
+    "**/pub-cache/**": true,
+    "**/.pub-cache/**": true,
+    "**/hosted/pub.dev/**": true
+  },
+  "Codegeex.SidebarUI.LanguagePreference": "English",
+  "Codegeex.CommitMessage.LanguagePreference": "English",
+  "Codegeex.Comment.LanguagePreference": "English",
+  "Codegeex.Chat.LanguagePreference": "English",
+  "cmake.ignoreCMakeListsMissing": true,
+  "chat.mcp.autostart": "newAndOutdated",
+  "files.autoSave": "onWindowChange"
+}

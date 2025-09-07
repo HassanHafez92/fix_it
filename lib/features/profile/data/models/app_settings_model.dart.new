@@ -1,0 +1,81 @@
+import '../../domain/entities/app_settings_entity.dart';
+class AppSettingsModel extends AppSettingsEntity {
+  const AppSettingsModel({
+    super.language = 'ar',
+    super.currency = 'SAR',
+    super.pushNotificationsEnabled = true,
+    super.emailNotificationsEnabled = true,
+    super.locationServicesEnabled = true,
+    super.dataSharingEnabled = false,
+    super.theme = 'system',
+  });
+
+  factory AppSettingsModel.fromJson(Map<String, dynamic> json) {
+    return AppSettingsModel(
+      language: json['language'] as String,
+      currency: json['currency'] as String,
+      pushNotificationsEnabled: json['pushNotificationsEnabled'] as bool,
+      emailNotificationsEnabled: json['emailNotificationsEnabled'] as bool,
+      locationServicesEnabled: json['locationServicesEnabled'] as bool,
+      dataSharingEnabled: json['dataSharingEnabled'] as bool,
+      theme: json['theme'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'language': language,
+      'currency': currency,
+      'pushNotificationsEnabled': pushNotificationsEnabled,
+      'emailNotificationsEnabled': emailNotificationsEnabled,
+      'locationServicesEnabled': locationServicesEnabled,
+      'dataSharingEnabled': dataSharingEnabled,
+      'theme': theme,
+    };
+  }
+
+  factory AppSettingsModel.fromEntity(AppSettingsEntity entity) {
+    return AppSettingsModel(
+      language: entity.language,
+      currency: entity.currency,
+      pushNotificationsEnabled: entity.pushNotificationsEnabled,
+      emailNotificationsEnabled: entity.emailNotificationsEnabled,
+      locationServicesEnabled: entity.locationServicesEnabled,
+      dataSharingEnabled: entity.dataSharingEnabled,
+      theme: entity.theme,
+    );
+  }
+
+  AppSettingsEntity toEntity() {
+    return AppSettingsEntity(
+      language: language,
+      currency: currency,
+      pushNotificationsEnabled: pushNotificationsEnabled,
+      emailNotificationsEnabled: emailNotificationsEnabled,
+      locationServicesEnabled: locationServicesEnabled,
+      dataSharingEnabled: dataSharingEnabled,
+      theme: theme,
+    );
+  }
+
+  @override
+  AppSettingsModel copyWith({
+    String? language,
+    String? currency,
+    bool? pushNotificationsEnabled,
+    bool? emailNotificationsEnabled,
+    bool? locationServicesEnabled,
+    bool? dataSharingEnabled,
+    String? theme,
+  }) {
+    return AppSettingsModel(
+      language: language ?? this.language,
+      currency: currency ?? this.currency,
+      pushNotificationsEnabled: pushNotificationsEnabled ?? this.pushNotificationsEnabled,
+      emailNotificationsEnabled: emailNotificationsEnabled ?? this.emailNotificationsEnabled,
+      locationServicesEnabled: locationServicesEnabled ?? this.locationServicesEnabled,
+      dataSharingEnabled: dataSharingEnabled ?? this.dataSharingEnabled,
+      theme: theme ?? this.theme,
+    );
+  }
+}

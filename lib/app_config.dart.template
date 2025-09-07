@@ -1,0 +1,216 @@
+/// Application configuration template for Fix It.
+///
+/// Copy this file to `app_config.dart` and update with your actual values.
+/// Never commit the actual `app_config.dart` file to version control as it
+/// contains sensitive API keys and configuration data.
+///
+/// **Setup Instructions:**
+/// 1. Copy this file: `cp lib/app_config.dart.template lib/app_config.dart`
+/// 2. Update all placeholder values with your actual configuration
+/// 3. Ensure `app_config.dart` is in your `.gitignore` file
+///
+/// **Environment-Specific Configuration:**
+/// You may want to create separate config files for different environments:
+/// - `app_config_dev.dart` - Development environment
+/// - `app_config_staging.dart` - Staging environment  
+/// - `app_config_prod.dart` - Production environment
+class AppConfig {
+  /// Firebase project configuration
+  /// 
+  /// Get these values from your Firebase project settings:
+  /// 1. Go to Firebase Console > Project Settings
+  /// 2. Select your platform (Android/iOS/Web)
+  /// 3. Copy the configuration values
+  static const String firebaseProjectId = 'YOUR_PROJECT_ID_HERE';
+  static const String firebaseApiKey = 'YOUR_FIREBASE_API_KEY_HERE';
+  static const String firebaseAuthDomain = 'YOUR_PROJECT_ID.firebaseapp.com';
+  static const String firebaseStorageBucket = 'YOUR_PROJECT_ID.appspot.com';
+  static const String firebaseMessagingSenderId = 'YOUR_SENDER_ID_HERE';
+
+  /// Stripe payment processing configuration
+  /// 
+  /// Get these from your Stripe Dashboard:
+  /// 1. Go to https://dashboard.stripe.com/apikeys
+  /// 2. Copy your publishable key (starts with pk_)
+  /// 3. For backend integration, you'll also need the secret key
+  /// 
+  /// **Security Note:** Never include secret keys in mobile app code
+  static const String stripePublishableKey = 'pk_test_YOUR_STRIPE_PUBLISHABLE_KEY_HERE';
+
+  /// Google Maps API configuration
+  /// 
+  /// Get this from Google Cloud Console:
+  /// 1. Go to https://console.cloud.google.com/
+  /// 2. Enable Maps SDK for Android/iOS
+  /// 3. Create an API key with appropriate restrictions
+  static const String googleMapsApiKey = 'YOUR_GOOGLE_MAPS_API_KEY_HERE';
+
+  /// Google Sign-In configuration
+  /// 
+  /// Get these from your Google Cloud Console:
+  /// 1. Go to APIs & Services > Credentials
+  /// 2. Create OAuth 2.0 client IDs for your platforms
+  static const String googleSignInClientIdAndroid = 'YOUR_ANDROID_CLIENT_ID.apps.googleusercontent.com';
+  static const String googleSignInClientIdIOS = 'YOUR_IOS_CLIENT_ID.apps.googleusercontent.com';
+  static const String googleSignInClientIdWeb = 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com';
+
+  /// Apple Sign-In configuration (iOS only)
+  /// 
+  /// Configure in Apple Developer Console:
+  /// 1. Enable Sign In with Apple capability
+  /// 2. Configure service ID and key
+  static const String appleSignInServiceId = 'com.yourcompany.fixit.signin';
+
+  /// Application metadata
+  static const String appName = 'Fix It';
+  static const String appVersion = '1.0.0';
+  static const String appBuildNumber = '1';
+
+  /// Company and legal information
+  static const String companyName = 'Your Company Name';
+  static const String supportEmail = 'support@yourcompany.com';
+  static const String privacyPolicyUrl = 'https://yourcompany.com/privacy';
+  static const String termsOfServiceUrl = 'https://yourcompany.com/terms';
+
+  /// Social media and marketing links
+  static const String websiteUrl = 'https://yourcompany.com';
+  static const String facebookUrl = 'https://facebook.com/yourcompany';
+  static const String twitterUrl = 'https://twitter.com/yourcompany';
+  static const String instagramUrl = 'https://instagram.com/yourcompany';
+
+  /// Feature flags for controlling app functionality
+  /// 
+  /// Use these to enable/disable features without app updates
+  static const bool enableGoogleSignIn = true;
+  static const bool enableAppleSignIn = true;
+  static const bool enablePhoneAuth = false;
+  static const bool enablePushNotifications = true;
+  static const bool enableInAppMessaging = true;
+  static const bool enableLocationServices = true;
+  static const bool enableBiometricAuth = false;
+
+  /// Payment and monetization settings
+  static const bool enableStripePayments = true;
+  static const bool enableApplePay = true;
+  static const bool enableGooglePay = true;
+  static const bool enablePayPal = false;
+
+  /// Service and booking configuration
+  static const int maxBookingsPerUser = 10;
+  static const int maxServiceRadius = 50; // kilometers
+  static const double minServicePrice = 25.0; // USD
+  static const double maxServicePrice = 5000.0; // USD
+  static const int bookingCancellationHours = 24;
+
+  /// Development and debugging settings
+  /// 
+  /// **Warning:** Set these to false in production builds
+  static const bool isDebugMode = true;
+  static const bool enableDetailedLogging = true;
+  static const bool enableAnalytics = false; // Disable in development
+  static const bool enableCrashlytics = false; // Disable in development
+  static const bool enablePerformanceMonitoring = false;
+
+  /// API endpoints and timeouts
+  /// 
+  /// Configure these based on your backend setup
+  static const String baseApiUrl = 'https://api.yourcompany.com/v1';
+  static const int apiTimeoutSeconds = 30;
+  static const int connectTimeoutSeconds = 10;
+  static const int receiveTimeoutSeconds = 30;
+
+  /// Cache and storage settings
+  static const int imageCacheMaxSizeMB = 100;
+  static const int userDataCacheHours = 24;
+  static const int searchResultsCacheMinutes = 30;
+
+  /// Notification settings
+  static const bool enableBookingNotifications = true;
+  static const bool enablePromotionalNotifications = false;
+  static const bool enableSystemNotifications = true;
+
+  /// Security settings
+  static const int passwordMinLength = 8;
+  static const int sessionTimeoutMinutes = 60;
+  static const bool requireBiometricForPayments = false;
+  static const bool enableAutoLogout = true;
+
+  /// Analytics and tracking configuration
+  /// 
+  /// Configure based on your analytics provider
+  static const String analyticsTrackingId = 'YOUR_ANALYTICS_ID_HERE';
+  static const bool enableUserAnalytics = false; // Respect privacy
+  static const bool enablePerformanceAnalytics = false;
+
+  /// Environment detection
+  /// 
+  /// Helper methods to determine current environment
+  static bool get isDevelopment => isDebugMode;
+  static bool get isProduction => !isDebugMode;
+  static bool get isStaging => false; // Configure as needed
+
+  /// Validation helper methods
+  /// 
+  /// Use these to validate configuration at startup
+  static bool get hasValidFirebaseConfig {
+    return firebaseProjectId != 'YOUR_PROJECT_ID_HERE' &&
+           firebaseApiKey != 'YOUR_FIREBASE_API_KEY_HERE';
+  }
+
+  static bool get hasValidStripeConfig {
+    return stripePublishableKey != 'pk_test_YOUR_STRIPE_PUBLISHABLE_KEY_HERE';
+  }
+
+  static bool get hasValidGoogleMapsConfig {
+    return googleMapsApiKey != 'YOUR_GOOGLE_MAPS_API_KEY_HERE';
+  }
+
+  /// Configuration validation
+  /// 
+  /// Call this at app startup to ensure proper configuration
+  static List<String> validateConfiguration() {
+    final errors = <String>[];
+
+    if (!hasValidFirebaseConfig) {
+      errors.add('Firebase configuration not set up properly');
+    }
+
+    if (enableStripePayments && !hasValidStripeConfig) {
+      errors.add('Stripe configuration required but not set up');
+    }
+
+    if (enableLocationServices && !hasValidGoogleMapsConfig) {
+      errors.add('Google Maps configuration required but not set up');
+    }
+
+    return errors;
+  }
+
+  /// Environment-specific overrides
+  /// 
+  /// Override settings based on build configuration
+  static T getEnvironmentValue<T>({
+    required T development,
+    required T staging,
+    required T production,
+  }) {
+    if (isDevelopment) return development;
+    if (isStaging) return staging;
+    return production;
+  }
+}
+
+/// Environment-specific configuration examples
+/// 
+/// Use these patterns to configure different environments
+class EnvironmentConfig {
+  static const String baseApiUrl = AppConfig.isDebugMode
+      ? 'https://api-dev.yourcompany.com/v1'
+      : 'https://api.yourcompany.com/v1';
+
+  static const bool enableDetailedLogging = AppConfig.isDebugMode;
+
+  static const String firebaseProjectId = AppConfig.isDebugMode
+      ? 'fixit-dev-project'
+      : 'fixit-prod-project';
+}
