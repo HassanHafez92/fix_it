@@ -1,3 +1,38 @@
+# Flutter / Dart
+.dart_tool/
+build/
+/.idea/
+.vscode/
+**/android/.gradle/
+**/ios/Pods/
+*.iml
+
+# Node
+node_modules/
+backend/payments-node/node_modules/
+
+# macOS
+.DS_Store
+
+# Logs
+.logs/
+*.log
+
+# Generated files
+pubspec.lock
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+
+# Coverage
+coverage/
+lcov.info
+
+# Misc
+firebase_options.dart
+/.flutter-plugins
+/.flutter-plugins-dependencies
+
 # Miscellaneous
 *.class
 *.log
