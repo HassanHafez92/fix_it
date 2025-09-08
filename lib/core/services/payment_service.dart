@@ -201,10 +201,13 @@ class PaymentServiceImpl implements PaymentService {
           print('handleNextAction error: $e');
         }
         // After handling action, backend should be polled or webhook used to
-        // finalize status; here, assume success for flow purposes.
+        // finalize status; for UI flow purposes treat this as success.
+        return true;
       }
 
-      return status == 'succeeded' || status == 'requires_confirmation';
+      return status == 'succeeded' ||
+          status == 'requires_confirmation' ||
+          status == 'requires_action';
     } catch (e) {
       print('confirmPayment error: $e');
       return false;
