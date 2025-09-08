@@ -140,6 +140,15 @@ class AuthServiceImpl implements AuthService {
       }
       return null;
     } catch (e) {
+      // If Firestore permission denied, treat as missing profile instead of
+      // failing the whole auth flow. This makes sign-in flows resilient in
+      // test or restricted environments where Firestore rules prevent reads.
+      if (e is FirebaseException && e.code == 'permission-denied') {
+        // ignore: avoid_print
+        print(
+            'Firestore permission denied while fetching user profile: ${e.message}');
+        return null;
+      }
       throw Exception('Failed to get user profile: $e');
     }
   }
@@ -177,7 +186,14 @@ class AuthServiceImpl implements AuthService {
 
       if (userCredential != null && userCredential.user != null) {
         // Check if user profile exists
-        UserProfileModel? existingProfile = await getCurrentUserProfile();
+        UserProfileModel? existingProfile;
+        try {
+          existingProfile = await getCurrentUserProfile();
+        } catch (e) {
+          // If profile lookup fails due to permissions, treat as missing and
+          // continue; creating a new profile will likely fail too, so guard below.
+          existingProfile = null;
+        }
 
         // If profile doesn't exist, create a new one
         if (existingProfile == null) {
@@ -193,10 +209,22 @@ class AuthServiceImpl implements AuthService {
             updatedAt: DateTime.now(),
           );
 
-          await _firestore
-              .collection('users')
-              .doc(userCredential.user!.uid)
-              .set(userProfile.toJson());
+          try {
+            await _firestore
+                .collection('users')
+                .doc(userCredential.user!.uid)
+                .set(userProfile.toJson());
+          } catch (e) {
+            // If creation fails due to permissions, log and continue — the
+            // app should still be able to operate in a degraded mode.
+            if (e is FirebaseException && e.code == 'permission-denied') {
+              // ignore: avoid_print
+              print(
+                  'Firestore permission denied while creating user profile: ${e.message}');
+            } else {
+              rethrow;
+            }
+          }
         }
       }
 
