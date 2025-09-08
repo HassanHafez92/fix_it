@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:fix_it/l10n/app_localizations.dart';
 
 import '../../domain/entities/faq_entity.dart';
 
@@ -23,6 +23,7 @@ class _FAQSectionState extends State<FAQSection> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (widget.faqs.isEmpty) {
       return Container(
         padding: const EdgeInsets.all(32),
@@ -35,7 +36,7 @@ class _FAQSectionState extends State<FAQSection> {
             ),
             const SizedBox(height: 16),
             Text(
-              'لم نجد أي نتائج',
+              l10n.noResultsFound,
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -44,7 +45,7 @@ class _FAQSectionState extends State<FAQSection> {
             ),
             const SizedBox(height: 8),
             Text(
-              'جرب البحث بكلمات مختلفة',
+              l10n.tryDifferentKeywords,
               style: GoogleFonts.cairo(
                 fontSize: 14,
                 color: const Color(0xFF718096),
@@ -60,7 +61,7 @@ class _FAQSectionState extends State<FAQSection> {
       children: [
         if (widget.searchQuery.isNotEmpty) ...[
           Text(
-            'نتائج البحث (${widget.faqs.length})',
+            l10n.searchResultsCount.replaceAll('{count}', widget.faqs.length.toString()),
             style: GoogleFonts.cairo(
               fontSize: 16,
               fontWeight: FontWeight.bold,

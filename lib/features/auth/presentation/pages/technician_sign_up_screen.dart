@@ -8,6 +8,7 @@ import '../bloc/technician_sign_up/technician_sign_up_bloc.dart';
 import 'package:fix_it/core/utils/bloc_utils.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
 
 class TechnicianSignUpScreen extends StatefulWidget {
   const TechnicianSignUpScreen({super.key});
@@ -29,27 +30,6 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
   bool _acceptTerms = false;
   String? _selectedProfession;
 
-  final List<String> _professions = [
-    'كهربائي',
-    'سباك',
-    'نجار',
-    'دهان',
-    'مكيفات وتبريد',
-    'فني أجهزة منزلية',
-    'فني إلكترونيات',
-    'عامل تنظيف',
-    'بستاني',
-    'نقاش',
-    'مبلط',
-    'حداد',
-    'زجاج',
-    'عازل أسطح',
-    'ميكانيكي سيارات',
-    'فني صيانة هواتف',
-    'تركيب أثاث',
-    'أخرى',
-  ];
-
   @override
   void dispose() {
     _nameController.dispose();
@@ -64,6 +44,28 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
+
+    final List<String> _professions = [
+      l10n.profession_electrician,
+      l10n.profession_plumber,
+      l10n.profession_carpenter,
+      l10n.profession_painter,
+      l10n.profession_ac,
+      l10n.profession_appliance,
+      l10n.profession_electronics,
+      l10n.profession_cleaning,
+      l10n.profession_gardener,
+      l10n.profession_decorator,
+      l10n.profession_tiler,
+      l10n.profession_blacksmith,
+      l10n.profession_glazier,
+      l10n.profession_roofer,
+      l10n.profession_mechanic,
+      l10n.profession_phone_technician,
+      l10n.profession_furniture,
+      l10n.other,
+    ];
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -75,7 +77,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'إنشاء حساب فني',
+          l10n.createTechnicianAccount,
           style: GoogleFonts.cairo(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -130,7 +132,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                         ),
                         const SizedBox(height: 24),
                         Text(
-                          'أهلاً بك كفني متخصص',
+                          l10n.welcomeTechnician,
                           style: GoogleFonts.cairo(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -139,7 +141,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'املأ البيانات التالية لإنشاء حسابك المهني',
+                          l10n.fillYourProfessionalInfo,
                           style: GoogleFonts.cairo(
                             fontSize: 16,
                             color: const Color(0xFF718096),
@@ -154,8 +156,8 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                     // Form fields
                     CustomTextField(
                       controller: _nameController,
-                      label: 'الاسم الكامل',
-                      hintText: 'أدخل اسمك الكامل',
+                      label: l10n.fullName,
+                      hintText: l10n.enterYourFullName,
                       keyboardType: TextInputType.name,
                       prefixIcon: Icons.person_outline,
                       validator: Validators.validateName,
@@ -165,8 +167,8 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
 
                     CustomTextField(
                       controller: _emailController,
-                      label: 'البريد الإلكتروني',
-                      hintText: 'أدخل بريدك الإلكتروني',
+                      label: l10n.emailLabel,
+                      hintText: l10n.emailHint,
                       keyboardType: TextInputType.emailAddress,
                       prefixIcon: Icons.email_outlined,
                       validator: Validators.validateEmail,
@@ -176,8 +178,8 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
 
                     CustomTextField(
                       controller: _phoneController,
-                      label: 'رقم الهاتف',
-                      hintText: 'أدخل رقم هاتفك',
+                      label: l10n.phoneNumber,
+                      hintText: l10n.enterYourPhoneNumber,
                       keyboardType: TextInputType.phone,
                       prefixIcon: Icons.phone_outlined,
                       validator: Validators.validatePhone,
@@ -190,7 +192,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'التخصص المهني',
+                          l10n.profession,
                           style: GoogleFonts.cairo(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
@@ -201,7 +203,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                         DropdownButtonFormField<String>(
                           value: _selectedProfession,
                           decoration: InputDecoration(
-                            hintText: 'اختر تخصصك المهني',
+                            hintText: l10n.selectYourProfession,
                             prefixIcon: const Icon(Icons.work_outline),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -230,7 +232,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                           onChanged: (value) {
                             setState(() {
                               _selectedProfession = value;
-                              if (value == 'أخرى') {
+                              if (value == l10n.other) {
                                 _professionController.clear();
                               } else {
                                 _professionController.text = value ?? '';
@@ -239,7 +241,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'يرجى اختيار التخصص المهني';
+                              return l10n.pleaseSelectProfession;
                             }
                             return null;
                           },
@@ -248,17 +250,17 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                     ),
 
                     // Show custom profession field if "أخرى" is selected
-                    if (_selectedProfession == 'أخرى') ...[
+                    if (_selectedProfession == l10n.other) ...[
                       const SizedBox(height: 16),
                       CustomTextField(
                         controller: _professionController,
-                        label: 'حدد تخصصك',
-                        hintText: 'أدخل تخصصك المهني',
+                        label: l10n.specifyYourProfession,
+                        hintText: l10n.enterYourProfession,
                         prefixIcon: Icons.work_outline,
                         validator: (value) {
-                          if (_selectedProfession == 'أخرى' &&
+                          if (_selectedProfession == l10n.other &&
                               (value == null || value.isEmpty)) {
-                            return 'يرجى تحديد التخصص المهني';
+                            return l10n.pleaseSpecifyProfession;
                           }
                           return null;
                         },
@@ -269,8 +271,8 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
 
                     CustomTextField(
                       controller: _passwordController,
-                      label: 'كلمة المرور',
-                      hintText: 'أدخل كلمة المرور',
+                      label: l10n.passwordLabel,
+                      hintText: l10n.passwordHint,
                       prefixIcon: Icons.lock_outline,
                       obscureText: _obscurePassword,
                       suffixIcon: IconButton(
@@ -293,8 +295,8 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
 
                     CustomTextField(
                       controller: _confirmPasswordController,
-                      label: 'تأكيد كلمة المرور',
-                      hintText: 'أعد إدخال كلمة المرور',
+                      label: l10n.confirmPassword,
+                      hintText: l10n.reEnterYourPassword,
                       prefixIcon: Icons.lock_outline,
                       obscureText: _obscureConfirmPassword,
                       suffixIcon: IconButton(
@@ -312,7 +314,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                       ),
                       validator: (value) {
                         if (value != _passwordController.text) {
-                          return 'كلمة المرور غير متطابقة';
+                          return l10n.passwordsDoNotMatch;
                         }
                         return null;
                       },
@@ -343,14 +345,14 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                               TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: 'أوافق على ',
+                                    text: l10n.iAgreeTo,
                                     style: GoogleFonts.cairo(
                                       fontSize: 14,
                                       color: const Color(0xFF718096),
                                     ),
                                   ),
                                   TextSpan(
-                                    text: 'الشروط والأحكام',
+                                    text: l10n.termsAndConditions,
                                     style: GoogleFonts.cairo(
                                       fontSize: 14,
                                       color: theme.primaryColor,
@@ -358,14 +360,14 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: ' و ',
+                                    text: l10n.and,
                                     style: GoogleFonts.cairo(
                                       fontSize: 14,
                                       color: const Color(0xFF718096),
                                     ),
                                   ),
                                   TextSpan(
-                                    text: 'سياسة الخصوصية',
+                                    text: l10n.privacyPolicy,
                                     style: GoogleFonts.cairo(
                                       fontSize: 14,
                                       color: theme.primaryColor,
@@ -384,7 +386,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
 
                     // Sign up button
                     CustomButton(
-                      text: 'إنشاء الحساب',
+                      text: l10n.createAccount,
                       isLoading: state is TechnicianSignUpLoading,
                       onPressed: _acceptTerms ? _signUp : null,
                     ),
@@ -396,7 +398,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'لديك حساب بالفعل؟ ',
+                          l10n.alreadyHaveAnAccount,
                           style: GoogleFonts.cairo(
                             fontSize: 14,
                             color: const Color(0xFF718096),
@@ -408,7 +410,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
                             AppRoutes.signIn,
                           ),
                           child: Text(
-                            'تسجيل الدخول',
+                            l10n.signIn,
                             style: GoogleFonts.cairo(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -431,6 +433,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
   }
 
   void _signUp() {
+    final l10n = AppLocalizations.of(context)!;
     if (_formKey.currentState!.validate()) {
       safeAddEvent<TechnicianSignUpBloc>(
         context,
@@ -439,7 +442,7 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
           email: _emailController.text.trim(),
           password: _passwordController.text,
           phoneNumber: _phoneController.text.trim(),
-          profession: _selectedProfession == 'أخرى'
+          profession: _selectedProfession == l10n.other
               ? _professionController.text.trim()
               : _selectedProfession ?? '',
         ),

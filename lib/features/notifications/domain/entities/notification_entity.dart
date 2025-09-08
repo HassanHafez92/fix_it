@@ -76,33 +76,6 @@ enum NotificationType {
 }
 
 extension NotificationTypeExtension on NotificationType {
-  String get displayName {
-    switch (this) {
-      case NotificationType.bookingConfirmation:
-        return 'تأكيد الحجز';
-      case NotificationType.bookingCancelled:
-        return 'إلغاء الحجز';
-      case NotificationType.bookingCompleted:
-        return 'اكتمال الخدمة';
-      case NotificationType.paymentSuccess:
-        return 'نجح الدفع';
-      case NotificationType.paymentFailed:
-        return 'فشل الدفع';
-      case NotificationType.specialOffer:
-        return 'عرض خاص';
-      case NotificationType.appUpdate:
-        return 'تحديث التطبيق';
-      case NotificationType.reviewRequest:
-        return 'طلب تقييم';
-      case NotificationType.bookingReminder:
-        return 'تذكير الموعد';
-      case NotificationType.providerAssigned:
-        return 'تعيين فني';
-      case NotificationType.general:
-        return 'عام';
-    }
-  }
-
   String get iconName {
     switch (this) {
       case NotificationType.bookingConfirmation:

@@ -15,6 +15,7 @@ class WelcomeScreen extends StatelessWidget {
     // ignore: unused_local_variable
     final size = MediaQuery.of(context).size;
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: Container(
@@ -80,7 +81,7 @@ class WelcomeScreen extends StatelessWidget {
                       const SizedBox(height: 16),
 
                       Text(
-                        'Your trusted partner for home\nmaintenance and repair services',
+                        l10n.welcomeSlogan,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.cairo(
                           fontSize: 16,
@@ -95,7 +96,7 @@ class WelcomeScreen extends StatelessWidget {
                       Column(
                         children: [
                           CustomButton(
-                            text: 'إنشاء حساب جديد',
+                            text: l10n.createNewAccount,
                             onPressed: () {
                               Navigator.pushNamed(
                                   context, AppRoutes.userTypeSelection);
@@ -105,7 +106,7 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
                           CustomButton(
-                            text: 'تسجيل الدخول',
+                            text: l10n.signIn,
                             onPressed: () {
                               Navigator.pushNamed(context, AppRoutes.signIn);
                             },
@@ -124,7 +125,7 @@ class WelcomeScreen extends StatelessWidget {
                           alignment: WrapAlignment.center,
                           children: [
                             Text(
-                              'By continuing, you agree to our ',
+                              l10n.byContinuingYouAgree,
                               style: GoogleFonts.cairo(
                                 fontSize: 12,
                                 color: Colors.white.withOpacity(0.8),
@@ -135,7 +136,7 @@ class WelcomeScreen extends StatelessWidget {
                                 // Navigate to terms
                               },
                               child: Text(
-                                'Terms of Service',
+                                l10n.termsOfService,
                                 style: GoogleFonts.cairo(
                                   fontSize: 12,
                                   color: Colors.white,
@@ -144,7 +145,7 @@ class WelcomeScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              ' and ',
+                              l10n.and,
                               style: GoogleFonts.cairo(
                                 fontSize: 12,
                                 color: Colors.white.withOpacity(0.8),
@@ -155,7 +156,7 @@ class WelcomeScreen extends StatelessWidget {
                                 // Navigate to privacy policy
                               },
                               child: Text(
-                                'Privacy Policy',
+                                l10n.privacyPolicy,
                                 style: GoogleFonts.cairo(
                                   fontSize: 12,
                                   color: Colors.white,

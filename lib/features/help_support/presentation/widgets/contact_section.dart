@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:fix_it/l10n/app_localizations.dart';
 
 import '../../domain/entities/faq_entity.dart';
+import 'contact_helper.dart';
 
 class ContactSection extends StatelessWidget {
   final List<ContactInfoEntity> contactMethods;
@@ -15,11 +16,12 @@ class ContactSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'طرق التواصل',
+          l10n.contactMethods,
           style: GoogleFonts.cairo(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -37,6 +39,7 @@ class ContactSection extends StatelessWidget {
   }
 
   void _handleContactTap(BuildContext context, ContactInfoEntity contact) async {
+    final l10n = AppLocalizations.of(context)!;
     try {
       Uri uri;
 
@@ -65,7 +68,7 @@ class ContactSection extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                'لا يمكن فتح ${contact.description}',
+                l10n.cannotOpen.replaceAll('{description}', contact.description),
                 style: GoogleFonts.cairo(),
               ),
             ),
@@ -77,7 +80,7 @@ class ContactSection extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'حدث خطأ في فتح ${contact.description}',
+              l10n.errorOpening.replaceAll('{description}', contact.description),
               style: GoogleFonts.cairo(),
             ),
           ),
@@ -141,7 +144,7 @@ class _ContactMethodItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      contactInfo.type.displayName,
+                        getContactTypeDisplayName(context, contactInfo.type),
                       style: GoogleFonts.cairo(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

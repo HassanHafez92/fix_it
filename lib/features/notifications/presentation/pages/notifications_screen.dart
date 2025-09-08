@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import 'package:fix_it/core/utils/app_routes.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
 import '../bloc/notifications_bloc.dart';
 import '../bloc/notifications_event.dart';
 import '../bloc/notifications_state.dart';
@@ -35,6 +36,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -49,7 +51,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           ),
         ),
         title: Text(
-          'الإشعارات',
+          l10n.notifications,
           style: GoogleFonts.cairo(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -81,7 +83,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         children: [
                           const Icon(Icons.mark_email_read, size: 20),
                           const SizedBox(width: 8),
-                          Text('تحديد الكل كمقروء', style: GoogleFonts.cairo()),
+                          Text(l10n.markAllAsRead, style: GoogleFonts.cairo()),
                         ],
                       ),
                     ),
@@ -93,7 +95,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                               size: 20, color: Colors.red),
                           const SizedBox(width: 8),
                           Text(
-                            'حذف جميع الإشعارات',
+                            l10n.deleteAllNotifications,
                             style: GoogleFonts.cairo(color: Colors.red),
                           ),
                         ],
@@ -125,7 +127,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'حدث خطأ في تحميل الإشعارات',
+                    l10n.errorLoadingNotifications,
                     style: GoogleFonts.cairo(
                       fontSize: 16,
                       color: const Color(0xFF2D3748),
@@ -146,7 +148,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       safeAddEvent<NotificationsBloc>(context, LoadNotifications());
                     },
                     child: Text(
-                      'إعادة المحاولة',
+                      l10n.retry,
                       style: GoogleFonts.cairo(),
                     ),
                   ),
@@ -285,6 +287,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   void _showNotificationDetails(
       BuildContext context, NotificationEntity notification) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -315,7 +318,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('إغلاق', style: GoogleFonts.cairo()),
+            child: Text(l10n.close, style: GoogleFonts.cairo()),
           ),
         ],
       ),
@@ -324,20 +327,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   void _showDeleteDialog(
       BuildContext context, NotificationEntity notification) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        title: Text('حذف الإشعار',
+        title: Text(l10n.deleteNotification,
             style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
         content: Text(
-          'هل أنت متأكد من رغبتك في حذف هذا الإشعار؟',
+          l10n.areYouSureDeleteNotification,
           style: GoogleFonts.cairo(),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('إلغاء', style: GoogleFonts.cairo()),
+            child: Text(l10n.cancel, style: GoogleFonts.cairo()),
           ),
           ElevatedButton(
             onPressed: () {
@@ -345,7 +349,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               safeAddEvent<NotificationsBloc>(context, DeleteNotification(notification.id));
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: Text('حذف', style: GoogleFonts.cairo(color: Colors.white)),
+            child: Text(l10n.delete, style: GoogleFonts.cairo(color: Colors.white)),
           ),
         ],
       ),
@@ -353,20 +357,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   }
 
   void _showDeleteAllDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        title: Text('حذف جميع الإشعارات',
+        title: Text(l10n.deleteAllNotifications,
             style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
         content: Text(
-          'هل أنت متأكد من رغبتك في حذف جميع الإشعارات؟ لا يمكن التراجع عن هذا الإجراء.',
+          l10n.areYouSureDeleteAllNotifications,
           style: GoogleFonts.cairo(),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('إلغاء', style: GoogleFonts.cairo()),
+            child: Text(l10n.cancel, style: GoogleFonts.cairo()),
           ),
           ElevatedButton(
             onPressed: () {
@@ -375,7 +380,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             child:
-                Text('حذف الكل', style: GoogleFonts.cairo(color: Colors.white)),
+                Text(l10n.deleteAll, style: GoogleFonts.cairo(color: Colors.white)),
           ),
         ],
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-
+import 'package:fix_it/l10n/app_localizations.dart';
 
 class HelpSearchBar extends StatelessWidget {
   final TextEditingController controller;
@@ -17,12 +16,13 @@ class HelpSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return TextField(
       controller: controller,
       onChanged: onChanged,
       textDirection: TextDirection.rtl,
       decoration: InputDecoration(
-        hintText: 'ابحث في الأسئلة الشائعة...',
+        hintText: l10n.searchFaqHint,
         hintStyle: GoogleFonts.cairo(
           color: const Color(0xFF718096),
         ),

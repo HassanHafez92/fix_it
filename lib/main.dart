@@ -15,6 +15,7 @@ import 'core/services/location_service.dart';
 import 'core/services/payment_service.dart';
 import 'core/services/analytics_service.dart';
 import 'core/services/notification_service.dart';
+import 'core/services/localization_service.dart';
 import 'app_config.dart';
 import 'features/auth/presentation/pages/welcome_screen.dart';
 import 'features/auth/presentation/widgets/auth_wrapper.dart';
@@ -269,6 +270,10 @@ class FixItApp extends StatelessWidget {
             // AuthWrapper handles authentication state and navigation
             // Wrap the entire app with Directionality to ensure consistent text direction
             builder: (context, child) {
+              final l10n = AppLocalizations.of(context);
+              if (l10n != null) {
+                LocalizationService().init(l10n);
+              }
               return Directionality(
                 textDirection: textDirection,
                 child: child!,

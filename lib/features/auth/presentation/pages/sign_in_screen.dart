@@ -33,6 +33,7 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -74,7 +75,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                   // Title
                   Text(
-                    'Welcome Back!',
+                    l10n.welcomeBack,
                     style: GoogleFonts.cairo(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -85,7 +86,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   const SizedBox(height: 8),
 
                   Text(
-                    'Sign in to continue to ${AppConstants.appName}',
+                    l10n.signInToContinue.replaceAll('{appName}', AppConstants.appName),
                     style: GoogleFonts.cairo(
                       fontSize: 16,
                       color: Colors.grey[600],
@@ -97,8 +98,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   // Email Field
                   CustomTextField(
                     controller: _emailController,
-                    label: 'Email',
-                    hintText: 'Enter your email',
+                    label: l10n.emailLabel,
+                    hintText: l10n.emailHint,
                     keyboardType: TextInputType.emailAddress,
                     prefixIcon: Icons.email_outlined,
                     validator: Validators.validateEmail,
@@ -109,8 +110,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   // Password Field
                   CustomTextField(
                     controller: _passwordController,
-                    label: 'Password',
-                    hintText: 'Enter your password',
+                    label: l10n.passwordLabel,
+                    hintText: l10n.passwordHint,
                     obscureText: _obscurePassword,
                     prefixIcon: Icons.lock_outline,
                     suffixIcon: IconButton(
@@ -138,7 +139,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         Navigator.pushNamed(context, AppRoutes.forgotPassword);
                       },
                       child: Text(
-                        'Forgot Password?',
+                        l10n.forgotPassword,
                         style: GoogleFonts.cairo(
                           color: theme.primaryColor,
                           fontWeight: FontWeight.w600,
@@ -153,7 +154,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   BlocBuilder<AuthBloc, AuthState>(
                     builder: (context, state) {
                       return CustomButton(
-                        text: 'Sign In',
+                        text: l10n.signIn,
                         isLoading: state is AuthLoading,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
@@ -179,7 +180,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          'OR',
+                          l10n.or,
                           style: GoogleFonts.cairo(
                             color: Colors.grey[600],
                             fontSize: 14,
@@ -194,7 +195,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                   // Social / Phone Sign In Buttons
                   CustomButton(
-                    text: 'Continue with Google',
+                    text: l10n.continueWithGoogle,
                     onPressed: () {
                       safeAddEvent<AuthBloc>(context, SignInWithGoogleEvent());
                     },
@@ -206,7 +207,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                   const SizedBox(height: 12),
                   CustomButton(
-                    text: 'تسجيل الدخول برقم الهاتف (مصر)',
+                    text: l10n.signInWithPhone,
                     onPressed: () {
                       Navigator.pushNamed(context, AppRoutes.phoneSignIn);
                     },
@@ -223,7 +224,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Don\'t have an account? ',
+                        l10n.dontHaveAnAccount,
                         style: GoogleFonts.cairo(
                           color: Colors.grey[600],
                         ),
@@ -233,7 +234,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           Navigator.pushReplacementNamed(context, '/sign-up');
                         },
                         child: Text(
-                          'Sign Up',
+                          l10n.signUp,
                           style: GoogleFonts.cairo(
                             color: theme.primaryColor,
                             fontWeight: FontWeight.w600,

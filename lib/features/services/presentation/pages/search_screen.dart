@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fix_it/core/utils/bloc_utils.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
 import 'package:fix_it/features/services/presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:fix_it/features/services/presentation/widgets/search_service_card.dart';
 import 'package:fix_it/features/providers/presentation/widgets/provider_card.dart';
@@ -34,9 +35,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('بحث'),
+        title: Text(l10n.search),
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -51,7 +53,7 @@ class _SearchScreenState extends State<SearchScreen> {
               controller: _searchController,
               focusNode: _searchFocusNode,
               decoration: InputDecoration(
-                hintText: 'ابحث عن خدمة أو فني...',
+                hintText: l10n.searchForServiceOrProvider,
                 prefixIcon: const Icon(Icons.search),
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.clear),
@@ -85,7 +87,7 @@ class _SearchScreenState extends State<SearchScreen> {
               children: [
                 Expanded(
                   child: FilterChip(
-                    label: const Text('الخدمات'),
+                    label: Text(l10n.services),
                     selected: true,
                     onSelected: (value) {
                       // Toggle services filter
@@ -95,7 +97,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: FilterChip(
-                    label: const Text('الفنيين'),
+                    label: Text(l10n.providers),
                     selected: true,
                     onSelected: (value) {
                       // Toggle providers filter
@@ -110,19 +112,19 @@ class _SearchScreenState extends State<SearchScreen> {
             child: BlocBuilder<SearchBloc, SearchState>(
               builder: (context, state) {
                 if (state is SearchInitial) {
-                  return _buildRecentSearches();
+                  return _buildRecentSearches(context);
                 } else if (state is SearchLoading) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (state is SearchResultsLoaded) {
                   if (state.services.isEmpty && state.providers.isEmpty) {
-                    return const Center(
-                      child: Text('لا توجد نتائج للبحث'),
+                    return Center(
+                      child: Text(l10n.noSearchResults),
                     );
                   }
-                  return _buildSearchResults(state);
+                  return _buildSearchResults(context, state);
                 } else if (state is SearchError) {
                   return Center(
-                    child: Text('حدث خطأ: ${state.message}'),
+                    child: Text(l10n.errorOcurred.replaceAll('{message}', state.message)),
                   );
                 }
                 return const SizedBox.shrink();
@@ -134,15 +136,16 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _buildRecentSearches() {
+  Widget _buildRecentSearches(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
-            'عمليات البحث الأخيرة',
-            style: TextStyle(
+            l10n.recentSearches,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -153,10 +156,10 @@ class _SearchScreenState extends State<SearchScreen> {
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             children: [
-              _buildRecentSearchItem('سباك'),
-              _buildRecentSearchItem('كهربائي'),
-              _buildRecentSearchItem('نظافة'),
-              _buildRecentSearchItem('تكييف'),
+              _buildRecentSearchItem(l10n.plumber),
+              _buildRecentSearchItem(l10n.electrician),
+              _buildRecentSearchItem(l10n.cleaning),
+              _buildRecentSearchItem(l10n.ac),
             ],
           ),
         ),
@@ -176,22 +179,23 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _buildSearchResults(SearchResultsLoaded state) {
+  Widget _buildSearchResults(BuildContext context, SearchResultsLoaded state) {
+    final l10n = AppLocalizations.of(context)!;
     return DefaultTabController(
       length: 2,
       child: Column(
         children: [
-          const TabBar(
+          TabBar(
             tabs: [
-              Tab(text: 'الخدمات'),
-              Tab(text: 'الفنيين'),
+              Tab(text: l10n.services),
+              Tab(text: l10n.providers),
             ],
           ),
           Expanded(
             child: TabBarView(
               children: [
-                _buildServicesTab(state.services),
-                _buildProvidersTab(state.providers),
+                _buildServicesTab(context, state.services),
+                _buildProvidersTab(context, state.providers),
               ],
             ),
           ),
@@ -200,10 +204,11 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _buildServicesTab(List services) {
+  Widget _buildServicesTab(BuildContext context, List services) {
+    final l10n = AppLocalizations.of(context)!;
     if (services.isEmpty) {
-      return const Center(
-        child: Text('لا توجد خدمات مطابقة لبحثك'),
+      return Center(
+        child: Text(l10n.noServicesMatchYourSearch),
       );
     }
 
@@ -216,10 +221,11 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _buildProvidersTab(List providers) {
+  Widget _buildProvidersTab(BuildContext context, List providers) {
+    final l10n = AppLocalizations.of(context)!;
     if (providers.isEmpty) {
-      return const Center(
-        child: Text('لا يوجد فنيون مطابقون لبحثك'),
+      return Center(
+        child: Text(l10n.noProvidersMatchYourSearch),
       );
     }
 

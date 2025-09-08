@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fix_it/core/services/localization_service.dart';
 import '../../domain/usecases/get_user_profile_usecase.dart';
 import '../../domain/usecases/update_user_profile_usecase.dart';
 import '../../../../core/services/file_upload_service.dart';
@@ -34,11 +35,11 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       final result = await getUserProfile(userId);
 
       result.fold(
-        (failure) => emit(UserProfileError('فشل في تحميل البيانات الشخصية')),
+        (failure) => emit(UserProfileError(LocalizationService().l10n.failedToLoadProfile)),
         (profile) => emit(UserProfileLoaded(profile)),
       );
     } catch (e) {
-      emit(UserProfileError('حدث خطأ غير متوقع: ${e.toString()}'));
+      emit(UserProfileError(LocalizationService().l10n.unexpectedError.replaceAll('{error}', e.toString())));
     }
   }
 
@@ -53,11 +54,11 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         final result = await updateUserProfile(event.profile);
 
         result.fold(
-          (failure) => emit(UserProfileError('فشل في تحديث البيانات الشخصية')),
+          (failure) => emit(UserProfileError(LocalizationService().l10n.failedToUpdateProfile)),
           (updatedProfile) => emit(UserProfileUpdated(updatedProfile)),
         );
       } catch (e) {
-        emit(UserProfileError('حدث خطأ غير متوقع: ${e.toString()}'));
+        emit(UserProfileError(LocalizationService().l10n.unexpectedError.replaceAll('{error}', e.toString())));
       }
     }
   }
@@ -81,7 +82,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         if (source != 'camera') {
           final granted = await fileUpload.requestStoragePermission();
           if (!granted) {
-            emit(UserProfileError('الصلاحية للوصول إلى المعرض مرفوضة'));
+            emit(UserProfileError(LocalizationService().l10n.galleryPermissionDenied));
             return;
           }
         }
@@ -94,7 +95,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
           // If picking failed after permission was granted, treat as cancellation
           // For camera, permission denial also causes null — show specific message
           if (source == 'camera') {
-            emit(UserProfileError('تعذر الوصول إلى الكاميرا أو تم الإلغاء'));
+            emit(UserProfileError(LocalizationService().l10n.cameraAccessDenied));
             return;
           }
           // Gallery pick cancelled
@@ -104,7 +105,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
 
         final uploadedUrl = await fileUpload.uploadFile(picked);
         if (uploadedUrl == null) {
-          emit(UserProfileError('فشل في رفع الصورة الشخصية'));
+          emit(UserProfileError(LocalizationService().l10n.failedToUploadProfilePicture));
           return;
         }
 
@@ -115,11 +116,11 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
 
         result.fold(
           (failure) =>
-              emit(UserProfileError('فشل في تحديث الملف الشخصي بعد الرفع')),
+              emit(UserProfileError(LocalizationService().l10n.failedToUpdateProfileAfterUpload)),
           (updatedProfile) => emit(UserProfileLoaded(updatedProfile)),
         );
       } catch (e) {
-        emit(UserProfileError('فشل في رفع الصورة الشخصية'));
+        emit(UserProfileError(LocalizationService().l10n.failedToUploadProfilePicture));
       }
     }
   }
@@ -138,7 +139,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
 
         emit(UserProfileLoaded(updatedProfile));
       } catch (e) {
-        emit(UserProfileError('فشل في حذف الصورة الشخصية'));
+        emit(UserProfileError(LocalizationService().l10n.failedToDeleteProfilePicture));
       }
     }
   }
