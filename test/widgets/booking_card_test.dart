@@ -7,6 +7,8 @@ import 'package:fix_it/core/utils/app_routes.dart';
 import 'package:fix_it/core/di/injection_container.dart' as di;
 import 'package:fix_it/features/chat/domain/repositories/chat_repository.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:dartz/dartz.dart';
 import 'package:fix_it/features/booking/domain/usecases/get_booking_details_usecase.dart';
 import 'package:fix_it/features/booking/domain/usecases/get_available_time_slots_usecase.dart';
@@ -93,6 +95,13 @@ void main() {
         .thenAnswer((inv) async => Right(booking1));
 
     await tester.pumpWidget(MaterialApp(
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
       // Use a custom onGenerateRoute so /modify-booking works with arguments
       // but intercept /chat to avoid creating the real ChatBloc in tests.
       onGenerateRoute: (settings) {
@@ -100,6 +109,19 @@ void main() {
           return MaterialPageRoute(
             builder: (_) =>
                 const Scaffold(body: Center(child: Text('chat screen'))),
+            settings: settings,
+          );
+        }
+        if (settings.name == AppRoutes.modifyBooking) {
+          final args = settings.arguments as Map<String, dynamic>?;
+          final bookingId = args != null && args['bookingId'] is String
+              ? args['bookingId'] as String
+              : 'missing';
+          return MaterialPageRoute(
+            builder: (_) => Scaffold(
+              appBar: AppBar(title: const Text('Modify Booking')),
+              body: Center(child: Text('Modify booking: $bookingId')),
+            ),
             settings: settings,
           );
         }
@@ -159,6 +181,13 @@ void main() {
     await tester.pumpWidget(MaterialApp(
       // Intercept /chat to return a dummy chat screen so the test
       // doesn't require ChatBloc to be registered in DI.
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: (settings) {
         if (settings.name == AppRoutes.chat) {
           return MaterialPageRoute(
@@ -167,13 +196,26 @@ void main() {
             settings: settings,
           );
         }
+        if (settings.name == AppRoutes.modifyBooking) {
+          final args = settings.arguments as Map<String, dynamic>?;
+          final bookingId = args != null && args['bookingId'] is String
+              ? args['bookingId'] as String
+              : 'missing';
+          return MaterialPageRoute(
+            builder: (_) => Scaffold(
+              appBar: AppBar(title: const Text('Modify Booking')),
+              body: Center(child: Text('Modify booking: $bookingId')),
+            ),
+            settings: settings,
+          );
+        }
         return routes_generator.AppRoutes.onGenerateRoute(settings);
       },
       home: Scaffold(body: BookingCard(booking: booking)),
     ));
 
-    expect(find.text('Contact'), findsOneWidget);
-    await tester.tap(find.text('Contact'));
+    expect(find.text('Contact Provider'), findsOneWidget);
+    await tester.tap(find.text('Contact Provider'));
     await tester.pumpAndSettle();
 
     // Bottom sheet should show 'Message Provider'

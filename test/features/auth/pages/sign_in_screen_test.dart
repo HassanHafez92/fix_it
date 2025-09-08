@@ -1,4 +1,6 @@
 import 'package:fix_it/features/auth/presentation/pages/sign_up_screen.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fix_it/features/auth/presentation/pages/sign_in_screen.dart';
@@ -96,8 +98,15 @@ void main() {
       final mockBloc = MockAuthBloc();
       await tester.pumpWidget(
         MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
           routes: {
-            '/sign_up': (context) => BlocProvider<AuthBloc>.value(
+            '/sign-up': (context) => BlocProvider<AuthBloc>.value(
                   value: mockBloc,
                   child: const SignUpScreen(),
                 ),
