@@ -85,7 +85,8 @@ class ProfileScreen extends StatelessWidget {
                       onPressed: () {
                         // use safeAddEvent to avoid ProviderNotFound when context
                         // inside error widget may not have the bloc available
-                        safeAddEvent<UserProfileBloc>(context, const LoadUserProfileEvent());
+                        safeAddEvent<UserProfileBloc>(
+                            context, const LoadUserProfileEvent());
                       },
                       child: Text(
                         l10n.tryAgain,
@@ -249,6 +250,7 @@ class ProfileScreen extends StatelessWidget {
   }
 
   void _showLogoutDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final parentContext = context;
     showDialog(
       context: context,
@@ -257,7 +259,8 @@ class ProfileScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         title: Text(
-          'تسجيل الخروج',
+          // 'تسجيل الخروج',
+          l10n.logoutTitle,
           style: GoogleFonts.cairo(
             fontWeight: FontWeight.bold,
           ),
