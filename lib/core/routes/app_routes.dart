@@ -16,6 +16,7 @@ import 'package:fix_it/features/home/presentation/pages/main_dashboard.dart';
 import 'package:fix_it/features/booking/presentation/pages/create_booking_screen.dart';
 import 'package:fix_it/features/booking/presentation/pages/bookings_screen.dart';
 import 'package:fix_it/features/booking/presentation/pages/booking_details_screen.dart';
+import 'package:fix_it/features/booking/presentation/pages/modify_booking_screen.dart';
 import 'package:fix_it/features/providers/presentation/pages/provider_details_screen.dart';
 import 'package:fix_it/features/services/presentation/pages/service_details_screen.dart';
 // Profile & misc pages
@@ -206,6 +207,21 @@ class AppRoutes {
         }
         return _buildRoute(
             settings, (context) => ServiceDetailsScreen(serviceId: serviceId));
+      case '/modify-booking':
+        final mArgs = argsAs<Map<String, dynamic>>(settings);
+        final bookingId = mArgs != null && mArgs['bookingId'] is String
+            ? mArgs['bookingId'] as String
+            : null;
+        if (bookingId == null) {
+          return _buildRoute(
+              settings,
+              (context) => Scaffold(
+                    appBar: AppBar(title: const Text('Modify Booking')),
+                    body: const Center(child: Text('Missing bookingId')),
+                  ));
+        }
+        return _buildRoute(
+            settings, (context) => ModifyBookingScreen(bookingId: bookingId));
       default:
         // Fallback: avoid displaying raw `arguments` to users. Log for debugging
         // and show a friendly 'route not found' screen instead.
