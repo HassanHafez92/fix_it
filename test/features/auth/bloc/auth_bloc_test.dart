@@ -18,6 +18,20 @@ void main() {
 
     setUp(() {
       mockAuthService = MockAuthService();
+      // Default stubs to avoid null returns from mocktail when specific
+      // expectations are not set per-test. These return a MockUserCredential
+      // so AuthBloc flow can continue to call getCurrentUserProfile().
+      when(() => mockAuthService.signInWithEmailAndPassword(
+              email: any(named: 'email'), password: any(named: 'password')))
+          .thenAnswer((_) async => MockUserCredential());
+      when(() => mockAuthService.signUpWithEmailAndPassword(
+              email: any(named: 'email'),
+              password: any(named: 'password'),
+              name: any(named: 'name'),
+              userType: any(named: 'userType')))
+          .thenAnswer((_) async => MockUserCredential());
+      when(() => mockAuthService.signInWithGoogle())
+          .thenAnswer((_) async => MockUserCredential());
       authBloc = AuthBloc(
         authService: mockAuthService,
       );
@@ -45,6 +59,9 @@ void main() {
                     createdAt: DateTime.now(),
                     updatedAt: DateTime.now(),
                   ));
+          when(() => mockAuthService.signInWithEmailAndPassword(
+                  email: any(named: 'email'), password: any(named: 'password')))
+              .thenAnswer((_) async => MockUserCredential());
           return authBloc;
         },
         act: (bloc) => bloc.add(AppStartedEvent()),
@@ -67,6 +84,9 @@ void main() {
         build: () {
           when(() => mockAuthService.getCurrentUserProfile())
               .thenAnswer((_) async => null);
+          when(() => mockAuthService.signInWithEmailAndPassword(
+                  email: any(named: 'email'), password: any(named: 'password')))
+              .thenAnswer((_) async => MockUserCredential());
           return authBloc;
         },
         act: (bloc) => bloc.add(AppStartedEvent()),
@@ -91,6 +111,12 @@ void main() {
                     createdAt: DateTime.now(),
                     updatedAt: DateTime.now(),
                   ));
+          when(() => mockAuthService.signUpWithEmailAndPassword(
+                  email: any(named: 'email'),
+                  password: any(named: 'password'),
+                  name: any(named: 'name'),
+                  userType: any(named: 'userType')))
+              .thenAnswer((_) async => MockUserCredential());
           return authBloc;
         },
         act: (bloc) => bloc.add(const SignInEvent(
@@ -116,6 +142,12 @@ void main() {
         build: () {
           when(() => mockAuthService.getCurrentUserProfile())
               .thenAnswer((_) async => null);
+          when(() => mockAuthService.signUpWithEmailAndPassword(
+                  email: any(named: 'email'),
+                  password: any(named: 'password'),
+                  name: any(named: 'name'),
+                  userType: any(named: 'userType')))
+              .thenAnswer((_) async => MockUserCredential());
           return authBloc;
         },
         act: (bloc) => bloc.add(const SignInEvent(
@@ -182,7 +214,7 @@ void main() {
         )),
         expect: () => <AuthState>[
           AuthLoading(),
-          AuthError('User profile not found'),
+          AuthError('User profile not found after sign up'),
         ],
       );
     });
