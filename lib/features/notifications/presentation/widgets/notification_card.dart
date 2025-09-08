@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
 
 import '../../domain/entities/notification_entity.dart';
+import 'notification_helper.dart';
 
 class NotificationCard extends StatelessWidget {
   final NotificationEntity notification;
@@ -89,7 +91,7 @@ class NotificationCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          _formatTimestamp(notification.timestamp),
+                          _formatTimestamp(context, notification.timestamp),
                           style: GoogleFonts.cairo(
                             fontSize: 12,
                             color: const Color(0xFF718096),
@@ -128,7 +130,7 @@ class NotificationCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
-                            notification.type.displayName,
+                            getNotificationTypeDisplayName(context, notification.type),
                             style: GoogleFonts.cairo(
                               fontSize: 10,
                               fontWeight: FontWeight.w500,
@@ -232,20 +234,21 @@ class NotificationCard extends StatelessWidget {
     }
   }
 
-  String _formatTimestamp(DateTime timestamp) {
+  String _formatTimestamp(BuildContext context, DateTime timestamp) {
+    final l10n = AppLocalizations.of(context)!;
     final now = DateTime.now();
     final difference = now.difference(timestamp);
 
     if (difference.inMinutes < 1) {
-      return 'الآن';
+      return l10n.now;
     } else if (difference.inMinutes < 60) {
-      return 'منذ ${difference.inMinutes} دقيقة';
+      return l10n.minutesAgo.replaceAll('{minutes}', difference.inMinutes.toString());
     } else if (difference.inHours < 24) {
-      return 'منذ ${difference.inHours} ساعة';
+      return l10n.hoursAgo.replaceAll('{hours}', difference.inHours.toString());
     } else if (difference.inDays < 7) {
-      return 'منذ ${difference.inDays} يوم';
+      return l10n.daysAgo.replaceAll('{days}', difference.inDays.toString());
     } else {
-      return DateFormat('dd/MM/yyyy', 'ar').format(timestamp);
+      return DateFormat('dd/MM/yyyy', l10n.localeName).format(timestamp);
     }
   }
 }

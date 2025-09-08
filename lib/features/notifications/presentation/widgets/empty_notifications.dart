@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-
+import 'package:fix_it/l10n/app_localizations.dart';
 
 class EmptyNotifications extends StatelessWidget {
   final bool hasFilter;
@@ -16,6 +15,7 @@ class EmptyNotifications extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Center(
       child: Padding(
@@ -42,7 +42,7 @@ class EmptyNotifications extends StatelessWidget {
 
             // Title
             Text(
-              hasFilter ? 'لا توجد إشعارات مطابقة' : 'لا توجد إشعارات',
+              hasFilter ? l10n.noMatchingNotifications : l10n.noNotifications,
               style: GoogleFonts.cairo(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -55,9 +55,9 @@ class EmptyNotifications extends StatelessWidget {
 
             // Subtitle
             Text(
-              hasFilter 
-                  ? 'لم نجد أي إشعارات تطابق الفلتر المحدد'
-                  : 'ستظهر هنا جميع إشعاراتك عند وصولها',
+              hasFilter
+                  ? l10n.noNotificationsFoundForFilter
+                  : l10n.allYourNotificationsWillAppearHere,
               style: GoogleFonts.cairo(
                 fontSize: 16,
                 color: const Color(0xFF718096),
@@ -74,7 +74,7 @@ class EmptyNotifications extends StatelessWidget {
                 onPressed: onClearFilter,
                 icon: const Icon(Icons.clear),
                 label: Text(
-                  'إزالة الفلتر',
+                  l10n.removeFilter,
                   style: GoogleFonts.cairo(
                     fontWeight: FontWeight.w600,
                   ),
@@ -111,7 +111,7 @@ class EmptyNotifications extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      'ستتلقى إشعارات حول حجوزاتك وعروضنا الخاصة',
+                      l10n.notificationsHint,
                       style: GoogleFonts.cairo(
                         fontSize: 12,
                         color: theme.primaryColor,

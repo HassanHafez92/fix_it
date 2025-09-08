@@ -67,21 +67,6 @@ enum ContactType {
 }
 
 extension ContactTypeExtension on ContactType {
-  String get displayName {
-    switch (this) {
-      case ContactType.email:
-        return 'البريد الإلكتروني';
-      case ContactType.phone:
-        return 'الهاتف';
-      case ContactType.whatsapp:
-        return 'واتساب';
-      case ContactType.website:
-        return 'الموقع الإلكتروني';
-      case ContactType.social:
-        return 'وسائل التواصل';
-    }
-  }
-
   String get iconName {
     switch (this) {
       case ContactType.email:

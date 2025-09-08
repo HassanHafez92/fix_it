@@ -8,6 +8,7 @@ import 'package:fix_it/core/utils/bloc_utils.dart';
 import '../bloc/client_sign_up/client_sign_up_bloc.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
 
 class ClientSignUpScreen extends StatefulWidget {
   const ClientSignUpScreen({super.key});
@@ -40,6 +41,7 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -51,7 +53,7 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'إنشاء حساب عميل',
+          l10n.createClientAccount,
           style: GoogleFonts.cairo(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -106,7 +108,7 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
                         ),
                         const SizedBox(height: 24),
                         Text(
-                          'أهلاً بك كعميل',
+                          l10n.welcomeClient,
                           style: GoogleFonts.cairo(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -115,7 +117,7 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'املأ البيانات التالية لإنشاء حسابك',
+                          l10n.fillYourInfo,
                           style: GoogleFonts.cairo(
                             fontSize: 16,
                             color: const Color(0xFF718096),
@@ -130,8 +132,8 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
                     // Form fields
                     CustomTextField(
                       controller: _nameController,
-                      label: 'الاسم الكامل',
-                      hintText: 'أدخل اسمك الكامل',
+                      label: l10n.fullName,
+                      hintText: l10n.enterYourFullName,
                       keyboardType: TextInputType.name,
                       prefixIcon: Icons.person_outline,
                       validator: Validators.validateName,
@@ -141,8 +143,8 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
 
                     CustomTextField(
                       controller: _emailController,
-                      label: 'البريد الإلكتروني',
-                      hintText: 'أدخل بريدك الإلكتروني',
+                      label: l10n.emailLabel,
+                      hintText: l10n.emailHint,
                       keyboardType: TextInputType.emailAddress,
                       prefixIcon: Icons.email_outlined,
                       validator: Validators.validateEmail,
@@ -152,8 +154,8 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
 
                     CustomTextField(
                       controller: _phoneController,
-                      label: 'رقم الهاتف',
-                      hintText: 'أدخل رقم هاتفك',
+                      label: l10n.phoneNumber,
+                      hintText: l10n.enterYourPhoneNumber,
                       keyboardType: TextInputType.phone,
                       prefixIcon: Icons.phone_outlined,
                       validator: Validators.validatePhone,
@@ -163,8 +165,8 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
 
                     CustomTextField(
                       controller: _passwordController,
-                      label: 'كلمة المرور',
-                      hintText: 'أدخل كلمة المرور',
+                      label: l10n.passwordLabel,
+                      hintText: l10n.passwordHint,
                       prefixIcon: Icons.lock_outline,
                       obscureText: _obscurePassword,
                       suffixIcon: IconButton(
@@ -187,8 +189,8 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
 
                     CustomTextField(
                       controller: _confirmPasswordController,
-                      label: 'تأكيد كلمة المرور',
-                      hintText: 'أعد إدخال كلمة المرور',
+                      label: l10n.confirmPassword,
+                      hintText: l10n.reEnterYourPassword,
                       prefixIcon: Icons.lock_outline,
                       obscureText: _obscureConfirmPassword,
                       suffixIcon: IconButton(
@@ -206,7 +208,7 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
                       ),
                       validator: (value) {
                         if (value != _passwordController.text) {
-                          return 'كلمة المرور غير متطابقة';
+                          return l10n.passwordsDoNotMatch;
                         }
                         return null;
                       },
@@ -237,14 +239,14 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
                               TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: 'أوافق على ',
+                                    text: l10n.iAgreeTo,
                                     style: GoogleFonts.cairo(
                                       fontSize: 14,
                                       color: const Color(0xFF718096),
                                     ),
                                   ),
                                   TextSpan(
-                                    text: 'الشروط والأحكام',
+                                    text: l10n.termsAndConditions,
                                     style: GoogleFonts.cairo(
                                       fontSize: 14,
                                       color: theme.primaryColor,
@@ -252,14 +254,14 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: ' و ',
+                                    text: l10n.and,
                                     style: GoogleFonts.cairo(
                                       fontSize: 14,
                                       color: const Color(0xFF718096),
                                     ),
                                   ),
                                   TextSpan(
-                                    text: 'سياسة الخصوصية',
+                                    text: l10n.privacyPolicy,
                                     style: GoogleFonts.cairo(
                                       fontSize: 14,
                                       color: theme.primaryColor,
@@ -278,7 +280,7 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
 
                     // Sign up button
                     CustomButton(
-                      text: 'إنشاء الحساب',
+                      text: l10n.createAccount,
                       isLoading: state is ClientSignUpLoading,
                       onPressed: _acceptTerms ? _signUp : null,
                     ),
@@ -290,7 +292,7 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'لديك حساب بالفعل؟ ',
+                          l10n.alreadyHaveAnAccount,
                           style: GoogleFonts.cairo(
                             fontSize: 14,
                             color: const Color(0xFF718096),
@@ -302,7 +304,7 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
                             AppRoutes.signIn,
                           ),
                           child: Text(
-                            'تسجيل الدخول',
+                            l10n.signIn,
                             style: GoogleFonts.cairo(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
