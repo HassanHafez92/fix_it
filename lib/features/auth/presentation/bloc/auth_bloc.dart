@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -80,6 +81,38 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
         emit(AuthAuthenticated(userEntity));
       } else {
+        // Firestore profile was not available. This can happen when Firestore
+        // rules prevent reads (permission-denied). In that case, check the
+        // FirebaseAuth state: if a Firebase user is signed in, treat them as
+        // authenticated (degraded mode) by building a minimal UserEntity from
+        // the Firebase user. This avoids marking the user unauthenticated
+        // simply because Firestore is inaccessible.
+        try {
+          // Attempt to read an authenticated Firebase user from the auth
+          // state stream. If none is available quickly, fall back to null.
+          final fb.User? fbUser = await authService.authStateChanges
+              .firstWhere((u) => u != null, orElse: () => null);
+
+          if (fbUser != null) {
+            final userEntity = UserEntity(
+              id: fbUser.uid,
+              fullName: fbUser.displayName ?? 'User',
+              email: fbUser.email ?? '',
+              phoneNumber: fbUser.phoneNumber,
+              profession: null,
+              userType: 'customer',
+              profilePictureUrl: fbUser.photoURL ?? '',
+              token: null,
+              createdAt: DateTime.now(),
+              updatedAt: DateTime.now(),
+            );
+            emit(AuthAuthenticated(userEntity));
+            return;
+          }
+        } catch (_) {
+          // ignore and fall through to unauthenticated
+        }
+
         emit(AuthUnauthenticated());
       }
     } catch (e) {
@@ -220,8 +253,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             updatedAt: userProfile.updatedAt,
           );
           emit(AuthAuthenticated(userEntity));
+        } else if (userCredential.user != null) {
+          // Firestore profile missing (e.g. permission denied). Build a
+          // minimal authenticated user from the Firebase user so the app can
+          // continue and prompt for profile completion if needed.
+          final fbUser = userCredential.user!;
+          final userEntity = UserEntity(
+            id: fbUser.uid,
+            fullName: fbUser.displayName ?? 'User',
+            email: fbUser.email ?? '',
+            phoneNumber: fbUser.phoneNumber,
+            profession: null,
+            userType: 'customer',
+            profilePictureUrl: fbUser.photoURL ?? '',
+            token: null,
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+          );
+          emit(AuthAuthenticated(userEntity));
         } else {
-          emit(AuthError('User profile not found'));
+          emit(AuthError('Google sign in failed'));
         }
       } else {
         emit(AuthError('Google sign in failed'));
@@ -255,8 +306,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             updatedAt: userProfile.updatedAt,
           );
           emit(AuthAuthenticated(userEntity));
+        } else if (userCredential.user != null) {
+          final fbUser = userCredential.user!;
+          final userEntity = UserEntity(
+            id: fbUser.uid,
+            fullName: fbUser.displayName ?? 'User',
+            email: fbUser.email ?? '',
+            phoneNumber: fbUser.phoneNumber,
+            profession: null,
+            userType: 'customer',
+            profilePictureUrl: fbUser.photoURL ?? '',
+            token: null,
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+          );
+          emit(AuthAuthenticated(userEntity));
         } else {
-          emit(AuthError('User profile not found'));
+          emit(AuthError('Google sign up failed'));
         }
       } else {
         emit(AuthError('Google sign up failed'));
