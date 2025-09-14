@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../domain/entities/provider_entity.dart';
 
@@ -112,8 +112,8 @@ class ProviderCard extends StatelessWidget {
                           ),
                           child: Text(
                             provider.isAvailable
-                                ? AppLocalizations.of(context)!.availableLabel
-                                : AppLocalizations.of(context)!.busyLabel,
+                                ? tr('availableLabel')
+                                : tr('busyLabel'),
                             style: GoogleFonts.cairo(
                               fontSize: 10,
                               color: Colors.white,

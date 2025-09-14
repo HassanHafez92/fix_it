@@ -17,10 +17,32 @@ import '../widgets/booking_form.dart';
 import '../widgets/booking_summary_card.dart';
 import '../../../auth/presentation/widgets/custom_button.dart';
 
+/// CreateBookingScreen
+///
+/// Multi-step screen to create a new booking. It collects date, time,
+/// booking details (address, notes, attachments) and confirms submission.
+///
+/// Business Rules:
+/// - Enforces step progression (date -> time -> details -> confirmation).
+/// - Validates required fields before allowing submission.
+///
+/// Parameters:
+/// - [providerId]: (optional) when provided the screen will load provider-specific
+///   availability for the selected date.
+/// - [serviceId]: (optional) pre-select a service on entry.
 class CreateBookingScreen extends StatefulWidget {
   final String? providerId;
   final String? serviceId;
 
+  /// Creates a [CreateBookingScreen].
+  ///
+  /// Parameters:
+  /// - [providerId]: (optional) when provided the screen will load provider-specific availability for the selected date and prefill provider-related fields.
+  /// - [serviceId]: (optional) pre-selects the specified service in the booking flow.
+  ///
+  /// **Parameter details:**
+  /// - **providerId**: Optional provider identifier used to scope availability queries.
+  /// - **serviceId**: Optional service identifier used to pre-select a service in the flow.
   const CreateBookingScreen({
     super.key,
     this.providerId,
@@ -31,6 +53,11 @@ class CreateBookingScreen extends StatefulWidget {
   State<CreateBookingScreen> createState() => _CreateBookingScreenState();
 }
 
+/// State for [CreateBookingScreen].
+///
+/// Business Rules:
+/// - Maintains transient booking form state; this state is not persisted.
+/// - Responsible for orchestrating step changes and invoking bloc events.
 class _CreateBookingScreenState extends State<CreateBookingScreen> {
   // convenience alias to service locator
   GetIt get sl => di.sl;

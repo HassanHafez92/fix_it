@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -64,8 +64,8 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
           children: [
             Text(
               selectedCategory != null
-                  ? '${selectedCategory!} ${AppLocalizations.of(context)!.providers}'
-                  : AppLocalizations.of(context)!.serviceProviders,
+                  ? '${selectedCategory!} ${tr('providers')}'
+                  : tr('serviceProviders'),
               style: GoogleFonts.cairo(
                 color: theme.primaryColor,
                 fontWeight: FontWeight.bold,
@@ -133,9 +133,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content: Text(AppLocalizations.of(context)!
-                              .oopsSomethingWrong)),
+                      SnackBar(content: Text(tr('oopsSomethingWrong'))),
                     );
                     setState(() {
                       showNearbyOnly = false;
@@ -189,7 +187,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
         onPressed: () {
           _showFilterBottomSheet(context);
         },
-        label: Text(AppLocalizations.of(context)!.filters),
+        label: Text(tr('filters')),
         icon: const Icon(Icons.tune),
         backgroundColor: theme.primaryColor,
       ),
@@ -209,7 +207,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              AppLocalizations.of(context)!.noProvidersFound,
+              tr('noProvidersFound'),
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 color: Colors.grey[600],
@@ -217,7 +215,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              AppLocalizations.of(context)!.tryAdjustingFilters,
+              tr('tryAdjustingFilters'),
               style: GoogleFonts.cairo(
                 fontSize: 14,
                 color: Colors.grey[500],
@@ -268,7 +266,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: _loadProviders,
-            child: Text(AppLocalizations.of(context)!.retry),
+            child: Text(tr('retry')),
           ),
         ],
       ),
@@ -287,7 +285,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            AppLocalizations.of(context)!.serviceProviders,
+            tr('serviceProviders'),
             style: GoogleFonts.cairo(
               fontSize: 18,
               color: Colors.grey[600],
@@ -295,7 +293,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            AppLocalizations.of(context)!.useSearchBarToFindProviders,
+            tr('useSearchBarToFindProviders'),
             style: GoogleFonts.cairo(
               fontSize: 14,
               color: Colors.grey[500],
@@ -339,8 +337,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
         child: InputChip(
           label: Row(mainAxisSize: MainAxisSize.min, children: [
             const Icon(Icons.star, size: 14, color: Colors.amber),
-            Text(
-                ' ${_selectedMinRating!}${AppLocalizations.of(context)!.plusSign}')
+            Text(' ${_selectedMinRating!}${tr('plusSign')}')
           ]),
           backgroundColor: Colors.amber.shade50,
           onDeleted: () {
@@ -494,7 +491,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
                       Navigator.pop(context);
                       _loadProviders();
                     },
-                    child: Text(AppLocalizations.of(context)!.reset),
+                    child: Text(tr('reset')),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -511,7 +508,7 @@ class _ProvidersScreenState extends State<ProvidersScreen> {
                           ));
                       Navigator.pop(context);
                     },
-                    child: Text(AppLocalizations.of(context)!.apply),
+                    child: Text(tr('apply')),
                   ),
                 ),
               ],

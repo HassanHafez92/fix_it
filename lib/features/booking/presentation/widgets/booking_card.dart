@@ -12,6 +12,14 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../domain/entities/booking_entity.dart';
 import 'booking_status_badge.dart';
 
+/// BookingCard
+///
+/// A compact representation of a booking used in lists. Shows service,
+/// provider, schedule, price and contextual action buttons based on status.
+///
+/// Business Rules:
+/// - Actions presented depend on [BookingStatus] (cancel, modify, review, track).
+/// - Cancellation requires a reason and is forwarded via [onCancel].
 class BookingCard extends StatelessWidget {
   final BookingEntity booking;
   final VoidCallback? onTap;

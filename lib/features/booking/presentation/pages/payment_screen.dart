@@ -6,6 +6,13 @@ import 'package:fix_it/core/utils/bloc_utils.dart';
 
 import 'package:fix_it/features/booking/presentation/widgets/payment_method_card.dart';
 
+/// PaymentScreen
+///
+/// Handles payment for a booking, lists available payment methods and
+/// initiates the payment process for the provided booking and amount.
+///
+/// Business Rules:
+/// - Only enabled when a payment method is selected.
 class PaymentScreen extends StatefulWidget {
   final String bookingId;
   final double amount;

@@ -3,6 +3,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../domain/entities/review_entity.dart';
 
+/// ProviderReviewsSection
+///
+/// Renders the list of reviews for a provider, including loading, empty and
+/// error states. Each review shows reviewer initials, rating and comment.
+///
+/// Business Rules:
+/// - When [isLoadingReviews] is true a loading indicator is shown.
+/// - When [reviewsError] is non-null the error widget is shown instead of list.
+/// - The [reviews] list is expected to be filtered and sorted by the caller.
 class ProviderReviewsSection extends StatelessWidget {
   final String providerId;
   final List<ReviewEntity> reviews;

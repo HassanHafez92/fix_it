@@ -31,6 +31,25 @@ import '../../../auth/presentation/widgets/custom_button.dart';
 /// - Describe common error conditions and how they are handled.
 /// BookingDetailsScreen
 ///
+/// Shows the detailed view for a single booking. The screen listens to the
+/// `BookingsBloc` for booking details updates and renders the booking's service,
+/// provider, schedule, location, attachments, and action buttons.
+///
+/// Business Rules:
+/// - Always fetch booking details using `GetBookingDetailsEvent` on load.
+/// - Show contextual action buttons depending on booking status (e.g. cancel,
+///   reschedule, confirm completion).
+/// - Prevent usage of BuildContext across async gaps where noted in the code.
+///
+/// Dependencies:
+/// - Expects `BookingsBloc` to be available in the widget tree (inherited via
+///   a parent provider or injected before navigation).
+///
+/// Error scenarios:
+/// - Displays an error widget when booking details fail to load. Snackbars are
+///   used to surface transient errors for actions (e.g. network failures).
+/// BookingDetailsScreen
+///
 /// Business rules:
 /// - Describe the business rules that this class enforces.
 ///

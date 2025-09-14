@@ -10,6 +10,20 @@ import '../../../../core/utils/bloc_utils.dart';
 import '../widgets/booking_card.dart';
 import '../widgets/booking_status_filter.dart';
 
+/// BookingsScreen
+///
+/// Displays the current user's bookings with status filtering and
+/// navigation to booking details or booking creation.
+///
+/// Business Rules:
+/// - Loads user bookings on init via the BookingsBloc.
+/// - Provides a status filter that narrows the displayed bookings.
+/// - Navigates to booking details when a booking item is tapped.
+///
+/// Example:
+/// ```dart
+/// BookingsScreen();
+/// ```
 class BookingsScreen extends StatefulWidget {
   const BookingsScreen({super.key});
 

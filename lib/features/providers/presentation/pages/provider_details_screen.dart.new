@@ -49,19 +49,21 @@ class _ProviderDetailsScreenState extends State<ProviderDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // ProviderDetailsBloc is expected to be provided higher in the tree.
-    return Scaffold(
-      body: BlocBuilder<ProviderDetailsBloc, ProviderDetailsState>(
-        builder: (context, state) {
-          if (state is ProviderDetailsLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is ProviderDetailsLoaded) {
-            return _buildProviderDetails(context, state);
-          } else if (state is ProviderDetailsError) {
-            return _buildErrorWidget(context, state.message);
-          }
-          return const SizedBox();
-        },
+    return BlocProvider(
+      create: (context) => context.read<ProviderDetailsBloc>(),
+      child: Scaffold(
+        body: BlocBuilder<ProviderDetailsBloc, ProviderDetailsState>(
+          builder: (context, state) {
+            if (state is ProviderDetailsLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is ProviderDetailsLoaded) {
+              return _buildProviderDetails(context, state);
+            } else if (state is ProviderDetailsError) {
+              return _buildErrorWidget(context, state.message);
+            }
+            return const SizedBox();
+          },
+        ),
       ),
     );
   }
@@ -69,12 +71,15 @@ class _ProviderDetailsScreenState extends State<ProviderDetailsScreen> {
   Widget _buildProviderDetails(
       BuildContext context, ProviderDetailsLoaded state) {
     final provider = state.provider;
+    final theme = Theme.of(context);
 
     return CustomScrollView(
       slivers: [
+        // Provider Header
         SliverAppBar(
           expandedHeight: 300,
           pinned: true,
+          backgroundColor: theme.primaryColor,
           flexibleSpace: FlexibleSpaceBar(
             background: Stack(
               fit: StackFit.expand,
@@ -99,7 +104,7 @@ class _ProviderDetailsScreenState extends State<ProviderDetailsScreen> {
                       end: Alignment.bottomCenter,
                       colors: [
                         Colors.transparent,
-                        Colors.black.withOpacity(0.7)
+                        Colors.black.withOpacity(0.7),
                       ],
                     ),
                   ),
@@ -221,8 +226,7 @@ class _ProviderDetailsScreenState extends State<ProviderDetailsScreen> {
                 final errorText = tr('oopsSomethingWrong');
                 try {
                   final uri = Uri.base;
-                  final shareUrl =
-                      uri.resolve('/provider/${provider.id}').toString();
+                  final shareUrl = uri.resolve('/provider/${provider.id}').toString();
                   final buffer = StringBuffer()
                     ..writeln(provider.name)
                     ..writeln()
@@ -242,26 +246,41 @@ class _ProviderDetailsScreenState extends State<ProviderDetailsScreen> {
             ),
           ],
         ),
+
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Provider Info Card
                 ProviderInfoCard(provider: provider),
+
                 const SizedBox(height: 16),
+
+                // Services Card
                 ProviderServicesCard(services: provider.services),
+
                 const SizedBox(height: 16),
+
+                // About Section
                 _buildAboutSection(provider),
+
                 const SizedBox(height: 16),
+
+                // Reviews Section
                 ProviderReviewsSection(
                   providerId: provider.id,
                   reviews: state.reviews ?? [],
                   isLoadingReviews: state.isLoadingReviews,
                   reviewsError: state.reviewsError,
                 ),
+
                 const SizedBox(height: 24),
+
+                // Action Buttons
                 _buildActionButtons(context, provider),
+
                 const SizedBox(height: 16),
               ],
             ),

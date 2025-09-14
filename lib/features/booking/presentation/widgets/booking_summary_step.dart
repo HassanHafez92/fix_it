@@ -4,6 +4,18 @@ import 'package:fix_it/core/theme/app_theme.dart';
 import 'package:fix_it/features/booking/presentation/bloc/booking_bloc/booking_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+/// BookingSummaryStep
+///
+/// UI step (used in the booking flow) that renders a read-only summary of the
+/// booking prior to confirmation. Displays selected service, provider, date,
+/// and payment method.
+///
+/// Business Rules:
+/// - Shows a read-only snapshot of the booking and does not mutate state.
+/// - Requires that booking selection steps have completed earlier in the flow.
+///
+/// Parameters:
+/// - [onNext]: callback invoked when the user confirms and proceeds to submission.
 class BookingSummaryStep extends StatelessWidget {
   final VoidCallback onNext;
 

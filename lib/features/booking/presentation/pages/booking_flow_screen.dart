@@ -11,6 +11,13 @@ import 'package:fix_it/features/booking/presentation/widgets/address_selection_s
 import 'package:fix_it/features/booking/presentation/widgets/payment_selection_step.dart';
 import 'package:fix_it/features/booking/presentation/widgets/booking_summary_step.dart';
 
+/// BookingFlowScreen
+///
+/// Drives the multi-step booking flow (service, date/time, address, payment,
+/// confirmation). Hosts the step indicator and coordinates step navigation.
+///
+/// Business Rules:
+/// - Enforces step order and preserves partial state while navigating.
 class BookingFlowScreen extends StatefulWidget {
   final String? providerId;
   final String? serviceId;
@@ -38,11 +45,11 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
     // first frame to ensure provider availability.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.providerId != null) {
-        safeAddEvent<BookingBloc>(context,
-            StartBookingEvent(providerId: widget.providerId!));
+        safeAddEvent<BookingBloc>(
+            context, StartBookingEvent(providerId: widget.providerId!));
       } else if (widget.serviceId != null) {
-        safeAddEvent<BookingBloc>(context,
-            StartBookingEvent(serviceId: widget.serviceId!));
+        safeAddEvent<BookingBloc>(
+            context, StartBookingEvent(serviceId: widget.serviceId!));
       }
     });
   }
@@ -196,7 +203,7 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
                         return ElevatedButton(
                           onPressed: _currentStep < 4
                               ? _nextStep
-                                  : () {
+                              : () {
                                   safeAddEvent<BookingBloc>(
                                     context,
                                     ConfirmBookingEvent(),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
 import 'package:fix_it/core/theme/app_theme.dart';
 import 'package:fix_it/features/providers/presentation/bloc/provider_availability_bloc/provider_availability_bloc.dart';
 import 'package:fix_it/core/utils/bloc_utils.dart';
@@ -46,23 +45,21 @@ class _ProviderAvailabilityScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.serviceDetails),
+        title: Text(tr('serviceDetails')),
       ),
       body: BlocListener<ProviderAvailabilityBloc, ProviderAvailabilityState>(
         listener: (context, state) {
           if (state is ProviderAvailabilityError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(
-                    '${AppLocalizations.of(context)!.oopsSomethingWrong}: ${state.message}'),
+                content: Text('${tr('oopsSomethingWrong')}: ${state.message}'),
                 backgroundColor: Colors.red,
               ),
             );
           } else if (state is BookingRequested) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content:
-                    Text(AppLocalizations.of(context)!.settingsUpdatedSuccess),
+                content: Text(tr('settingsUpdatedSuccess')),
                 backgroundColor: Colors.green,
               ),
             );
@@ -90,17 +87,17 @@ class _ProviderAvailabilityScreenState
                       onPressed: () {
                         safeAddEvent<ProviderAvailabilityBloc>(
                           context,
-                          LoadProviderAvailabilityEvent(providerId: widget.providerId),
+                          LoadProviderAvailabilityEvent(
+                              providerId: widget.providerId),
                         );
                       },
-                      child: Text(AppLocalizations.of(context)!.tryAgain),
+                      child: Text(tr('tryAgain')),
                     ),
                   ],
                 ),
               );
             }
-            return Center(
-                child: Text(AppLocalizations.of(context)!.somethingWentWrong));
+            return Center(child: Text(tr('somethingWentWrong')));
           },
         ),
       ),
@@ -227,7 +224,7 @@ class _ProviderAvailabilityScreenState
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    AppLocalizations.of(context)!.availableTimeSlotsTitle,
+                    tr('availableTimeSlotsTitle'),
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -300,7 +297,7 @@ class _ProviderAvailabilityScreenState
                         )
                       : Center(
                           child: Text(
-                            AppLocalizations.of(context)!.noAvailableTimeSlots,
+                            tr('noAvailableTimeSlots'),
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.grey,
@@ -326,7 +323,7 @@ class _ProviderAvailabilityScreenState
                           ),
                         ),
                         child: Text(
-                          AppLocalizations.of(context)!.bookNow,
+                          tr('bookNow'),
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -342,7 +339,7 @@ class _ProviderAvailabilityScreenState
           Expanded(
             child: Center(
               child: Text(
-                AppLocalizations.of(context)!.selectDateToViewSlots,
+                tr('selectDateToViewSlots'),
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey,
@@ -368,19 +365,19 @@ class _ProviderAvailabilityScreenState
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.bookNow),
+        title: Text(tr('bookNow')),
         content: Text(
-          AppLocalizations.of(context)!.confirmBookingQuestion(
-            DateFormat.yMMMd().format(selectedDateTime),
-            DateFormat.jm().format(selectedDateTime),
-          ),
+          tr('confirmBookingQuestion', namedArgs: {
+            'date': DateFormat.yMMMd().format(selectedDateTime),
+            'time': DateFormat.jm().format(selectedDateTime),
+          }),
         ),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(tr('cancel')),
           ),
           ElevatedButton(
             onPressed: () {
@@ -393,7 +390,7 @@ class _ProviderAvailabilityScreenState
                 ),
               );
             },
-            child: Text(AppLocalizations.of(context)!.apply),
+            child: Text(tr('apply')),
           ),
         ],
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProviderFilterBar extends StatelessWidget {
   final String? selectedCategory;
@@ -36,7 +36,7 @@ class ProviderFilterBar extends StatelessWidget {
               children: [
                 _buildCategoryChip(
                   context: context,
-                  label: AppLocalizations.of(context)!.allServices,
+                  label: tr('allServices'),
                   value: null,
                   isSelected: selectedCategory == null,
                 ),
@@ -114,7 +114,7 @@ class ProviderFilterBar extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          AppLocalizations.of(context)!.nearby,
+                          tr('nearby'),
                           style: GoogleFonts.cairo(
                             fontSize: 12,
                             color: showNearbyOnly
@@ -151,7 +151,7 @@ class ProviderFilterBar extends StatelessWidget {
                       children: [
                         Icon(Icons.sort, size: 16, color: Colors.grey[600]),
                         const SizedBox(width: 4),
-                        Text(AppLocalizations.of(context)!.sort,
+                        Text(tr('sort'),
                             style: GoogleFonts.cairo(
                                 fontSize: 12,
                                 color: Colors.grey[600],
@@ -188,7 +188,7 @@ class ProviderFilterBar extends StatelessWidget {
                         Icon(Icons.tune, size: 16, color: Colors.grey[600]),
                         const SizedBox(width: 4),
                         Text(
-                          AppLocalizations.of(context)!.filters,
+                          tr('filters'),
                           style: GoogleFonts.cairo(
                             fontSize: 12,
                             color: Colors.grey[600],
@@ -255,20 +255,17 @@ class ProviderFilterBar extends StatelessWidget {
         children: [
           ListTile(
             leading: const Icon(Icons.route),
-            title: Text(AppLocalizations.of(context)!.distance,
-                style: GoogleFonts.cairo()),
+            title: Text(tr('distance'), style: GoogleFonts.cairo()),
             onTap: () => Navigator.pop(ctx, 'distance'),
           ),
           ListTile(
             leading: const Icon(Icons.star),
-            title: Text(AppLocalizations.of(context)!.rating,
-                style: GoogleFonts.cairo()),
+            title: Text(tr('rating'), style: GoogleFonts.cairo()),
             onTap: () => Navigator.pop(ctx, 'rating'),
           ),
           ListTile(
             leading: const Icon(Icons.attach_money),
-            title: Text(AppLocalizations.of(context)!.price,
-                style: GoogleFonts.cairo()),
+            title: Text(tr('price'), style: GoogleFonts.cairo()),
             onTap: () => Navigator.pop(ctx, 'price'),
           ),
         ],
@@ -285,31 +282,28 @@ class ProviderFilterBar extends StatelessWidget {
     final result = await showDialog<_RatingPriceResult>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.filters,
-            style: GoogleFonts.cairo()),
+        title: Text(tr('filters'), style: GoogleFonts.cairo()),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               controller: minRatingController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  labelText:
-                      '${AppLocalizations.of(context)!.min} rating (1..5)'),
+              decoration:
+                  InputDecoration(labelText: '${tr('min')} rating (1..5)'),
             ),
             TextField(
               controller: maxPriceController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  labelText:
-                      '${AppLocalizations.of(context)!.max} ${AppLocalizations.of(context)!.price}'),
+              decoration:
+                  InputDecoration(labelText: '${tr('max')} ${tr('price')}'),
             ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(tr('cancel')),
           ),
           ElevatedButton(
             onPressed: () {
@@ -322,7 +316,7 @@ class ProviderFilterBar extends StatelessWidget {
                 _RatingPriceResult(minRating: minRating, maxPrice: maxPrice),
               );
             },
-            child: Text(AppLocalizations.of(context)!.apply),
+            child: Text(tr('apply')),
           )
         ],
       ),

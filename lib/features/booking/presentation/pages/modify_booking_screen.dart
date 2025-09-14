@@ -9,6 +9,13 @@ import '../../domain/usecases/get_booking_details_usecase.dart';
 import '../../domain/usecases/get_available_time_slots_usecase.dart';
 import '../../domain/usecases/reschedule_booking_usecase.dart';
 
+/// ModifyBookingScreen
+///
+/// Screen used to reschedule or modify an existing booking. Loads booking
+/// details and enables selection of a new date/time and address.
+///
+/// Business Rules:
+/// - Prevents scheduling to past dates and validates available time slots.
 class ModifyBookingScreen extends StatefulWidget {
   final String bookingId;
 

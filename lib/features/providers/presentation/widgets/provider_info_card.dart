@@ -3,6 +3,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../domain/entities/provider_entity.dart';
 
+/// ProviderInfoCard
+///
+/// Displays contact information for a provider (phone, email, location).
+/// Used inside provider profile/details screens.
+///
+/// Business Rules:
+/// - All displayed contact fields are read-only.
+/// - Expects [ProviderEntity] to contain valid phone/email strings; display
+///   falls back to empty values if missing.
 class ProviderInfoCard extends StatelessWidget {
   final ProviderEntity provider;
 

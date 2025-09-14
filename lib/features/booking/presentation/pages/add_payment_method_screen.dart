@@ -4,6 +4,13 @@ import 'package:fix_it/core/utils/bloc_utils.dart';
 import 'package:fix_it/core/theme/app_theme.dart';
 import 'package:fix_it/features/booking/presentation/bloc/payment_bloc/payment_bloc.dart';
 
+/// AddPaymentMethodScreen
+///
+/// Small form screen to add a payment method for the current user.
+///
+/// Business Rules:
+/// - Validates card details and returns to the caller on success.
+/// - Supports default payment selection.
 class AddPaymentMethodScreen extends StatefulWidget {
   const AddPaymentMethodScreen({super.key});
 

@@ -7,7 +7,7 @@ import 'package:fix_it/core/utils/bloc_utils.dart';
 import 'package:fix_it/features/providers/domain/entities/provider_entity.dart';
 
 import 'package:fix_it/features/providers/presentation/widgets/provider_card.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProviderSearchScreen extends StatefulWidget {
   final String? serviceId;
@@ -69,7 +69,7 @@ class _ProviderSearchScreenState extends State<ProviderSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.providers),
+        title: Text(tr('providers')),
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list),
@@ -86,8 +86,7 @@ class _ProviderSearchScreenState extends State<ProviderSearchScreen> {
           if (state is ProviderSearchError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(
-                    '${AppLocalizations.of(context)!.oopsSomethingWrong}: ${state.message}'),
+                content: Text('${tr('oopsSomethingWrong')}: ${state.message}'),
                 backgroundColor: Colors.red,
               ),
             );
@@ -144,23 +143,19 @@ class _ProviderSearchScreenState extends State<ProviderSearchScreen> {
                           items: [
                             DropdownMenuItem(
                               value: 'rating',
-                              child: Text(
-                                  '${AppLocalizations.of(context)!.sort} by ${AppLocalizations.of(context)!.rating}'),
+                              child: Text('${tr('sort')} by ${tr('rating')}'),
                             ),
                             DropdownMenuItem(
                               value: 'price_low',
-                              child: Text(
-                                  '${AppLocalizations.of(context)!.price}: Low to High'),
+                              child: Text('${tr('price')}: Low to High'),
                             ),
                             DropdownMenuItem(
                               value: 'price_high',
-                              child: Text(
-                                  '${AppLocalizations.of(context)!.price}: High to Low'),
+                              child: Text('${tr('price')}: High to Low'),
                             ),
                             DropdownMenuItem(
                               value: 'distance',
-                              child:
-                                  Text(AppLocalizations.of(context)!.distance),
+                              child: Text(tr('distance')),
                             ),
                           ],
                           onChanged: (value) {
@@ -254,8 +249,7 @@ class _ProviderSearchScreenState extends State<ProviderSearchScreen> {
                                 _showFilters = true;
                                 setState(() {});
                               },
-                              child: Text(AppLocalizations.of(context)!
-                                  .tryAdjustingFilters),
+                              child: Text(tr('tryAdjustingFilters')),
                             ),
                           ],
                         ),
@@ -330,15 +324,13 @@ class _ProviderSearchScreenState extends State<ProviderSearchScreen> {
                             onPressed: () {
                               _performSearch();
                             },
-                            child: Text(AppLocalizations.of(context)!.tryAgain),
+                            child: Text(tr('tryAgain')),
                           ),
                         ],
                       ),
                     );
                   }
-                  return Center(
-                      child: Text(
-                          AppLocalizations.of(context)!.somethingWentWrong));
+                  return Center(child: Text(tr('somethingWentWrong')));
                 },
               ),
             ),
@@ -495,7 +487,7 @@ class _ProviderSearchScreenState extends State<ProviderSearchScreen> {
                       _verifiedOnly = false;
                     });
                   },
-                  child: Text(AppLocalizations.of(context)!.reset),
+                  child: Text(tr('reset')),
                 ),
               ),
               const SizedBox(width: 16),
@@ -507,7 +499,7 @@ class _ProviderSearchScreenState extends State<ProviderSearchScreen> {
                     });
                     _performSearch();
                   },
-                  child: Text(AppLocalizations.of(context)!.apply),
+                  child: Text(tr('apply')),
                 ),
               ),
             ],
