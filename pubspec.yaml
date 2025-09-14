@@ -48,6 +48,7 @@ dependencies:
 
   # Utils
   intl: ^0.20.2
+  easy_localization: ^3.0.8
   cached_network_image: ^3.3.0
   dartz: ^0.10.1
 
@@ -110,6 +111,7 @@ flutter:
           weight: 700
 
   assets:
+    - assets/translations/
     - assets/images/cleaning.png
     - assets/images/electrical.png
     - assets/images/location_pin.png

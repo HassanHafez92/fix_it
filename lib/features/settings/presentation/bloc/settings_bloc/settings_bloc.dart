@@ -39,16 +39,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           case 'ar':
             languageDisplay = 'Arabic';
             break;
-          case 'es':
-            languageDisplay = 'Spanish';
-            break;
-          case 'fr':
-            languageDisplay = 'French';
-            break;
-          case 'de':
-            languageDisplay = 'German';
-            break;
-          case 'en':
           default:
             languageDisplay = 'English';
             break;
@@ -85,7 +75,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         await Future.delayed(const Duration(milliseconds: 500));
 
         // Update settings
-        final updatedSettings = Map<String, dynamic>.from(currentState.settings);
+        final updatedSettings =
+            Map<String, dynamic>.from(currentState.settings);
         updatedSettings['pushNotifications'] = event.enabled;
 
         emit(SettingsLoaded(settings: updatedSettings));
@@ -110,7 +101,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         await Future.delayed(const Duration(milliseconds: 500));
 
         // Update settings
-        final updatedSettings = Map<String, dynamic>.from(currentState.settings);
+        final updatedSettings =
+            Map<String, dynamic>.from(currentState.settings);
         updatedSettings['emailNotifications'] = event.enabled;
 
         emit(SettingsLoaded(settings: updatedSettings));
@@ -135,7 +127,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         await Future.delayed(const Duration(milliseconds: 500));
 
         // Update settings
-        final updatedSettings = Map<String, dynamic>.from(currentState.settings);
+        final updatedSettings =
+            Map<String, dynamic>.from(currentState.settings);
         updatedSettings['bookingReminders'] = event.enabled;
 
         emit(SettingsLoaded(settings: updatedSettings));
@@ -160,7 +153,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         await Future.delayed(const Duration(milliseconds: 500));
 
         // Update settings
-        final updatedSettings = Map<String, dynamic>.from(currentState.settings);
+        final updatedSettings =
+            Map<String, dynamic>.from(currentState.settings);
         updatedSettings['locationServices'] = event.enabled;
 
         emit(SettingsLoaded(settings: updatedSettings));
@@ -185,7 +179,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         await Future.delayed(const Duration(milliseconds: 500));
 
         // Update settings
-        final updatedSettings = Map<String, dynamic>.from(currentState.settings);
+        final updatedSettings =
+            Map<String, dynamic>.from(currentState.settings);
         updatedSettings['dataSharing'] = event.enabled;
 
         emit(SettingsLoaded(settings: updatedSettings));
@@ -210,7 +205,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         await Future.delayed(const Duration(milliseconds: 500));
 
         // Update settings
-        final updatedSettings = Map<String, dynamic>.from(currentState.settings);
+        final updatedSettings =
+            Map<String, dynamic>.from(currentState.settings);
         updatedSettings['language'] = event.language;
 
         // Convert language string to Locale and update app locale
@@ -220,15 +216,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           case 'arabic':
             newLocale = const Locale('ar');
             isRTL = true; // Set RTL for Arabic
-            break;
-          case 'spanish':
-            newLocale = const Locale('es', 'ES');
-            break;
-          case 'french':
-            newLocale = const Locale('fr', 'FR');
-            break;
-          case 'german':
-            newLocale = const Locale('de', 'DE');
             break;
           case 'english':
           default:
@@ -261,7 +248,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         await Future.delayed(const Duration(milliseconds: 500));
 
         // Update settings
-        final updatedSettings = Map<String, dynamic>.from(currentState.settings);
+        final updatedSettings =
+            Map<String, dynamic>.from(currentState.settings);
         updatedSettings['currency'] = event.currency;
 
         emit(SettingsLoaded(settings: updatedSettings));

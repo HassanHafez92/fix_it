@@ -40,9 +40,11 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
 
-            // Enable minification and shrinking for release builds
-            isMinifyEnabled = true
-            isShrinkResources = true
+                // Temporarily disable minification and resource shrinking to avoid R8 errors
+                // (restore isMinifyEnabled/isShrinkResources = true after adding correct
+                // ProGuard/R8 rules or required Stripe pushProvisioning dependency)
+                isMinifyEnabled = false
+                isShrinkResources = false
 
             // Use default ProGuard files and custom rules
             proguardFiles(

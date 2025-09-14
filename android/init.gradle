@@ -1,0 +1,10 @@
+
+// This script disables the VS Code Java extension initialization script that is causing issues
+gradle.projectsLoaded {
+    rootProject.allprojects {
+        // Disable any initialization scripts from VS Code Java extension
+        gradle.projectsEvaluated {
+            println "Disabled VS Code Java extension initialization script"
+        }
+    }
+}

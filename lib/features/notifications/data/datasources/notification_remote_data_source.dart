@@ -50,26 +50,34 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
 
   @override
   Future<List<NotificationEntity>> getNotifications(String userId) async {
-    final snap = await _userNotifications(userId)
-        .orderBy('timestamp', descending: true)
-        .get();
-    return snap.docs.map((d) {
-      final data = d.data();
-      return NotificationEntity(
-        id: data['id'] as String? ?? d.id,
-        userId: userId,
-        title: data['title'] as String? ?? '',
-        body: data['body'] as String? ?? '',
-        type: NotificationType.values.firstWhere(
-            (e) => e.toString() == data['type'],
-            orElse: () => NotificationType.general),
-        timestamp:
-            (data['timestamp'] as Timestamp?)?.toDate() ?? DateTime.now(),
-        isRead: data['isRead'] as bool? ?? false,
-        targetData: (data['targetData'] as Map?)?.cast<String, dynamic>(),
-        imageUrl: data['imageUrl'] as String?,
-      );
-    }).toList();
+    try {
+      final snap = await _userNotifications(userId)
+          .orderBy('timestamp', descending: true)
+          .get();
+      return snap.docs.map((d) {
+        final data = d.data();
+        return NotificationEntity(
+          id: data['id'] as String? ?? d.id,
+          userId: userId,
+          title: data['title'] as String? ?? '',
+          body: data['body'] as String? ?? '',
+          type: NotificationType.values.firstWhere(
+              (e) => e.toString() == data['type'],
+              orElse: () => NotificationType.general),
+          timestamp:
+              (data['timestamp'] as Timestamp?)?.toDate() ?? DateTime.now(),
+          isRead: data['isRead'] as bool? ?? false,
+          targetData: (data['targetData'] as Map?)?.cast<String, dynamic>(),
+          imageUrl: data['imageUrl'] as String?,
+        );
+      }).toList();
+    } on FirebaseException catch (e) {
+      // Treat permission-denied as no notifications available in restricted environments.
+      if (e.code == 'permission-denied') {
+        return <NotificationEntity>[];
+      }
+      rethrow;
+    }
   }
 
   @override
@@ -118,9 +126,16 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
 
   @override
   Future<int> getUnreadCount(String userId) async {
-    final snap = await _userNotifications(userId)
-        .where('isRead', isEqualTo: false)
-        .get();
-    return snap.size;
+    try {
+      final snap = await _userNotifications(userId)
+          .where('isRead', isEqualTo: false)
+          .get();
+      return snap.size;
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        return 0;
+      }
+      rethrow;
+    }
   }
 }

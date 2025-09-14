@@ -2,7 +2,9 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,24 +17,66 @@ import 'core/services/location_service.dart';
 import 'core/services/payment_service.dart';
 import 'core/services/analytics_service.dart';
 import 'core/services/notification_service.dart';
+import 'core/services/localization_service.dart';
 import 'app_config.dart';
 import 'features/auth/presentation/pages/welcome_screen.dart';
 import 'features/auth/presentation/widgets/auth_wrapper.dart';
 import 'firebase_options.dart';
 
 // Simple Bloc observer to help debug Bloc events/state changes at runtime
+/// SimpleBlocObserver
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
 class SimpleBlocObserver extends BlocObserver {
+/// onEvent
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
   @override
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
     print('BLOC EVENT: ${bloc.runtimeType} -> $event');
   }
+/// onChange
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
     print('BLOC CHANGE: ${bloc.runtimeType} -> $change');
   }
+/// onTransition
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
@@ -112,8 +156,18 @@ Future<void> main() async {
   print('🚀 Launching Fix It app...');
   // Register a simple global Bloc observer to capture events and state changes
   Bloc.observer = SimpleBlocObserver();
-  // Launch the main application
-  runApp(const FixItApp());
+  // Initialize EasyLocalization
+  await EasyLocalization.ensureInitialized();
+
+  // Launch the main application wrapped with EasyLocalization
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en', 'US'), Locale('ar')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en', 'US'),
+      child: const FixItApp(),
+    ),
+  );
 }
 
 /// Initializes core services required by the application.
@@ -195,9 +249,41 @@ Future<void> _initializeServices() async {
 /// **Routing:**
 /// Uses [AppRoutes.onGenerateRoute] for centralized route management
 /// and starts with [WelcomeScreen] as the initial route.
+/// FixItApp
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+/// FixItApp
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
+
 class FixItApp extends StatelessWidget {
   /// Creates the main Fix It application widget.
   const FixItApp({super.key});
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +304,8 @@ class FixItApp extends StatelessWidget {
           // Check if the locale is Arabic to apply RTL direction
           final isArabic = localeState.locale.languageCode == 'ar';
           // Apply text direction globally based on locale
-          final textDirection = isArabic ? TextDirection.rtl : TextDirection.ltr;
+          final textDirection =
+              isArabic ? ui.TextDirection.rtl : ui.TextDirection.ltr;
 
           return MaterialApp(
             // Application title (used by OS for task switching)
@@ -235,23 +322,24 @@ class FixItApp extends StatelessWidget {
 
             // Internationalization delegates
             // Provides localized text for Material Design components
-            localizationsDelegates: const [
-              AppLocalizations.delegate, // App-specific localizations
-              GlobalMaterialLocalizations
-                  .delegate, // Material Design components
-              GlobalWidgetsLocalizations.delegate, // Basic widget localizations
-              GlobalCupertinoLocalizations.delegate, // iOS-style components
+            // Keep generated AppLocalizations delegate while easy_localization
+            // is being used so existing call sites continue to work.
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              if (EasyLocalization.of(context) != null)
+                ...EasyLocalization.of(context)!.delegates,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
             ],
 
             // Supported locales for the application
             // Supports multiple languages for international users
-            supportedLocales: const [
-              Locale('en', 'US'), // English (United States)
-              Locale('ar'), // Arabic
-           
-            ],
+            supportedLocales: EasyLocalization.of(context)?.supportedLocales ??
+                const [Locale('en', 'US'), Locale('ar')],
 
-            locale: localeState.locale,
+            // Prefer EasyLocalization's locale if available; fall back to Bloc state
+            locale: EasyLocalization.of(context)?.locale ?? localeState.locale,
 
             // Apply text direction based on locale
             localeResolutionCallback: (deviceLocale, supported) {
@@ -269,6 +357,10 @@ class FixItApp extends StatelessWidget {
             // AuthWrapper handles authentication state and navigation
             // Wrap the entire app with Directionality to ensure consistent text direction
             builder: (context, child) {
+              final l10n = AppLocalizations.of(context);
+              if (l10n != null) {
+                LocalizationService().init(l10n);
+              }
               return Directionality(
                 textDirection: textDirection,
                 child: child!,

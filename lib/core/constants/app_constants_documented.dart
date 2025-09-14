@@ -1,3 +1,5 @@
+import 'package:fix_it/core/services/localization_service.dart';
+
 /// Application-wide constants for the Fix It home services app.
 /// 
 /// This class contains all constant values used throughout the application,
@@ -10,6 +12,17 @@
 /// String appName = AppConstants.appName;
 /// Duration animationDuration = AppConstants.shortAnimationDuration;
 /// ```
+/// AppConstants
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
 class AppConstants {
   // Private constructor to prevent instantiation
   AppConstants._();
@@ -165,58 +178,58 @@ class AppConstants {
   /// 
   /// Displayed when an unhandled exception occurs or when the specific
   /// error type cannot be determined.
-  static const String genericErrorMessage = 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.';
+  static String get genericErrorMessage => LocalizationService().l10n.genericErrorMessage;
 
   /// Error message for network connectivity issues
   /// 
   /// Displayed when the device has no internet connection or cannot
   /// reach the server.
-  static const String networkErrorMessage = 'لا يوجد اتصال بالإنترنت. يرجى التحقق من الاتصال والمحاولة مرة أخرى.';
+  static String get networkErrorMessage => LocalizationService().l10n.networkErrorMessage;
 
   /// Error message for server-side errors (5xx HTTP status codes)
   /// 
   /// Displayed when the server encounters an internal error.
-  static const String serverErrorMessage = 'خطأ في الخادم. يرجى المحاولة لاحقاً.';
+  static String get serverErrorMessage => LocalizationService().l10n.serverErrorMessage;
 
   /// Error message for authentication/authorization failures
   /// 
   /// Displayed when the user's session has expired or authentication
   /// credentials are invalid.
-  static const String authErrorMessage = 'انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.';
+  static String get authErrorMessage => LocalizationService().l10n.authErrorMessage;
 
   // ═══════════════════════════════════════════════════════════════════════════
   // Success Messages (Arabic)
   // ═══════════════════════════════════════════════════════════════════════════
 
   /// Success message for user sign-in
-  static const String signInSuccessMessage = 'تم تسجيل الدخول بنجاح';
+  static String get signInSuccessMessage => LocalizationService().l10n.signInSuccessMessage;
 
   /// Success message for user account creation
-  static const String signUpSuccessMessage = 'تم إنشاء الحساب بنجاح';
+  static String get signUpSuccessMessage => LocalizationService().l10n.signUpSuccessMessage;
 
   /// Success message for booking creation
-  static const String bookingCreatedMessage = 'تم إنشاء الحجز بنجاح';
+  static String get bookingCreatedMessage => LocalizationService().l10n.bookingCreatedMessage;
 
   /// Success message for profile updates
-  static const String profileUpdatedMessage = 'تم تحديث الملف الشخصي بنجاح';
+  static String get profileUpdatedMessage => LocalizationService().l10n.profileUpdatedMessage;
 
   // ═══════════════════════════════════════════════════════════════════════════
   // Validation Messages (Arabic)
   // ═══════════════════════════════════════════════════════════════════════════
 
   /// Validation error for invalid email format
-  static const String emailValidationMessage = 'يرجى إدخال بريد إلكتروني صحيح';
+  static String get emailValidationMessage => LocalizationService().l10n.emailValidationMessage;
 
   /// Validation error for weak passwords
   /// 
   /// Displayed when password doesn't meet minimum security requirements.
-  static const String passwordValidationMessage = 'كلمة المرور يجب أن تكون 8 أحرف على الأقل';
+  static String get passwordValidationMessage => LocalizationService().l10n.passwordValidationMessage;
 
   /// Validation error for empty name fields
-  static const String nameValidationMessage = 'يرجى إدخال الاسم';
+  static String get nameValidationMessage => LocalizationService().l10n.nameValidationMessage;
 
   /// Validation error for invalid phone number format
-  static const String phoneValidationMessage = 'يرجى إدخال رقم هاتف صحيح';
+  static String get phoneValidationMessage => LocalizationService().l10n.phoneValidationMessage;
 
   // ═══════════════════════════════════════════════════════════════════════════
   // Regular Expression Patterns

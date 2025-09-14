@@ -22,7 +22,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
     // Defer loading settings until the first frame so ancestor providers
     // (registered by routes or parent widgets) are available in the context.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-  _safeAddEvent(context, LoadSettingsEvent());
+      _safeAddEvent(context, LoadSettingsEvent());
     });
   }
 
@@ -58,7 +58,8 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
               );
             } else if (state is SettingsLanguageChanged) {
               // Update the app locale when language changes
-              safeAddEvent<LocaleBloc>(context, ChangeLocaleEvent(state.locale));
+              safeAddEvent<LocaleBloc>(
+                  context, ChangeLocaleEvent(state.locale));
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
@@ -171,8 +172,8 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         AppLocalizations.of(context)!.emailNotificationsDesc,
                     value: (s['emailNotifications'] as bool?) ?? true,
                     onChanged: (value) {
-                      _safeAddEvent(
-                          context, UpdateEmailNotificationsEvent(enabled: value));
+                      _safeAddEvent(context,
+                          UpdateEmailNotificationsEvent(enabled: value));
                     },
                     isLoading: isLoading,
                   ),
@@ -186,8 +187,8 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         AppLocalizations.of(context)!.bookingRemindersDesc,
                     value: (s['bookingReminders'] as bool?) ?? true,
                     onChanged: (value) {
-                      _safeAddEvent(context,
-                          UpdateBookingRemindersEvent(enabled: value));
+                      _safeAddEvent(
+                          context, UpdateBookingRemindersEvent(enabled: value));
                     },
                     isLoading: isLoading,
                   ),
@@ -225,8 +226,8 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         AppLocalizations.of(context)!.locationServicesDesc,
                     value: (s['locationServices'] as bool?) ?? false,
                     onChanged: (value) {
-                      _safeAddEvent(context,
-                          UpdateLocationServicesEvent(enabled: value));
+                      _safeAddEvent(
+                          context, UpdateLocationServicesEvent(enabled: value));
                     },
                     isLoading: isLoading,
                   ),
@@ -239,8 +240,8 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     subtitle: AppLocalizations.of(context)!.dataSharingDesc,
                     value: (s['dataSharing'] as bool?) ?? false,
                     onChanged: (value) {
-                      _safeAddEvent(context,
-                          UpdateDataSharingEvent(enabled: value));
+                      _safeAddEvent(
+                          context, UpdateDataSharingEvent(enabled: value));
                     },
                     isLoading: isLoading,
                   ),
@@ -276,12 +277,12 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     title: Text(AppLocalizations.of(context)!.language),
                     subtitle: Text((s['language'] as String?) ?? 'English'),
                     trailing: const Icon(Icons.chevron_right),
-          onTap: isLoading
-            ? null
-            : () {
-              _showLanguageSelectionDialog(context,
-                (s['language'] as String?) ?? 'English');
-              },
+                    onTap: isLoading
+                        ? null
+                        : () {
+                            _showLanguageSelectionDialog(context,
+                                (s['language'] as String?) ?? 'English');
+                          },
                   ),
 
                   const Divider(height: 1),
@@ -291,12 +292,12 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     title: Text(AppLocalizations.of(context)!.currency),
                     subtitle: Text((s['currency'] as String?) ?? 'USD'),
                     trailing: const Icon(Icons.chevron_right),
-          onTap: isLoading
-            ? null
-            : () {
-              _showCurrencySelectionDialog(
-                context, (s['currency'] as String?) ?? 'USD');
-              },
+                    onTap: isLoading
+                        ? null
+                        : () {
+                            _showCurrencySelectionDialog(
+                                context, (s['currency'] as String?) ?? 'USD');
+                          },
                   ),
                 ],
               ),
@@ -413,9 +414,6 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
     final languages = [
       AppLocalizations.of(context)!.english,
       AppLocalizations.of(context)!.arabic,
-      AppLocalizations.of(context)!.spanish,
-      AppLocalizations.of(context)!.french,
-      AppLocalizations.of(context)!.german,
     ];
 
     showDialog(
@@ -441,8 +439,8 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     : null,
                 onTap: () {
                   Navigator.pop(context);
-                  _safeAddEvent(context,
-                      UpdateLanguageEvent(language: language));
+                  _safeAddEvent(
+                      context, UpdateLanguageEvent(language: language));
                 },
               );
             },
@@ -464,7 +462,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
     BuildContext context,
     String currentCurrency,
   ) {
-    final currencies = ['USD', 'EUR', 'GBP', 'JPY', 'SAR', 'AED'];
+    final currencies = ['USD', 'SAR'];
 
     showDialog(
       context: context,
@@ -489,7 +487,8 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     : null,
                 onTap: () {
                   Navigator.pop(context);
-                  _safeAddEvent(context, UpdateCurrencyEvent(currency: currency));
+                  _safeAddEvent(
+                      context, UpdateCurrencyEvent(currency: currency));
                 },
               );
             },

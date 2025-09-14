@@ -1,3 +1,4 @@
+import 'package:fix_it/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +10,28 @@ import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
 import 'package:fix_it/core/utils/bloc_utils.dart';
 import 'package:fix_it/core/utils/app_routes.dart';
+/// SignInScreen
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+/// SignInScreen
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
+
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -22,6 +45,16 @@ class _SignInScreenState extends State<SignInScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
+/// dispose
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   void dispose() {
@@ -29,10 +62,21 @@ class _SignInScreenState extends State<SignInScreen> {
     _passwordController.dispose();
     super.dispose();
   }
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -74,7 +118,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                   // Title
                   Text(
-                    'Welcome Back!',
+                    l10n.welcomeBack,
                     style: GoogleFonts.cairo(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -85,7 +129,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   const SizedBox(height: 8),
 
                   Text(
-                    'Sign in to continue to ${AppConstants.appName}',
+                    l10n.signInToContinue(AppConstants.appName),
                     style: GoogleFonts.cairo(
                       fontSize: 16,
                       color: Colors.grey[600],
@@ -97,8 +141,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   // Email Field
                   CustomTextField(
                     controller: _emailController,
-                    label: 'Email',
-                    hintText: 'Enter your email',
+                    label: l10n.emailLabel,
+                    hintText: l10n.emailHint,
                     keyboardType: TextInputType.emailAddress,
                     prefixIcon: Icons.email_outlined,
                     validator: Validators.validateEmail,
@@ -109,8 +153,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   // Password Field
                   CustomTextField(
                     controller: _passwordController,
-                    label: 'Password',
-                    hintText: 'Enter your password',
+                    label: l10n.passwordLabel,
+                    hintText: l10n.passwordHint,
                     obscureText: _obscurePassword,
                     prefixIcon: Icons.lock_outline,
                     suffixIcon: IconButton(
@@ -138,7 +182,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         Navigator.pushNamed(context, AppRoutes.forgotPassword);
                       },
                       child: Text(
-                        'Forgot Password?',
+                        l10n.forgotPassword,
                         style: GoogleFonts.cairo(
                           color: theme.primaryColor,
                           fontWeight: FontWeight.w600,
@@ -153,7 +197,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   BlocBuilder<AuthBloc, AuthState>(
                     builder: (context, state) {
                       return CustomButton(
-                        text: 'Sign In',
+                        text: l10n.signIn,
                         isLoading: state is AuthLoading,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
@@ -179,7 +223,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          'OR',
+                          l10n.or,
                           style: GoogleFonts.cairo(
                             color: Colors.grey[600],
                             fontSize: 14,
@@ -194,7 +238,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                   // Social / Phone Sign In Buttons
                   CustomButton(
-                    text: 'Continue with Google',
+                    text: l10n.continueWithGoogle,
                     onPressed: () {
                       safeAddEvent<AuthBloc>(context, SignInWithGoogleEvent());
                     },
@@ -206,7 +250,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                   const SizedBox(height: 12),
                   CustomButton(
-                    text: 'تسجيل الدخول برقم الهاتف (مصر)',
+                    text: l10n.signInWithPhone,
                     onPressed: () {
                       Navigator.pushNamed(context, AppRoutes.phoneSignIn);
                     },
@@ -223,7 +267,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Don\'t have an account? ',
+                        l10n.dontHaveAnAccount,
                         style: GoogleFonts.cairo(
                           color: Colors.grey[600],
                         ),
@@ -233,7 +277,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           Navigator.pushReplacementNamed(context, '/sign-up');
                         },
                         child: Text(
-                          'Sign Up',
+                          l10n.signUp,
                           style: GoogleFonts.cairo(
                             color: theme.primaryColor,
                             fontWeight: FontWeight.w600,

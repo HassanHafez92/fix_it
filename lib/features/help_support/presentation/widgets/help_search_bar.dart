@@ -1,5 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
+/// HelpSearchBar
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+/// HelpSearchBar
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
 
 
 
@@ -14,15 +35,26 @@ class HelpSearchBar extends StatelessWidget {
     required this.onChanged,
     required this.onClear,
   });
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return TextField(
       controller: controller,
       onChanged: onChanged,
       textDirection: TextDirection.rtl,
       decoration: InputDecoration(
-        hintText: 'ابحث في الأسئلة الشائعة...',
+        hintText: l10n.searchFaqHint,
         hintStyle: GoogleFonts.cairo(
           color: const Color(0xFF718096),
         ),

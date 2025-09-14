@@ -1,8 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:fix_it/l10n/app_localizations.dart';
 
 import '../../domain/entities/faq_entity.dart';
+/// FAQSection
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+/// FAQSection
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
+
 
 class FAQSection extends StatefulWidget {
   final List<FAQEntity> faqs;
@@ -20,9 +42,20 @@ class FAQSection extends StatefulWidget {
 
 class _FAQSectionState extends State<FAQSection> {
   List<FAQEntity> expandedFaqs = [];
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (widget.faqs.isEmpty) {
       return Container(
         padding: const EdgeInsets.all(32),
@@ -35,7 +68,7 @@ class _FAQSectionState extends State<FAQSection> {
             ),
             const SizedBox(height: 16),
             Text(
-              'لم نجد أي نتائج',
+              l10n.noResultsFound,
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -44,7 +77,7 @@ class _FAQSectionState extends State<FAQSection> {
             ),
             const SizedBox(height: 8),
             Text(
-              'جرب البحث بكلمات مختلفة',
+              l10n.tryDifferentKeywords,
               style: GoogleFonts.cairo(
                 fontSize: 14,
                 color: const Color(0xFF718096),
@@ -60,7 +93,7 @@ class _FAQSectionState extends State<FAQSection> {
       children: [
         if (widget.searchQuery.isNotEmpty) ...[
           Text(
-            'نتائج البحث (${widget.faqs.length})',
+            l10n.searchResultsCount(widget.faqs.length.toString()),
             style: GoogleFonts.cairo(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -69,13 +102,13 @@ class _FAQSectionState extends State<FAQSection> {
           ),
           const SizedBox(height: 16),
         ],
-
         ...widget.faqs.map((faq) => _FAQItem(
-          faq: faq,
-          searchQuery: widget.searchQuery,
-          isExpanded: expandedFaqs.any((expandedFaq) => expandedFaq.id == faq.id),
-          onToggle: () => _toggleFAQ(faq),
-        )),
+              faq: faq,
+              searchQuery: widget.searchQuery,
+              isExpanded:
+                  expandedFaqs.any((expandedFaq) => expandedFaq.id == faq.id),
+              onToggle: () => _toggleFAQ(faq),
+            )),
       ],
     );
   }
@@ -103,6 +136,16 @@ class _FAQItem extends StatelessWidget {
     required this.isExpanded,
     required this.onToggle,
   });
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +157,9 @@ class _FAQItem extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: isExpanded ? theme.primaryColor.withValues(alpha: 0.3) : Colors.grey[200]!,
+          color: isExpanded
+              ? theme.primaryColor.withValues(alpha: 0.3)
+              : Colors.grey[200]!,
         ),
         boxShadow: [
           BoxShadow(
@@ -156,7 +201,6 @@ class _FAQItem extends StatelessWidget {
               ),
             ),
           ),
-
           AnimatedCrossFade(
             firstChild: const SizedBox.shrink(),
             secondChild: Container(
@@ -178,8 +222,8 @@ class _FAQItem extends StatelessWidget {
                 ],
               ),
             ),
-            crossFadeState: isExpanded 
-                ? CrossFadeState.showSecond 
+            crossFadeState: isExpanded
+                ? CrossFadeState.showSecond
                 : CrossFadeState.showFirst,
             duration: const Duration(milliseconds: 200),
           ),

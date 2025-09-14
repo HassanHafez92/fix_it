@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
 import '../bloc/user_profile_bloc.dart';
 import '../bloc/user_profile_event.dart';
 import '../bloc/user_profile_state.dart';
@@ -10,6 +11,28 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fix_it/core/utils/bloc_utils.dart';
 
 import '../../domain/entities/user_profile_entity.dart';
+/// ProfileHeader
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+/// ProfileHeader
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
+
 
 class ProfileHeader extends StatelessWidget {
   final UserProfileEntity profile;
@@ -18,10 +41,21 @@ class ProfileHeader extends StatelessWidget {
     super.key,
     required this.profile,
   });
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       width: double.infinity,
@@ -140,7 +174,7 @@ class ProfileHeader extends StatelessWidget {
                             children: [
                               ListTile(
                                 leading: const Icon(Icons.camera_alt),
-                                title: const Text('Take Photo'),
+                                title: Text(l10n.takePhoto),
                                 onTap: () {
                                   Navigator.pop(context);
                                   // Use safeAddEvent so the event is dispatched
@@ -152,7 +186,7 @@ class ProfileHeader extends StatelessWidget {
                               ),
                               ListTile(
                                 leading: const Icon(Icons.photo_library),
-                                title: const Text('Choose from Gallery'),
+                                title: Text(l10n.chooseFromGallery),
                                 onTap: () {
                                   Navigator.pop(context);
                                   safeAddEvent<UserProfileBloc>(
@@ -255,18 +289,18 @@ class ProfileHeader extends StatelessWidget {
               children: [
                 _StatItem(
                   icon: Icons.payment,
-                  label: 'طرق الدفع',
+                  label: l10n.paymentMethods,
                   value: profile.paymentMethods.length.toString(),
                 ),
                 _StatItem(
                   icon: Icons.calendar_today,
-                  label: 'عضو منذ',
-                  value: _getJoinedDate(profile.createdAt),
+                  label: l10n.memberSince,
+                  value: _getJoinedDate(context, profile.createdAt),
                 ),
                 _StatItem(
                   icon: Icons.verified_user,
-                  label: 'الحالة',
-                  value: 'مُفعل',
+                  label: l10n.status,
+                  value: l10n.active,
                 ),
               ],
             ),
@@ -277,6 +311,7 @@ class ProfileHeader extends StatelessWidget {
   }
 
   void _showPickOptions(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
@@ -289,7 +324,7 @@ class ProfileHeader extends StatelessWidget {
           children: [
             ListTile(
               leading: const Icon(Icons.camera_alt),
-              title: const Text('Take Photo'),
+              title: Text(l10n.takePhoto),
               onTap: () {
                 Navigator.pop(context);
                 safeAddEvent<UserProfileBloc>(
@@ -298,7 +333,7 @@ class ProfileHeader extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.photo_library),
-              title: const Text('Choose from Gallery'),
+              title: Text(l10n.chooseFromGallery),
               onTap: () {
                 Navigator.pop(context);
                 safeAddEvent<UserProfileBloc>(
@@ -311,16 +346,17 @@ class ProfileHeader extends StatelessWidget {
     );
   }
 
-  String _getJoinedDate(DateTime createdAt) {
+  String _getJoinedDate(BuildContext context, DateTime createdAt) {
+    final l10n = AppLocalizations.of(context)!;
     final now = DateTime.now();
     final difference = now.difference(createdAt);
 
     if (difference.inDays > 365) {
-      return '${(difference.inDays / 365).floor()} سنة';
+      return l10n.years((difference.inDays / 365).floor().toString());
     } else if (difference.inDays > 30) {
-      return '${(difference.inDays / 30).floor()} شهر';
+      return l10n.months((difference.inDays / 30).floor().toString());
     } else {
-      return '${difference.inDays} يوم';
+      return l10n.days(difference.inDays.toString());
     }
   }
 }
@@ -335,6 +371,16 @@ class _StatItem extends StatelessWidget {
     required this.label,
     required this.value,
   });
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {

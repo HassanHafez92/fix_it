@@ -3,12 +3,35 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
 
 
 import '../widgets/faq_section.dart';
 import '../widgets/contact_section.dart';
 import '../widgets/help_search_bar.dart';
 import '../../domain/entities/faq_entity.dart';
+/// HelpScreen
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+/// HelpScreen
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
+
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({super.key});
@@ -21,12 +44,32 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
   late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
+/// initState
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
   }
+/// dispose
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   void dispose() {
@@ -34,10 +77,21 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
     _searchController.dispose();
     super.dispose();
   }
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -52,7 +106,7 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
           ),
         ),
         title: Text(
-          'المساعدة والدعم',
+          l10n.helpAndSupport,
           style: GoogleFonts.cairo(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -74,10 +128,10 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
             fontSize: 14,
             fontWeight: FontWeight.normal,
           ),
-          tabs: const [
-            Tab(text: 'الأسئلة الشائعة'),
-            Tab(text: 'تواصل معنا'),
-            Tab(text: 'حول التطبيق'),
+          tabs: [
+            Tab(text: l10n.faq),
+            Tab(text: l10n.contactUs),
+            Tab(text: l10n.aboutApp),
           ],
         ),
       ),
@@ -115,13 +169,13 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
               controller: _tabController,
               children: [
                 // FAQ Tab
-                _buildFAQTab(),
+                _buildFAQTab(context),
 
                 // Contact Tab
-                _buildContactTab(),
+                _buildContactTab(context),
 
                 // About Tab
-                _buildAboutTab(),
+                _buildAboutTab(context),
               ],
             ),
           ),
@@ -130,7 +184,8 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildFAQTab() {
+  Widget _buildFAQTab(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -139,7 +194,7 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
           if (_searchQuery.isEmpty) ...[
             // FAQ Categories
             Text(
-              'الفئات',
+              l10n.categories,
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -153,22 +208,22 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
               runSpacing: 8,
               children: [
                 _CategoryChip(
-                  label: 'الحجوزات',
+                  label: l10n.bookings,
                   icon: Icons.book_online,
                   onTap: () => _filterByCategory('bookings'),
                 ),
                 _CategoryChip(
-                  label: 'المدفوعات',
+                  label: l10n.payments,
                   icon: Icons.payment,
                   onTap: () => _filterByCategory('payments'),
                 ),
                 _CategoryChip(
-                  label: 'الحساب',
+                  label: l10n.account,
                   icon: Icons.account_circle,
                   onTap: () => _filterByCategory('account'),
                 ),
                 _CategoryChip(
-                  label: 'الخدمات',
+                  label: l10n.services,
                   icon: Icons.build,
                   onTap: () => _filterByCategory('services'),
                 ),
@@ -180,7 +235,7 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
 
           // FAQ List
           FAQSection(
-            faqs: _getFilteredFAQs(),
+            faqs: _getFilteredFAQs(context),
             searchQuery: _searchQuery,
           ),
         ],
@@ -188,7 +243,8 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildContactTab() {
+  Widget _buildContactTab(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -217,7 +273,7 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'نحن هنا لمساعدتك',
+                  l10n.weAreHereToHelp,
                   style: GoogleFonts.cairo(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -226,7 +282,7 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'فريق دعم العملاء متاح على مدار الساعة للإجابة على استفساراتك',
+                  l10n.customerSupportHint,
                   style: GoogleFonts.cairo(
                     fontSize: 14,
                     color: const Color(0xFF718096),
@@ -241,7 +297,7 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
 
           // Contact Methods
           ContactSection(
-            contactMethods: _getContactMethods(),
+            contactMethods: _getContactMethods(context),
           ),
 
           const SizedBox(height: 24),
@@ -250,10 +306,10 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
-              onPressed: () => _openEmailClient(),
+              onPressed: () => _openEmailClient(context),
               icon: const Icon(Icons.email),
               label: Text(
-                'إرسال رسالة مباشرة',
+                l10n.sendDirectMessage,
                 style: GoogleFonts.cairo(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -274,7 +330,8 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildAboutTab() {
+  Widget _buildAboutTab(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -319,7 +376,7 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'الإصدار 1.0.0',
+                  l10n.appVersion,
                   style: GoogleFonts.cairo(
                     fontSize: 14,
                     color: const Color(0xFF718096),
@@ -327,7 +384,7 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'منصة شاملة لخدمات الصيانة والإصلاح المنزلي. نربطك بأفضل الفنيين المعتمدين في منطقتك لتوفير خدمات عالية الجودة وموثوقة.',
+                  l10n.appDescription,
                   style: GoogleFonts.cairo(
                     fontSize: 16,
                     color: const Color(0xFF718096),
@@ -343,14 +400,14 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
 
           // Features
           _AboutSection(
-            title: 'مميزات التطبيق',
+            title: l10n.appFeatures,
             items: [
-              'فنيون معتمدون ومؤهلون',
-              'خدمة عملاء على مدار الساعة',
-              'أسعار شفافة وعادلة',
-              'ضمان على جميع الخدمات',
-              'تتبع مباشر للطلبات',
-              'تقييمات حقيقية من العملاء',
+              l10n.feature_certifiedTechnicians,
+              l10n.feature_247Support,
+              l10n.feature_transparentPricing,
+              l10n.feature_serviceWarranty,
+              l10n.feature_liveTracking,
+              l10n.feature_realReviews,
             ],
           ),
 
@@ -358,12 +415,12 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
 
           // Legal Links
           _AboutSection(
-            title: 'معلومات قانونية',
+            title: l10n.legalInformation,
             items: [
-              'الشروط والأحكام',
-              'سياسة الخصوصية',
-              'سياسة الاسترداد',
-              'شروط الاستخدام',
+              l10n.termsAndConditions,
+              l10n.privacyPolicy,
+              l10n.refundPolicy,
+              l10n.termsOfUse,
             ],
             isClickable: true,
           ),
@@ -372,7 +429,7 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
 
           // Copyright
           Text(
-            '© 2024 Fix It. جميع الحقوق محفوظة.',
+            l10n.copyright,
             style: GoogleFonts.cairo(
               fontSize: 12,
               color: const Color(0xFF718096),
@@ -384,8 +441,8 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
     );
   }
 
-  List<FAQEntity> _getFilteredFAQs() {
-    List<FAQEntity> allFaqs = _getMockFAQs();
+  List<FAQEntity> _getFilteredFAQs(BuildContext context) {
+    List<FAQEntity> allFaqs = _getMockFAQs(context);
 
     if (_searchQuery.isEmpty) {
       return allFaqs;
@@ -397,53 +454,55 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
     }).toList();
   }
 
-  List<ContactInfoEntity> _getContactMethods() {
+  List<ContactInfoEntity> _getContactMethods(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return [
-      const ContactInfoEntity(
+      ContactInfoEntity(
         id: '1',
         type: ContactType.phone,
         value: '+966 50 123 4567',
-        description: 'اتصل بنا مباشرة',
+        description: l10n.contact_callUs,
       ),
-      const ContactInfoEntity(
+      ContactInfoEntity(
         id: '2',
         type: ContactType.whatsapp,
         value: '+966 50 123 4567',
-        description: 'راسلنا عبر واتساب',
+        description: l10n.contact_whatsapp,
       ),
-      const ContactInfoEntity(
+      ContactInfoEntity(
         id: '3',
         type: ContactType.email,
         value: 'support@fixit.com',
-        description: 'أرسل لنا رسالة إلكترونية',
+        description: l10n.contact_email,
       ),
     ];
   }
 
-  List<FAQEntity> _getMockFAQs() {
+  List<FAQEntity> _getMockFAQs(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return [
-      const FAQEntity(
+      FAQEntity(
         id: '1',
-        question: 'كيف يمكنني حجز خدمة صيانة؟',
-        answer: 'يمكنك حجز خدمة صيانة بسهولة من خلال التطبيق. اختر نوع الخدمة المطلوبة، حدد الموقع والوقت المناسب، ثم اختر الفني المناسب من القائمة المتاحة.',
+        question: l10n.faq_q1,
+        answer: l10n.faq_a1,
         category: 'bookings',
       ),
-      const FAQEntity(
+      FAQEntity(
         id: '2',
-        question: 'ما هي طرق الدفع المتاحة؟',
-        answer: 'نقبل جميع طرق الدفع الرئيسية بما في ذلك البطاقات الائتمانية، Apple Pay، وكذلك الدفع النقدي عند إنجاز الخدمة.',
+        question: l10n.faq_q2,
+        answer: l10n.faq_a2,
         category: 'payments',
       ),
-      const FAQEntity(
+      FAQEntity(
         id: '3',
-        question: 'هل يمكنني إلغاء أو تعديل موعد الحجز؟',
-        answer: 'نعم، يمكنك إلغاء أو تعديل موعد الحجز قبل 4 ساعات على الأقل من الموعد المحدد دون أي رسوم إضافية.',
+        question: l10n.faq_q3,
+        answer: l10n.faq_a3,
         category: 'bookings',
       ),
-      const FAQEntity(
+      FAQEntity(
         id: '4',
-        question: 'كيف يمكنني تقييم الخدمة؟',
-        answer: 'بعد انتهاء الخدمة، ستتلقى إشعارًا لتقييم الخدمة والفني. يمكنك إعطاء تقييم من 1 إلى 5 نجوم وكتابة تعليق حول تجربتك.',
+        question: l10n.faq_q4,
+        answer: l10n.faq_a4,
         category: 'services',
       ),
     ];
@@ -456,12 +515,13 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
     });
   }
 
-  void _openEmailClient() async {
+  void _openEmailClient(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
     final Uri emailUri = Uri(
       scheme: 'mailto',
       path: 'support@fixit.com',
       queryParameters: {
-        'subject': 'استفسار من تطبيق Fix It',
+        'subject': l10n.emailSubject_inquiry,
       },
     );
 
@@ -481,6 +541,16 @@ class _CategoryChip extends StatelessWidget {
     required this.icon,
     required this.onTap,
   });
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
@@ -528,6 +598,16 @@ class _AboutSection extends StatelessWidget {
     required this.items,
     this.isClickable = false,
   });
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
@@ -564,8 +644,8 @@ class _AboutSection extends StatelessWidget {
                 Icon(
                   isClickable ? Icons.link : Icons.check_circle,
                   size: 16,
-                  color: isClickable 
-                      ? Theme.of(context).primaryColor 
+                  color: isClickable
+                      ? Theme.of(context).primaryColor
                       : Colors.green,
                 ),
                 const SizedBox(width: 8),
@@ -574,11 +654,11 @@ class _AboutSection extends StatelessWidget {
                     item,
                     style: GoogleFonts.cairo(
                       fontSize: 14,
-                      color: isClickable 
-                          ? Theme.of(context).primaryColor 
+                      color: isClickable
+                          ? Theme.of(context).primaryColor
                           : const Color(0xFF718096),
-                      decoration: isClickable 
-                          ? TextDecoration.underline 
+                      decoration: isClickable
+                          ? TextDecoration.underline
                           : null,
                     ),
                   ),

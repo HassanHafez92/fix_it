@@ -2,8 +2,32 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
 
 import '../../domain/entities/notification_entity.dart';
+import 'notification_helper.dart';
+/// NotificationFilterChips
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+/// NotificationFilterChips
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
+
 
 class NotificationFilterChips extends StatelessWidget {
   final NotificationType? selectedFilter;
@@ -16,6 +40,16 @@ class NotificationFilterChips extends StatelessWidget {
     required this.onFilterChanged,
     required this.notificationCounts,
   });
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +64,7 @@ class NotificationFilterChips extends StatelessWidget {
         children: [
           // All notifications chip
           _FilterChip(
-            label: 'الكل',
+            label: AppLocalizations.of(context)!.all,
             count: _getTotalCount(),
             isSelected: selectedFilter == null,
             onTap: () => onFilterChanged(null),
@@ -41,13 +75,13 @@ class NotificationFilterChips extends StatelessWidget {
 
           // Individual type chips
           ...NotificationType.values.where((type) {
-            return notificationCounts.containsKey(type) && 
+            return notificationCounts.containsKey(type) &&
                    notificationCounts[type]! > 0;
           }).map((type) {
             return Padding(
               padding: const EdgeInsets.only(left: 8),
               child: _FilterChip(
-                label: type.displayName,
+                label: getNotificationTypeDisplayName(context, type),
                 count: notificationCounts[type] ?? 0,
                 isSelected: selectedFilter == type,
                 onTap: () => onFilterChanged(type),
@@ -106,6 +140,16 @@ class _FilterChip extends StatelessWidget {
     required this.onTap,
     required this.color,
   });
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {

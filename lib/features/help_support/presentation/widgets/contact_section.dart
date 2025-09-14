@@ -1,9 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:fix_it/l10n/app_localizations.dart';
 
 import '../../domain/entities/faq_entity.dart';
+import 'contact_helper.dart';
+/// ContactSection
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+/// ContactSection
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
+
 
 class ContactSection extends StatelessWidget {
   final List<ContactInfoEntity> contactMethods;
@@ -12,14 +35,25 @@ class ContactSection extends StatelessWidget {
     super.key,
     required this.contactMethods,
   });
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'طرق التواصل',
+          l10n.contactMethods,
           style: GoogleFonts.cairo(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -27,16 +61,17 @@ class ContactSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-
         ...contactMethods.map((contact) => _ContactMethodItem(
-          contactInfo: contact,
-          onTap: () => _handleContactTap(context, contact),
-        )),
+              contactInfo: contact,
+              onTap: () => _handleContactTap(context, contact),
+            )),
       ],
     );
   }
 
-  void _handleContactTap(BuildContext context, ContactInfoEntity contact) async {
+  void _handleContactTap(
+      BuildContext context, ContactInfoEntity contact) async {
+    final l10n = AppLocalizations.of(context)!;
     try {
       Uri uri;
 
@@ -65,7 +100,7 @@ class ContactSection extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                'لا يمكن فتح ${contact.description}',
+                l10n.cannotOpen(contact.description),
                 style: GoogleFonts.cairo(),
               ),
             ),
@@ -77,7 +112,7 @@ class ContactSection extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'حدث خطأ في فتح ${contact.description}',
+              l10n.errorOpening(contact.description),
               style: GoogleFonts.cairo(),
             ),
           ),
@@ -95,11 +130,19 @@ class _ContactMethodItem extends StatelessWidget {
     required this.contactInfo,
     required this.onTap,
   });
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
-
-
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
@@ -124,7 +167,8 @@ class _ContactMethodItem extends StatelessWidget {
                 height: 48,
                 width: 48,
                 decoration: BoxDecoration(
-                  color: _getContactColor(contactInfo.type).withValues(alpha: 0.1),
+                  color:
+                      _getContactColor(contactInfo.type).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
@@ -133,15 +177,13 @@ class _ContactMethodItem extends StatelessWidget {
                   size: 24,
                 ),
               ),
-
               const SizedBox(width: 16),
-
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      contactInfo.type.displayName,
+                      getContactTypeDisplayName(context, contactInfo.type),
                       style: GoogleFonts.cairo(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -168,7 +210,6 @@ class _ContactMethodItem extends StatelessWidget {
                   ],
                 ),
               ),
-
               Icon(
                 Icons.arrow_forward_ios,
                 size: 16,

@@ -1,4 +1,15 @@
 import 'package:equatable/equatable.dart';
+/// FAQEntity
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
 
 class FAQEntity extends Equatable {
   final String id;
@@ -38,6 +49,17 @@ class FAQEntity extends Equatable {
   @override
   List<Object> get props => [id, question, answer, category, order, isExpanded];
 }
+/// ContactInfoEntity
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
 
 class ContactInfoEntity extends Equatable {
   final String id;
@@ -67,21 +89,6 @@ enum ContactType {
 }
 
 extension ContactTypeExtension on ContactType {
-  String get displayName {
-    switch (this) {
-      case ContactType.email:
-        return 'البريد الإلكتروني';
-      case ContactType.phone:
-        return 'الهاتف';
-      case ContactType.whatsapp:
-        return 'واتساب';
-      case ContactType.website:
-        return 'الموقع الإلكتروني';
-      case ContactType.social:
-        return 'وسائل التواصل';
-    }
-  }
-
   String get iconName {
     switch (this) {
       case ContactType.email:

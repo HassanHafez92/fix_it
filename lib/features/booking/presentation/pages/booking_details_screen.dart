@@ -12,20 +12,54 @@ import 'package:fix_it/features/providers/domain/usecases/get_provider_details_u
 import 'package:fix_it/features/chat/domain/repositories/chat_repository.dart';
 import 'package:intl/intl.dart';
 import 'package:fix_it/core/utils/app_routes.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
 
 import '../../domain/entities/booking_entity.dart';
 import '../bloc/bookings_bloc.dart';
 import '../widgets/booking_status_badge.dart';
 import '../widgets/payment_status_badge.dart';
 import '../../../auth/presentation/widgets/custom_button.dart';
+/// BookingDetailsScreen
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+/// BookingDetailsScreen
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
+
 
 class BookingDetailsScreen extends StatelessWidget {
   final String bookingId;
 
   const BookingDetailsScreen({super.key, required this.bookingId});
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return BlocProvider(
       create: (context) => context.read<BookingsBloc>()
         ..add(GetBookingDetailsEvent(bookingId: bookingId)),
@@ -40,7 +74,7 @@ class BookingDetailsScreen extends StatelessWidget {
               final messenger = ScaffoldMessenger.of(context);
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 final snackBar = SnackBar(
-                  content: const Text('تم تأكيد إتمام الخدمة بنجاح'),
+                  content: Text(l10n.bookingConfirmedSuccess),
                   behavior: SnackBarBehavior.floating,
                 );
                 messenger.showSnackBar(snackBar);
@@ -58,6 +92,7 @@ class BookingDetailsScreen extends StatelessWidget {
 
   Widget _buildBookingDetails(BuildContext context, BookingEntity booking) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return CustomScrollView(
       slivers: [
@@ -68,7 +103,7 @@ class BookingDetailsScreen extends StatelessWidget {
           backgroundColor: theme.primaryColor,
           flexibleSpace: FlexibleSpaceBar(
             title: Text(
-              'Booking Details',
+              l10n.bookingDetails,
               style: GoogleFonts.cairo(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -107,21 +142,22 @@ class BookingDetailsScreen extends StatelessWidget {
               onPressed: () {
                 // Share booking details via native share sheet
                 final summary = StringBuffer()
-                  ..writeln('Booking ID: ${booking.id}')
-                  ..writeln('Service: ${booking.serviceName}')
-                  ..writeln('Provider: ${booking.providerName}')
-                  ..writeln(
-                      'When: ${DateFormat('EEE, MMM dd yyyy').format(booking.scheduledDate)} ${booking.timeSlot}')
-                  ..writeln('Address: ${booking.address}')
-                  ..writeln(
-                      'Total: \$${booking.totalAmount.toStringAsFixed(2)}');
+                  ..writeln(l10n.bookingId(booking.id))
+                  ..writeln(l10n.service(booking.serviceName))
+                  ..writeln(l10n.provider(booking.providerName))
+                  ..writeln(l10n.when(
+                      DateFormat('EEE, MMM dd yyyy')
+                          .format(booking.scheduledDate),
+                      booking.timeSlot))
+                  ..writeln(l10n.address(booking.address))
+                  ..writeln(l10n.total(booking.totalAmount.toStringAsFixed(2)));
 
                 // Include first attachment if available
                 if (booking.attachments.isNotEmpty) {
-                  summary.writeln('Attachment: ${booking.attachments.first}');
+                  summary.writeln(l10n.attachment(booking.attachments.first));
                 }
 
-                Share.share(summary.toString(), subject: 'Booking Details');
+                Share.share(summary.toString(), subject: l10n.bookingDetails);
               },
             ),
           ],
@@ -134,7 +170,7 @@ class BookingDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Service Info Card
-                _buildServiceInfoCard(booking),
+                _buildServiceInfoCard(context, booking),
 
                 const SizedBox(height: 16),
 
@@ -144,7 +180,7 @@ class BookingDetailsScreen extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Schedule Info Card
-                _buildScheduleInfoCard(booking),
+                _buildScheduleInfoCard(context, booking),
 
                 const SizedBox(height: 16),
 
@@ -154,16 +190,16 @@ class BookingDetailsScreen extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Price Breakdown Card
-                _buildPriceBreakdownCard(booking),
+                _buildPriceBreakdownCard(context, booking),
 
                 if (booking.notes != null && booking.notes!.isNotEmpty) ...[
                   const SizedBox(height: 16),
-                  _buildNotesCard(booking),
+                  _buildNotesCard(context, booking),
                 ],
 
                 if (booking.attachments.isNotEmpty) ...[
                   const SizedBox(height: 16),
-                  _buildAttachmentsCard(booking),
+                  _buildAttachmentsCard(context, booking),
                 ],
 
                 const SizedBox(height: 32),
@@ -180,7 +216,8 @@ class BookingDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildServiceInfoCard(BookingEntity booking) {
+  Widget _buildServiceInfoCard(BuildContext context, BookingEntity booking) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -188,7 +225,7 @@ class BookingDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Service Information',
+              l10n.serviceInformation,
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -219,7 +256,7 @@ class BookingDetailsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      'URGENT',
+                      l10n.urgent,
                       style: GoogleFonts.cairo(
                         fontSize: 10,
                         color: Colors.white,
@@ -235,7 +272,7 @@ class BookingDetailsScreen extends StatelessWidget {
                 Icon(Icons.access_time, color: Colors.grey[600], size: 20),
                 const SizedBox(width: 8),
                 Text(
-                  'Estimated Duration: ${booking.estimatedDuration} minutes',
+                  l10n.estimatedDuration(booking.estimatedDuration.toString()),
                   style: GoogleFonts.cairo(
                     fontSize: 14,
                     color: Colors.grey[700],
@@ -250,7 +287,7 @@ class BookingDetailsScreen extends StatelessWidget {
                     color: Colors.grey[600], size: 20),
                 const SizedBox(width: 8),
                 Text(
-                  'Booking ID: ${booking.id}',
+                  l10n.bookingId(booking.id),
                   style: GoogleFonts.cairo(
                     fontSize: 14,
                     color: Colors.grey[700],
@@ -265,6 +302,7 @@ class BookingDetailsScreen extends StatelessWidget {
   }
 
   Widget _buildProviderInfoCard(BuildContext context, BookingEntity booking) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -272,7 +310,7 @@ class BookingDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Service Provider',
+              l10n.serviceProvider,
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -318,7 +356,7 @@ class BookingDetailsScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Service Provider',
+                        l10n.serviceProvider,
                         style: GoogleFonts.cairo(
                           fontSize: 14,
                           color: Colors.grey[600],
@@ -339,9 +377,9 @@ class BookingDetailsScreen extends StatelessWidget {
                               GetProviderDetailsParams(
                                   providerId: booking.providerId));
                           result.fold((failure) {
-                            messenger.showSnackBar(const SnackBar(
+                            messenger.showSnackBar(SnackBar(
                                 content:
-                                    Text('Could not fetch provider details')));
+                                    Text(l10n.couldNotFetchProviderDetails)));
                           }, (provider) async {
                             final phone = provider.phone;
                             if (phone.isNotEmpty) {
@@ -349,19 +387,19 @@ class BookingDetailsScreen extends StatelessWidget {
                               if (await canLaunchUrl(tel)) {
                                 await launchUrl(tel);
                               } else {
-                                messenger.showSnackBar(const SnackBar(
-                                    content: Text('Could not open dialer')));
+                                messenger.showSnackBar(SnackBar(
+                                    content: Text(l10n.couldNotOpenDialer)));
                               }
                             } else {
-                              messenger.showSnackBar(const SnackBar(
+                              messenger.showSnackBar(SnackBar(
                                   content:
-                                      Text('Provider phone not available')));
+                                      Text(l10n.providerPhoneNotAvailable)));
                             }
                           });
                         } catch (e) {
-                          messenger.showSnackBar(const SnackBar(
+                          messenger.showSnackBar(SnackBar(
                               content:
-                                  Text('Could not fetch provider details')));
+                                  Text(l10n.couldNotFetchProviderDetails)));
                         }
                       },
                       icon: const Icon(Icons.phone, color: Colors.green),
@@ -375,8 +413,8 @@ class BookingDetailsScreen extends StatelessWidget {
                           final result = await chatRepo.createChat(
                               otherUserId: booking.providerId);
                           result.fold((failure) {
-                            messenger.showSnackBar(const SnackBar(
-                                content: Text('Could not start chat')));
+                            messenger.showSnackBar(SnackBar(
+                                content: Text(l10n.couldNotStartChat)));
                           }, (chatId) {
                             if (chatId.isNotEmpty) {
                               Navigator.pushNamed(context, AppRoutes.chat,
@@ -386,13 +424,13 @@ class BookingDetailsScreen extends StatelessWidget {
                                     'otherUserName': booking.providerName,
                                   });
                             } else {
-                              messenger.showSnackBar(const SnackBar(
-                                  content: Text('Could not start chat')));
+                              messenger.showSnackBar(SnackBar(
+                                  content: Text(l10n.couldNotStartChat)));
                             }
                           });
                         } catch (e) {
-                          messenger.showSnackBar(const SnackBar(
-                              content: Text('Could not start chat')));
+                          messenger.showSnackBar(
+                              SnackBar(content: Text(l10n.couldNotStartChat)));
                         }
                       },
                       icon: const Icon(Icons.message, color: Colors.blue),
@@ -407,7 +445,8 @@ class BookingDetailsScreen extends StatelessWidget {
     ); // end Card
   }
 
-  Widget _buildScheduleInfoCard(BookingEntity booking) {
+  Widget _buildScheduleInfoCard(BuildContext context, BookingEntity booking) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -415,7 +454,7 @@ class BookingDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Schedule',
+              l10n.schedule,
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -460,6 +499,7 @@ class BookingDetailsScreen extends StatelessWidget {
   }
 
   Widget _buildLocationInfoCard(BuildContext context, BookingEntity booking) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -469,7 +509,7 @@ class BookingDetailsScreen extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Location',
+                  l10n.location,
                   style: GoogleFonts.cairo(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -497,13 +537,13 @@ class BookingDetailsScreen extends StatelessWidget {
                         await launchUrl(geoUrl);
                       } else {
                         messenger.showSnackBar(
-                          const SnackBar(content: Text('Could not open maps')),
+                          SnackBar(content: Text(l10n.couldNotOpenMaps)),
                         );
                       }
                     }
                   },
                   icon: const Icon(Icons.map, size: 18),
-                  label: const Text('View on Map'),
+                  label: Text(l10n.viewOnMap),
                 ),
               ],
             ),
@@ -531,7 +571,8 @@ class BookingDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPriceBreakdownCard(BookingEntity booking) {
+  Widget _buildPriceBreakdownCard(BuildContext context, BookingEntity booking) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -539,7 +580,7 @@ class BookingDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Price Breakdown',
+              l10n.priceBreakdown,
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -547,18 +588,20 @@ class BookingDetailsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            _buildPriceRow('Service Price', booking.servicePrice),
-            _buildPriceRow('Taxes', booking.taxes),
-            _buildPriceRow('Platform Fee', booking.platformFee),
+            _buildPriceRow(context, l10n.servicePrice, booking.servicePrice),
+            _buildPriceRow(context, l10n.taxes, booking.taxes),
+            _buildPriceRow(context, l10n.platformFee, booking.platformFee),
             const Divider(),
-            _buildPriceRow('Total Amount', booking.totalAmount, isTotal: true),
+            _buildPriceRow(context, l10n.totalAmount, booking.totalAmount,
+                isTotal: true),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildPriceRow(String label, double amount, {bool isTotal = false}) {
+  Widget _buildPriceRow(BuildContext context, String label, double amount,
+      {bool isTotal = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -585,7 +628,8 @@ class BookingDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNotesCard(BookingEntity booking) {
+  Widget _buildNotesCard(BuildContext context, BookingEntity booking) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -593,7 +637,7 @@ class BookingDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Additional Notes',
+              l10n.additionalNotes,
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -615,7 +659,8 @@ class BookingDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAttachmentsCard(BookingEntity booking) {
+  Widget _buildAttachmentsCard(BuildContext context, BookingEntity booking) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -623,7 +668,7 @@ class BookingDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Attachments',
+              l10n.attachments,
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -647,7 +692,9 @@ class BookingDetailsScreen extends StatelessWidget {
                       const Icon(Icons.attachment, size: 16),
                       const SizedBox(width: 4),
                       Text(
-                        'Attachment ${booking.attachments.indexOf(attachment) + 1}',
+                        l10n.attachmentLabel(
+                            (booking.attachments.indexOf(attachment) + 1)
+                                .toString()),
                         style: GoogleFonts.cairo(fontSize: 12),
                       ),
                     ],
@@ -662,12 +709,13 @@ class BookingDetailsScreen extends StatelessWidget {
   }
 
   Widget _buildActionButtons(BuildContext context, BookingEntity booking) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       children: [
         if (booking.status == BookingStatus.pending ||
             booking.status == BookingStatus.confirmed) ...[
           CustomButton(
-            text: 'Reschedule',
+            text: l10n.reschedule,
             onPressed: () async {
               // Capture context-dependent objects before awaiting to avoid
               // using BuildContext across async gaps (use_build_context_synchronously).
@@ -686,14 +734,14 @@ class BookingDetailsScreen extends StatelessWidget {
                   bookingsBloc
                       .add(GetBookingDetailsEvent(bookingId: booking.id));
                   messenger.showSnackBar(
-                      const SnackBar(content: Text('Booking updated')));
+                      SnackBar(content: Text(l10n.bookingUpdated)));
                 } catch (_) {}
               }
             },
           ),
           const SizedBox(height: 12),
           CustomButton(
-            text: 'Cancel Booking',
+            text: l10n.cancelBooking,
             backgroundColor: Colors.red,
             onPressed: () {
               _showCancelDialog(context, booking.id);
@@ -704,7 +752,7 @@ class BookingDetailsScreen extends StatelessWidget {
             booking.paymentStatus == PaymentStatus.pending) ...[
           // Cash flow: show confirm completion for client
           CustomButton(
-            text: 'تأكيد إتمام الخدمة (دفع نقدي)',
+            text: l10n.confirmCompletionCash,
             onPressed: () {
               safeAddEvent<BookingsBloc>(
                   context, ClientConfirmCompletionEvent(bookingId: booking.id));
@@ -713,7 +761,7 @@ class BookingDetailsScreen extends StatelessWidget {
           const SizedBox(height: 12),
         ],
         CustomButton(
-          text: 'Contact Support',
+          text: l10n.contactSupport,
           backgroundColor: Colors.grey[600],
           onPressed: () {
             // Navigate to centralized contact support screen
@@ -726,26 +774,27 @@ class BookingDetailsScreen extends StatelessWidget {
 
   void _showCancelDialog(BuildContext context, String bookingId) {
     final reasonController = TextEditingController();
+    final l10n = AppLocalizations.of(context)!;
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          'Cancel Booking',
+          l10n.cancelBooking,
           style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Are you sure you want to cancel this booking?',
+              l10n.areYouSureCancelBooking,
               style: GoogleFonts.cairo(),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: reasonController,
-              decoration: const InputDecoration(
-                labelText: 'Reason for cancellation',
+              decoration: InputDecoration(
+                labelText: l10n.reasonForCancellation,
                 border: OutlineInputBorder(),
               ),
               maxLines: 3,
@@ -755,7 +804,7 @@ class BookingDetailsScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Keep Booking'),
+            child: Text(l10n.keepBooking),
           ),
           ElevatedButton(
             onPressed: () {
@@ -771,7 +820,7 @@ class BookingDetailsScreen extends StatelessWidget {
               }
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Cancel Booking'),
+            child: Text(l10n.cancelBooking),
           ),
         ],
       ),
@@ -779,9 +828,10 @@ class BookingDetailsScreen extends StatelessWidget {
   }
 
   Widget _buildErrorWidget(BuildContext context, String message) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Error'),
+        title: Text(l10n.error),
       ),
       body: Center(
         child: Column(
@@ -790,7 +840,7 @@ class BookingDetailsScreen extends StatelessWidget {
             Icon(Icons.error_outline, size: 64, color: Colors.red[400]),
             const SizedBox(height: 16),
             Text(
-              'Failed to load booking details',
+              l10n.failedToLoadBookingDetails,
               style: GoogleFonts.cairo(fontSize: 18, color: Colors.grey[800]),
             ),
             const SizedBox(height: 8),
@@ -804,7 +854,7 @@ class BookingDetailsScreen extends StatelessWidget {
                 safeAddEvent<BookingsBloc>(
                     context, GetBookingDetailsEvent(bookingId: bookingId));
               },
-              child: const Text('Retry'),
+              child: Text(l10n.retry),
             ),
           ],
         ),

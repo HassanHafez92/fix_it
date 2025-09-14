@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:fix_it/core/utils/app_routes.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fix_it/core/widgets/directionality_wrapper.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import 'package:fix_it/core/utils/bloc_utils.dart';
@@ -11,14 +11,45 @@ import '../bloc/user_profile_bloc/user_profile_bloc.dart';
 import '../widgets/profile_header.dart';
 import '../../domain/entities/user_profile_entity.dart';
 import '../widgets/profile_menu_item.dart';
+/// ProfileScreen
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+/// ProfileScreen
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
+
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final l10n = AppLocalizations.of(context)!;
 
     return DirectionalityWrapper(
       child: Scaffold(
@@ -27,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
           backgroundColor: theme.primaryColor,
           elevation: 0,
           title: Text(
-            AppLocalizations.of(context)!.profileTitle,
+            tr('profileTitle'),
             style: GoogleFonts.cairo(
               fontSize: 20,
               fontWeight: FontWeight.w600,
@@ -65,7 +96,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      l10n.errorLoadingData,
+                      tr('errorLoadingData'),
                       style: GoogleFonts.cairo(
                         fontSize: 16,
                         color: const Color(0xFF2D3748),
@@ -89,7 +120,7 @@ class ProfileScreen extends StatelessWidget {
                             context, const LoadUserProfileEvent());
                       },
                       child: Text(
-                        l10n.tryAgain,
+                        tr('tryAgain'),
                         style: GoogleFonts.cairo(),
                       ),
                     ),
@@ -125,8 +156,8 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         ProfileMenuItem(
                           icon: Icons.person_outline,
-                          title: AppLocalizations.of(context)!.editProfile,
-                          subtitle: l10n.profileUpdateSubtitle,
+                          title: tr('editProfile'),
+                          subtitle: tr('profileUpdateSubtitle'),
                           onTap: () {
                             Navigator.pushNamed(context, AppRoutes.editProfile);
                           },
@@ -134,8 +165,8 @@ class ProfileScreen extends StatelessWidget {
                         const Divider(height: 1),
                         ProfileMenuItem(
                           icon: Icons.lock_outline,
-                          title: AppLocalizations.of(context)!.changePassword,
-                          subtitle: l10n.changePasswordSubtitle,
+                          title: tr('changePassword'),
+                          subtitle: tr('changePasswordSubtitle'),
                           onTap: () {
                             Navigator.pushNamed(
                                 context, AppRoutes.changePassword);
@@ -144,8 +175,8 @@ class ProfileScreen extends StatelessWidget {
                         const Divider(height: 1),
                         ProfileMenuItem(
                           icon: Icons.payment,
-                          title: AppLocalizations.of(context)!.paymentMethods,
-                          subtitle: l10n.managePaymentSubtitle,
+                          title: tr('paymentMethods'),
+                          subtitle: tr('managePaymentSubtitle'),
                           onTap: () {
                             Navigator.pushNamed(
                                 context, AppRoutes.paymentMethods);
@@ -154,8 +185,8 @@ class ProfileScreen extends StatelessWidget {
                         const Divider(height: 1),
                         ProfileMenuItem(
                           icon: Icons.history,
-                          title: AppLocalizations.of(context)!.bookings,
-                          subtitle: l10n.viewBookingsSubtitle,
+                          title: tr('bookings'),
+                          subtitle: tr('viewBookingsSubtitle'),
                           onTap: () {
                             Navigator.pushNamed(context, AppRoutes.bookings);
                           },
@@ -184,8 +215,8 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         ProfileMenuItem(
                           icon: Icons.notifications_outlined,
-                          title: l10n.notifications,
-                          subtitle: l10n.notificationsSubtitle,
+                          title: tr('notifications'),
+                          subtitle: tr('notificationsSubtitle'),
                           onTap: () {
                             Navigator.pushNamed(
                                 context, AppRoutes.notifications);
@@ -194,8 +225,8 @@ class ProfileScreen extends StatelessWidget {
                         const Divider(height: 1),
                         ProfileMenuItem(
                           icon: Icons.help_outline,
-                          title: l10n.helpSupport,
-                          subtitle: l10n.helpSupportSubtitle,
+                          title: tr('helpSupport'),
+                          subtitle: tr('helpSupportSubtitle'),
                           onTap: () {
                             Navigator.pushNamed(context, AppRoutes.help);
                           },
@@ -203,8 +234,8 @@ class ProfileScreen extends StatelessWidget {
                         const Divider(height: 1),
                         ProfileMenuItem(
                           icon: Icons.info_outline,
-                          title: l10n.about,
-                          subtitle: l10n.aboutSubtitle,
+                          title: tr('about'),
+                          subtitle: tr('aboutSubtitle'),
                           onTap: () {
                             Navigator.pushNamed(context, AppRoutes.about);
                           },
@@ -231,8 +262,8 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     child: ProfileMenuItem(
                       icon: Icons.logout,
-                      title: l10n.logoutTitle,
-                      subtitle: l10n.logoutSubtitle,
+                      title: tr('logoutTitle'),
+                      subtitle: tr('logoutSubtitle'),
                       iconColor: Colors.red,
                       titleColor: Colors.red,
                       onTap: () => _showLogoutDialog(context),
@@ -250,7 +281,6 @@ class ProfileScreen extends StatelessWidget {
   }
 
   void _showLogoutDialog(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final parentContext = context;
     showDialog(
       context: context,
@@ -259,21 +289,20 @@ class ProfileScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         title: Text(
-          // 'تسجيل الخروج',
-          l10n.logoutTitle,
+          tr('logoutTitle'),
           style: GoogleFonts.cairo(
             fontWeight: FontWeight.bold,
           ),
         ),
         content: Text(
-          'هل أنت متأكد من رغبتك في تسجيل الخروج؟',
+          tr('logoutConfirm'),
           style: GoogleFonts.cairo(),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
-              'إلغاء',
+              tr('cancel'),
               style: GoogleFonts.cairo(
                 color: const Color(0xFF718096),
               ),
@@ -294,7 +323,7 @@ class ProfileScreen extends StatelessWidget {
               backgroundColor: Colors.red,
             ),
             child: Text(
-              'تسجيل الخروج',
+              tr('logoutTitle'),
               style: GoogleFonts.cairo(
                 color: Colors.white,
               ),

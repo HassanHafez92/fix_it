@@ -1,10 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fix_it/core/services/localization_service.dart';
 import '../../domain/usecases/get_app_settings_usecase.dart';
 import '../../domain/usecases/update_app_settings_usecase.dart';
 import '../../domain/entities/app_settings_entity.dart';
 import '../../../../core/usecases/usecase.dart';
 import 'settings_event.dart';
 import 'settings_state.dart';
+/// SettingsBloc
+///
+/// Business rules:
+/// - Describe the business rules that this class enforces.
+///
+/// Dependencies:
+/// - List important dependencies or preconditions.
+///
+/// Error scenarios:
+/// - Describe common error conditions and how they are handled.
+
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final GetAppSettingsUseCase getAppSettings;
@@ -29,11 +41,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       final result = await getAppSettings(NoParamsImpl());
 
       result.fold(
-        (failure) => emit(const SettingsError('فشل في تحميل الإعدادات')),
+        (failure) => emit(
+            SettingsError(LocalizationService().l10n.failedToLoadSettings)),
         (settings) => emit(SettingsLoaded(settings)),
       );
     } catch (e) {
-      emit(SettingsError('حدث خطأ غير متوقع: ${e.toString()}'));
+      emit(SettingsError(
+          LocalizationService().l10n.unexpectedError(e.toString())));
     }
   }
 
@@ -48,11 +62,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         final result = await updateAppSettings(event.settings);
 
         result.fold(
-          (failure) => emit(const SettingsError('فشل في تحديث الإعدادات')),
+          (failure) => emit(
+              SettingsError(LocalizationService().l10n.failedToUpdateSettings)),
           (_) => emit(SettingsLoaded(event.settings)),
         );
       } catch (e) {
-        emit(SettingsError('حدث خطأ في تحديث الإعدادات: ${e.toString()}'));
+        emit(SettingsError(
+            LocalizationService().l10n.errorUpdatingSettings(e.toString())));
       }
     }
   }
@@ -70,11 +86,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       final result = await updateAppSettings(defaultSettings);
 
       result.fold(
-        (failure) => emit(const SettingsError('فشل في إعادة تعيين الإعدادات')),
+        (failure) => emit(
+            SettingsError(LocalizationService().l10n.failedToResetSettings)),
         (_) => emit(const SettingsLoaded(defaultSettings)),
       );
     } catch (e) {
-      emit(SettingsError('حدث خطأ في إعادة التعيين: ${e.toString()}'));
+      emit(SettingsError(
+          LocalizationService().l10n.errorResettingSettings(e.toString())));
     }
   }
 }

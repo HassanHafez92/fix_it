@@ -254,6 +254,1344 @@ abstract class AppLocalizations {
   /// **'Language changed successfully!'**
   String get languageChangedSuccess;
 
+  /// No description provided for @errorLoadingSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading settings'**
+  String get errorLoadingSettings;
+
+  /// No description provided for @theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get theme;
+
+  /// No description provided for @privacyAndSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy & Security'**
+  String get privacyAndSecurity;
+
+  /// No description provided for @resetSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Settings'**
+  String get resetSettings;
+
+  /// No description provided for @resetSettingsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore default settings'**
+  String get resetSettingsDesc;
+
+  /// No description provided for @resetSettingsConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to reset all settings to their default values?'**
+  String get resetSettingsConfirm;
+
+  /// No description provided for @light.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get light;
+
+  /// No description provided for @dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get dark;
+
+  /// No description provided for @system.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get system;
+
+  /// No description provided for @currencyUSD.
+  ///
+  /// In en, this message translates to:
+  /// **'US Dollar (USD)'**
+  String get currencyUSD;
+
+  /// No description provided for @currencyEUR.
+  ///
+  /// In en, this message translates to:
+  /// **'Euro (EUR)'**
+  String get currencyEUR;
+
+  /// No description provided for @currencySAR.
+  ///
+  /// In en, this message translates to:
+  /// **'Saudi Riyal (SAR)'**
+  String get currencySAR;
+
+  /// No description provided for @welcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Back!'**
+  String get welcomeBack;
+
+  /// No description provided for @signInToContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to continue to {appName}'**
+  String signInToContinue(Object appName);
+
+  /// Email button label
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailLabel;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email'**
+  String get emailHint;
+
+  /// No description provided for @passwordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get passwordLabel;
+
+  /// No description provided for @passwordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get passwordHint;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get forgotPassword;
+
+  /// No description provided for @signIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get signIn;
+
+  /// No description provided for @or.
+  ///
+  /// In en, this message translates to:
+  /// **'OR'**
+  String get or;
+
+  /// No description provided for @continueWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get continueWithGoogle;
+
+  /// No description provided for @signInWithPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In with Phone (Egypt)'**
+  String get signInWithPhone;
+
+  /// No description provided for @dontHaveAnAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? '**
+  String get dontHaveAnAccount;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signUp;
+
+  /// No description provided for @createTechnicianAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Technician Account'**
+  String get createTechnicianAccount;
+
+  /// No description provided for @welcomeTechnician.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome, Specialist!'**
+  String get welcomeTechnician;
+
+  /// No description provided for @fillYourProfessionalInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in the following data to create your professional account'**
+  String get fillYourProfessionalInfo;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullName;
+
+  /// No description provided for @enterYourFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your full name'**
+  String get enterYourFullName;
+
+  /// No description provided for @phoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phoneNumber;
+
+  /// No description provided for @enterYourPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number'**
+  String get enterYourPhoneNumber;
+
+  /// No description provided for @profession.
+  ///
+  /// In en, this message translates to:
+  /// **'Profession'**
+  String get profession;
+
+  /// No description provided for @selectYourProfession.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your profession'**
+  String get selectYourProfession;
+
+  /// No description provided for @pleaseSelectProfession.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a profession'**
+  String get pleaseSelectProfession;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @specifyYourProfession.
+  ///
+  /// In en, this message translates to:
+  /// **'Specify your profession'**
+  String get specifyYourProfession;
+
+  /// No description provided for @enterYourProfession.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your profession'**
+  String get enterYourProfession;
+
+  /// No description provided for @pleaseSpecifyProfession.
+  ///
+  /// In en, this message translates to:
+  /// **'Please specify your profession'**
+  String get pleaseSpecifyProfession;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @reEnterYourPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter your password'**
+  String get reEnterYourPassword;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
+
+  /// No description provided for @iAgreeTo.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the '**
+  String get iAgreeTo;
+
+  /// No description provided for @termsAndConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms and Conditions'**
+  String get termsAndConditions;
+
+  /// No description provided for @and.
+  ///
+  /// In en, this message translates to:
+  /// **' and '**
+  String get and;
+
+  /// No description provided for @createAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccount;
+
+  /// No description provided for @alreadyHaveAnAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? '**
+  String get alreadyHaveAnAccount;
+
+  /// No description provided for @profession_electrician.
+  ///
+  /// In en, this message translates to:
+  /// **'Electrician'**
+  String get profession_electrician;
+
+  /// No description provided for @profession_plumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Plumber'**
+  String get profession_plumber;
+
+  /// No description provided for @profession_carpenter.
+  ///
+  /// In en, this message translates to:
+  /// **'Carpenter'**
+  String get profession_carpenter;
+
+  /// No description provided for @profession_painter.
+  ///
+  /// In en, this message translates to:
+  /// **'Painter'**
+  String get profession_painter;
+
+  /// No description provided for @profession_ac.
+  ///
+  /// In en, this message translates to:
+  /// **'AC & Refrigeration'**
+  String get profession_ac;
+
+  /// No description provided for @profession_appliance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appliance Technician'**
+  String get profession_appliance;
+
+  /// No description provided for @profession_electronics.
+  ///
+  /// In en, this message translates to:
+  /// **'Electronics Technician'**
+  String get profession_electronics;
+
+  /// No description provided for @profession_cleaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleaning Worker'**
+  String get profession_cleaning;
+
+  /// No description provided for @profession_gardener.
+  ///
+  /// In en, this message translates to:
+  /// **'Gardener'**
+  String get profession_gardener;
+
+  /// No description provided for @profession_decorator.
+  ///
+  /// In en, this message translates to:
+  /// **'Decorator'**
+  String get profession_decorator;
+
+  /// No description provided for @profession_tiler.
+  ///
+  /// In en, this message translates to:
+  /// **'Tiler'**
+  String get profession_tiler;
+
+  /// No description provided for @profession_blacksmith.
+  ///
+  /// In en, this message translates to:
+  /// **'Blacksmith'**
+  String get profession_blacksmith;
+
+  /// No description provided for @profession_glazier.
+  ///
+  /// In en, this message translates to:
+  /// **'Glazier'**
+  String get profession_glazier;
+
+  /// No description provided for @profession_roofer.
+  ///
+  /// In en, this message translates to:
+  /// **'Roofer'**
+  String get profession_roofer;
+
+  /// No description provided for @profession_mechanic.
+  ///
+  /// In en, this message translates to:
+  /// **'Car Mechanic'**
+  String get profession_mechanic;
+
+  /// No description provided for @profession_phone_technician.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Maintenance Technician'**
+  String get profession_phone_technician;
+
+  /// No description provided for @profession_furniture.
+  ///
+  /// In en, this message translates to:
+  /// **'Furniture Assembly'**
+  String get profession_furniture;
+
+  /// No description provided for @createClientAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Client Account'**
+  String get createClientAccount;
+
+  /// No description provided for @welcomeClient.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome, Client!'**
+  String get welcomeClient;
+
+  /// No description provided for @fillYourInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in the following data to create your account'**
+  String get fillYourInfo;
+
+  /// No description provided for @welcomeSlogan.
+  ///
+  /// In en, this message translates to:
+  /// **'Your trusted partner for home\nmaintenance and repair services'**
+  String get welcomeSlogan;
+
+  /// No description provided for @createNewAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create New Account'**
+  String get createNewAccount;
+
+  /// No description provided for @byContinuingYouAgree.
+  ///
+  /// In en, this message translates to:
+  /// **'By continuing, you agree to our '**
+  String get byContinuingYouAgree;
+
+  /// No description provided for @bookingConfirmedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking confirmed successfully'**
+  String get bookingConfirmedSuccess;
+
+  /// Title for booking details step
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Details'**
+  String get bookingDetails;
+
+  /// No description provided for @bookingId.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking ID: {id}'**
+  String bookingId(Object id);
+
+  /// No description provided for @service.
+  ///
+  /// In en, this message translates to:
+  /// **'Service: {serviceName}'**
+  String service(Object serviceName);
+
+  /// No description provided for @provider.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider: {providerName}'**
+  String provider(Object providerName);
+
+  /// No description provided for @when.
+  ///
+  /// In en, this message translates to:
+  /// **'When: {date} {time}'**
+  String when(Object date, Object time);
+
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address: {address}'**
+  String address(Object address);
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total: {amount}'**
+  String total(Object amount);
+
+  /// No description provided for @attachment.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachment: {url}'**
+  String attachment(Object url);
+
+  /// No description provided for @couldNotFetchProviderDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not fetch provider details'**
+  String get couldNotFetchProviderDetails;
+
+  /// No description provided for @couldNotOpenDialer.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open dialer'**
+  String get couldNotOpenDialer;
+
+  /// No description provided for @providerPhoneNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider phone not available'**
+  String get providerPhoneNotAvailable;
+
+  /// No description provided for @couldNotStartChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not start chat'**
+  String get couldNotStartChat;
+
+  /// No description provided for @serviceInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Information'**
+  String get serviceInformation;
+
+  /// Urgent badge text
+  ///
+  /// In en, this message translates to:
+  /// **'URGENT'**
+  String get urgent;
+
+  /// No description provided for @estimatedDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated Duration: {duration} minutes'**
+  String estimatedDuration(Object duration);
+
+  /// No description provided for @schedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get schedule;
+
+  /// No description provided for @location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get location;
+
+  /// No description provided for @viewOnMap.
+  ///
+  /// In en, this message translates to:
+  /// **'View on Map'**
+  String get viewOnMap;
+
+  /// Error when maps cannot be opened
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open maps'**
+  String get couldNotOpenMaps;
+
+  /// No description provided for @priceBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Price Breakdown'**
+  String get priceBreakdown;
+
+  /// No description provided for @servicePrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Price'**
+  String get servicePrice;
+
+  /// No description provided for @taxes.
+  ///
+  /// In en, this message translates to:
+  /// **'Taxes'**
+  String get taxes;
+
+  /// No description provided for @platformFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Platform Fee'**
+  String get platformFee;
+
+  /// No description provided for @totalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get totalAmount;
+
+  /// Notes section title
+  ///
+  /// In en, this message translates to:
+  /// **'Additional Notes'**
+  String get additionalNotes;
+
+  /// Attachments section title
+  ///
+  /// In en, this message translates to:
+  /// **'Attachments'**
+  String get attachments;
+
+  /// No description provided for @attachmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachment {index}'**
+  String attachmentLabel(Object index);
+
+  /// No description provided for @reschedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Reschedule'**
+  String get reschedule;
+
+  /// Snackbar when a booking is updated
+  ///
+  /// In en, this message translates to:
+  /// **'Booking updated'**
+  String get bookingUpdated;
+
+  /// No description provided for @cancelBooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Booking'**
+  String get cancelBooking;
+
+  /// No description provided for @confirmCompletionCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Completion (Cash Payment)'**
+  String get confirmCompletionCash;
+
+  /// Contact support option title
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Support'**
+  String get contactSupport;
+
+  /// No description provided for @areYouSureCancelBooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to cancel this booking?'**
+  String get areYouSureCancelBooking;
+
+  /// No description provided for @reasonForCancellation.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for cancellation'**
+  String get reasonForCancellation;
+
+  /// No description provided for @keepBooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Booking'**
+  String get keepBooking;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @failedToLoadBookingDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load booking details'**
+  String get failedToLoadBookingDetails;
+
+  /// No description provided for @markAllAsRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark All as Read'**
+  String get markAllAsRead;
+
+  /// No description provided for @deleteAllNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete All Notifications'**
+  String get deleteAllNotifications;
+
+  /// No description provided for @errorLoadingNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading notifications'**
+  String get errorLoadingNotifications;
+
+  /// No description provided for @deleteNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Notification'**
+  String get deleteNotification;
+
+  /// No description provided for @areYouSureDeleteNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this notification?'**
+  String get areYouSureDeleteNotification;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @areYouSureDeleteAllNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete all notifications? This action cannot be undone.'**
+  String get areYouSureDeleteAllNotifications;
+
+  /// No description provided for @deleteAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete All'**
+  String get deleteAll;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @noMatchingNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching notifications'**
+  String get noMatchingNotifications;
+
+  /// No description provided for @noNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications'**
+  String get noNotifications;
+
+  /// No description provided for @noNotificationsFoundForFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t find any notifications matching the selected filter'**
+  String get noNotificationsFoundForFilter;
+
+  /// No description provided for @allYourNotificationsWillAppearHere.
+  ///
+  /// In en, this message translates to:
+  /// **'All your notifications will appear here when they arrive'**
+  String get allYourNotificationsWillAppearHere;
+
+  /// No description provided for @removeFilter.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Filter'**
+  String get removeFilter;
+
+  /// No description provided for @notificationsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'You will receive notifications about your bookings and our special offers'**
+  String get notificationsHint;
+
+  /// No description provided for @now.
+  ///
+  /// In en, this message translates to:
+  /// **'Now'**
+  String get now;
+
+  /// No description provided for @minutesAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}m ago'**
+  String minutesAgo(Object minutes);
+
+  /// No description provided for @hoursAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h ago'**
+  String hoursAgo(Object hours);
+
+  /// No description provided for @daysAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{days}d ago'**
+  String daysAgo(Object days);
+
+  /// No description provided for @notificationType_bookingConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Confirmation'**
+  String get notificationType_bookingConfirmation;
+
+  /// No description provided for @notificationType_bookingCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Cancelled'**
+  String get notificationType_bookingCancelled;
+
+  /// No description provided for @notificationType_bookingCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Completed'**
+  String get notificationType_bookingCompleted;
+
+  /// No description provided for @notificationType_paymentSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Success'**
+  String get notificationType_paymentSuccess;
+
+  /// No description provided for @notificationType_paymentFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Failed'**
+  String get notificationType_paymentFailed;
+
+  /// No description provided for @notificationType_specialOffer.
+  ///
+  /// In en, this message translates to:
+  /// **'Special Offer'**
+  String get notificationType_specialOffer;
+
+  /// No description provided for @notificationType_appUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'App Update'**
+  String get notificationType_appUpdate;
+
+  /// No description provided for @notificationType_reviewRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Request'**
+  String get notificationType_reviewRequest;
+
+  /// No description provided for @notificationType_bookingReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Reminder'**
+  String get notificationType_bookingReminder;
+
+  /// No description provided for @notificationType_providerAssigned.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider Assigned'**
+  String get notificationType_providerAssigned;
+
+  /// No description provided for @notificationType_general.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get notificationType_general;
+
+  /// Camera button label
+  ///
+  /// In en, this message translates to:
+  /// **'Take Photo'**
+  String get takePhoto;
+
+  /// No description provided for @chooseFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from Gallery'**
+  String get chooseFromGallery;
+
+  /// Payment methods menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Methods'**
+  String get paymentMethods;
+
+  /// No description provided for @memberSince.
+  ///
+  /// In en, this message translates to:
+  /// **'Member Since'**
+  String get memberSince;
+
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// No description provided for @active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get active;
+
+  /// No description provided for @years.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} years'**
+  String years(Object count);
+
+  /// No description provided for @months.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} months'**
+  String months(Object count);
+
+  /// No description provided for @days.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days'**
+  String days(Object count);
+
+  /// No description provided for @invalidUserType.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid user type'**
+  String get invalidUserType;
+
+  /// No description provided for @errorSelectingUserType.
+  ///
+  /// In en, this message translates to:
+  /// **'Error selecting user type: {error}'**
+  String errorSelectingUserType(Object error);
+
+  /// No description provided for @failedToLoadSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load settings'**
+  String get failedToLoadSettings;
+
+  /// No description provided for @unexpectedError.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred: {error}'**
+  String unexpectedError(Object error);
+
+  /// No description provided for @failedToUpdateSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update settings'**
+  String get failedToUpdateSettings;
+
+  /// No description provided for @errorUpdatingSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Error updating settings: {error}'**
+  String errorUpdatingSettings(Object error);
+
+  /// No description provided for @failedToResetSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to reset settings'**
+  String get failedToResetSettings;
+
+  /// No description provided for @errorResettingSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Error resetting settings: {error}'**
+  String errorResettingSettings(Object error);
+
+  /// No description provided for @failedToLoadProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load profile data'**
+  String get failedToLoadProfile;
+
+  /// No description provided for @failedToUpdateProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update profile data'**
+  String get failedToUpdateProfile;
+
+  /// No description provided for @galleryPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission to access gallery was denied'**
+  String get galleryPermissionDenied;
+
+  /// No description provided for @cameraAccessDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera access was denied or cancelled'**
+  String get cameraAccessDenied;
+
+  /// No description provided for @failedToUploadProfilePicture.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to upload profile picture'**
+  String get failedToUploadProfilePicture;
+
+  /// No description provided for @failedToUpdateProfileAfterUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update profile after upload'**
+  String get failedToUpdateProfileAfterUpload;
+
+  /// No description provided for @failedToDeleteProfilePicture.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete profile picture'**
+  String get failedToDeleteProfilePicture;
+
+  /// No description provided for @contactType_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get contactType_email;
+
+  /// No description provided for @contactType_phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get contactType_phone;
+
+  /// No description provided for @contactType_whatsapp.
+  ///
+  /// In en, this message translates to:
+  /// **'WhatsApp'**
+  String get contactType_whatsapp;
+
+  /// No description provided for @contactType_website.
+  ///
+  /// In en, this message translates to:
+  /// **'Website'**
+  String get contactType_website;
+
+  /// No description provided for @contactType_social.
+  ///
+  /// In en, this message translates to:
+  /// **'Social Media'**
+  String get contactType_social;
+
+  /// Search button text
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @searchForServiceOrProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for a service or provider...'**
+  String get searchForServiceOrProvider;
+
+  /// Services screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Services'**
+  String get services;
+
+  /// Providers screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Providers'**
+  String get providers;
+
+  /// No description provided for @noSearchResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No search results'**
+  String get noSearchResults;
+
+  /// No description provided for @errorOcurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred: {message}'**
+  String errorOcurred(Object message);
+
+  /// No description provided for @recentSearches.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Searches'**
+  String get recentSearches;
+
+  /// No description provided for @plumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Plumber'**
+  String get plumber;
+
+  /// No description provided for @electrician.
+  ///
+  /// In en, this message translates to:
+  /// **'Electrician'**
+  String get electrician;
+
+  /// No description provided for @cleaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleaning'**
+  String get cleaning;
+
+  /// No description provided for @ac.
+  ///
+  /// In en, this message translates to:
+  /// **'AC'**
+  String get ac;
+
+  /// No description provided for @noServicesMatchYourSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'No services match your search'**
+  String get noServicesMatchYourSearch;
+
+  /// No description provided for @noProvidersMatchYourSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'No providers match your search'**
+  String get noProvidersMatchYourSearch;
+
+  /// No description provided for @helpAndSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & Support'**
+  String get helpAndSupport;
+
+  /// No description provided for @faq.
+  ///
+  /// In en, this message translates to:
+  /// **'FAQ'**
+  String get faq;
+
+  /// No description provided for @contactUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us'**
+  String get contactUs;
+
+  /// No description provided for @aboutApp.
+  ///
+  /// In en, this message translates to:
+  /// **'About App'**
+  String get aboutApp;
+
+  /// Categories section title
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// Bookings menu item
+  ///
+  /// In en, this message translates to:
+  /// **'Bookings'**
+  String get bookings;
+
+  /// No description provided for @payments.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments'**
+  String get payments;
+
+  /// No description provided for @account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account;
+
+  /// No description provided for @weAreHereToHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'We are here to help'**
+  String get weAreHereToHelp;
+
+  /// No description provided for @customerSupportHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Our customer support team is available 24/7 to answer your questions'**
+  String get customerSupportHint;
+
+  /// No description provided for @sendDirectMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Direct Message'**
+  String get sendDirectMessage;
+
+  /// No description provided for @appVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version 1.0.0'**
+  String get appVersion;
+
+  /// No description provided for @appDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'A comprehensive platform for home maintenance and repair services. We connect you with the best certified technicians in your area to provide high-quality and reliable services.'**
+  String get appDescription;
+
+  /// No description provided for @appFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'App Features'**
+  String get appFeatures;
+
+  /// No description provided for @feature_certifiedTechnicians.
+  ///
+  /// In en, this message translates to:
+  /// **'Certified and qualified technicians'**
+  String get feature_certifiedTechnicians;
+
+  /// No description provided for @feature_247Support.
+  ///
+  /// In en, this message translates to:
+  /// **'24/7 customer service'**
+  String get feature_247Support;
+
+  /// No description provided for @feature_transparentPricing.
+  ///
+  /// In en, this message translates to:
+  /// **'Transparent and fair prices'**
+  String get feature_transparentPricing;
+
+  /// No description provided for @feature_serviceWarranty.
+  ///
+  /// In en, this message translates to:
+  /// **'Warranty on all services'**
+  String get feature_serviceWarranty;
+
+  /// No description provided for @feature_liveTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'Live tracking of orders'**
+  String get feature_liveTracking;
+
+  /// No description provided for @feature_realReviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Real customer reviews'**
+  String get feature_realReviews;
+
+  /// No description provided for @legalInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Legal Information'**
+  String get legalInformation;
+
+  /// No description provided for @refundPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Refund Policy'**
+  String get refundPolicy;
+
+  /// No description provided for @termsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get termsOfUse;
+
+  /// No description provided for @copyright.
+  ///
+  /// In en, this message translates to:
+  /// **'© 2024 Fix It. All rights reserved.'**
+  String get copyright;
+
+  /// No description provided for @contact_callUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Call us directly'**
+  String get contact_callUs;
+
+  /// No description provided for @contact_whatsapp.
+  ///
+  /// In en, this message translates to:
+  /// **'Message us on WhatsApp'**
+  String get contact_whatsapp;
+
+  /// No description provided for @contact_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Send us an email'**
+  String get contact_email;
+
+  /// No description provided for @faq_q1.
+  ///
+  /// In en, this message translates to:
+  /// **'How can I book a maintenance service?'**
+  String get faq_q1;
+
+  /// No description provided for @faq_a1.
+  ///
+  /// In en, this message translates to:
+  /// **'You can easily book a maintenance service through the app. Choose the required service type, select the location and suitable time, then choose the appropriate technician from the available list.'**
+  String get faq_a1;
+
+  /// No description provided for @faq_q2.
+  ///
+  /// In en, this message translates to:
+  /// **'What are the available payment methods?'**
+  String get faq_q2;
+
+  /// No description provided for @faq_a2.
+  ///
+  /// In en, this message translates to:
+  /// **'We accept all major payment methods including credit cards, Apple Pay, as well as cash payment upon service completion.'**
+  String get faq_a2;
+
+  /// No description provided for @faq_q3.
+  ///
+  /// In en, this message translates to:
+  /// **'Can I cancel or modify a booking appointment?'**
+  String get faq_q3;
+
+  /// No description provided for @faq_a3.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, you can cancel or modify a booking appointment at least 4 hours before the scheduled time without any additional fees.'**
+  String get faq_a3;
+
+  /// No description provided for @faq_q4.
+  ///
+  /// In en, this message translates to:
+  /// **'How can I rate the service?'**
+  String get faq_q4;
+
+  /// No description provided for @faq_a4.
+  ///
+  /// In en, this message translates to:
+  /// **'After the service is completed, you will receive a notification to rate the service and the technician. You can give a rating from 1 to 5 stars and write a comment about your experience.'**
+  String get faq_a4;
+
+  /// No description provided for @emailSubject_inquiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Inquiry from Fix It App'**
+  String get emailSubject_inquiry;
+
+  /// No description provided for @noResultsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get noResultsFound;
+
+  /// No description provided for @tryDifferentKeywords.
+  ///
+  /// In en, this message translates to:
+  /// **'Try searching with different keywords'**
+  String get tryDifferentKeywords;
+
+  /// No description provided for @searchResultsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Results ({count})'**
+  String searchResultsCount(Object count);
+
+  /// No description provided for @searchFaqHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search in FAQ...'**
+  String get searchFaqHint;
+
+  /// No description provided for @contactMethods.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Methods'**
+  String get contactMethods;
+
+  /// No description provided for @cannotOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot open {description}'**
+  String cannotOpen(Object description);
+
+  /// No description provided for @errorOpening.
+  ///
+  /// In en, this message translates to:
+  /// **'Error opening {description}'**
+  String errorOpening(Object description);
+
   /// Error shown when profile/data fails to load
   ///
   /// In en, this message translates to:
@@ -332,18 +1670,6 @@ abstract class AppLocalizations {
   /// **'Change Password'**
   String get changePassword;
 
-  /// Payment methods menu item
-  ///
-  /// In en, this message translates to:
-  /// **'Payment Methods'**
-  String get paymentMethods;
-
-  /// Bookings menu item
-  ///
-  /// In en, this message translates to:
-  /// **'Bookings'**
-  String get bookings;
-
   /// Logout dialog title
   ///
   /// In en, this message translates to:
@@ -367,12 +1693,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Arabic'**
   String get arabic;
-
-  /// Services screen title
-  ///
-  /// In en, this message translates to:
-  /// **'Services'**
-  String get services;
 
   /// Search services dialog title
   ///
@@ -404,12 +1724,6 @@ abstract class AppLocalizations {
   /// **'Search services...'**
   String get searchHint;
 
-  /// Categories section title
-  ///
-  /// In en, this message translates to:
-  /// **'Categories'**
-  String get categories;
-
   /// Search results header
   ///
   /// In en, this message translates to:
@@ -421,12 +1735,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All Services'**
   String get allServices;
-
-  /// Search button text
-  ///
-  /// In en, this message translates to:
-  /// **'Search'**
-  String get search;
 
   /// No services found text
   ///
@@ -578,12 +1886,6 @@ abstract class AppLocalizations {
   /// **'German'**
   String get german;
 
-  /// Providers screen title
-  ///
-  /// In en, this message translates to:
-  /// **'Providers'**
-  String get providers;
-
   /// Label for service providers listing
   ///
   /// In en, this message translates to:
@@ -734,12 +2036,6 @@ abstract class AppLocalizations {
   /// **'Failed to load time slots'**
   String get failedToLoadTimeSlots;
 
-  /// Title for booking details step
-  ///
-  /// In en, this message translates to:
-  /// **'Booking Details'**
-  String get bookingDetails;
-
   /// Subtitle for booking details step
   ///
   /// In en, this message translates to:
@@ -848,12 +2144,6 @@ abstract class AppLocalizations {
   /// **'Call'**
   String get callLabel;
 
-  /// Email button label
-  ///
-  /// In en, this message translates to:
-  /// **'Email'**
-  String get emailLabel;
-
   /// Snackbar when review submission fails
   ///
   /// In en, this message translates to:
@@ -950,18 +2240,6 @@ abstract class AppLocalizations {
   /// **'Start New Conversation'**
   String get startNewConversation;
 
-  /// Snackbar when a booking is updated
-  ///
-  /// In en, this message translates to:
-  /// **'Booking updated'**
-  String get bookingUpdated;
-
-  /// Error when maps cannot be opened
-  ///
-  /// In en, this message translates to:
-  /// **'Could not open maps'**
-  String get couldNotOpenMaps;
-
   /// Error when location is not available
   ///
   /// In en, this message translates to:
@@ -1052,12 +2330,6 @@ abstract class AppLocalizations {
   /// **'Select on Map'**
   String get selectOnMap;
 
-  /// Notes section title
-  ///
-  /// In en, this message translates to:
-  /// **'Additional Notes'**
-  String get additionalNotes;
-
   /// Label asking user to describe the issue
   ///
   /// In en, this message translates to:
@@ -1100,23 +2372,11 @@ abstract class AppLocalizations {
   /// **'Urgent services may have additional charges and faster response times.'**
   String get urgentServicesNote;
 
-  /// Attachments section title
-  ///
-  /// In en, this message translates to:
-  /// **'Attachments'**
-  String get attachments;
-
   /// Hint telling user to add photos
   ///
   /// In en, this message translates to:
   /// **'Add photos to help describe the issue'**
   String get addPhotosToDescribe;
-
-  /// Camera button label
-  ///
-  /// In en, this message translates to:
-  /// **'Take Photo'**
-  String get takePhoto;
 
   /// Gallery pick button label
   ///
@@ -1243,12 +2503,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Service Provider'**
   String get serviceProvider;
-
-  /// Urgent badge text
-  ///
-  /// In en, this message translates to:
-  /// **'URGENT'**
-  String get urgent;
 
   /// Modify button text
   ///
@@ -1388,12 +2642,6 @@ abstract class AppLocalizations {
   /// **'Message providers from your bookings'**
   String get messageProvidersFromBookings;
 
-  /// Contact support option title
-  ///
-  /// In en, this message translates to:
-  /// **'Contact Support'**
-  String get contactSupport;
-
   /// Subtitle for contact support
   ///
   /// In en, this message translates to:
@@ -1423,12 +2671,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Electrical'**
   String get electrical;
-
-  /// No description provided for @cleaning.
-  ///
-  /// In en, this message translates to:
-  /// **'Cleaning'**
-  String get cleaning;
 
   /// No description provided for @painting.
   ///
@@ -1579,12 +2821,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please confirm your password'**
   String get pleaseConfirmPassword;
-
-  /// No description provided for @passwordsDoNotMatch.
-  ///
-  /// In en, this message translates to:
-  /// **'Passwords do not match'**
-  String get passwordsDoNotMatch;
 
   /// No description provided for @pleaseEnterValue.
   ///
