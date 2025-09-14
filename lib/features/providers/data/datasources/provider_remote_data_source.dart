@@ -73,9 +73,8 @@ class ProviderRemoteDataSourceImpl implements ProviderRemoteDataSource {
 
   @override
   Future<List<ReviewModel>> getProviderReviews(String providerId) async {
-    // TODO: Implement when API endpoint is available
-    // For now, return empty list to avoid compilation errors
-    return [];
+    final models = await apiClient.getProviderReviews(providerId);
+    return models.map((m) => ReviewModel.fromEntity(m.toEntity())).toList();
   }
 
   @override
@@ -85,23 +84,16 @@ class ProviderRemoteDataSourceImpl implements ProviderRemoteDataSource {
     required String comment,
     String? bookingId,
   }) async {
-    // TODO: Replace with real API call when endpoint is available.
-    // Mock a review model locally for now.
-    return ReviewModel.fromEntity(
-      // Create a ReviewEntity-like instance
-      // id uses timestamp for uniqueness in this mock
-      ReviewModel(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        providerId: providerId,
-        userId: 'current_user',
-        userName: 'You',
-        userImage: '',
-        rating: rating,
-        comment: comment,
-        createdAt: DateTime.now(),
-        images: [],
-      ),
+    final reviewData = {
+      'rating': rating,
+      'comment': comment,
+      if (bookingId != null) 'bookingId': bookingId,
+    };
+    final model = await apiClient.submitProviderReview(
+      providerId,
+      reviewData,
     );
+    return ReviewModel.fromEntity(model.toEntity());
   }
 
   @override

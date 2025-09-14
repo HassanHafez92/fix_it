@@ -179,7 +179,7 @@ class ProviderCard extends StatelessWidget {
                                   size: 14, color: Colors.blueGrey),
                               const SizedBox(width: 2),
                               Text(
-                                '${provider.etaMinutes} min',
+                                '${provider.etaMinutes ?? 0} min',
                                 style: GoogleFonts.cairo(
                                     fontSize: 12, color: Colors.grey[700]),
                               ),

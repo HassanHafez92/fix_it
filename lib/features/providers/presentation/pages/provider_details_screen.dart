@@ -256,7 +256,7 @@ class _ProviderDetailsScreenState extends State<ProviderDetailsScreen> {
                 const SizedBox(height: 16),
                 ProviderReviewsSection(
                   providerId: provider.id,
-                  reviews: state.reviews ?? [],
+                  reviews: state.reviews,
                   isLoadingReviews: state.isLoadingReviews,
                   reviewsError: state.reviewsError,
                 ),

@@ -48,7 +48,15 @@ class WelcomeScreen extends StatelessWidget {
     // ignore: unused_local_variable
     final size = MediaQuery.of(context).size;
     final theme = Theme.of(context);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
+    if (l10n == null) {
+      // Return a simple loading indicator if localization is not available
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
 
     return Scaffold(
       body: Container(

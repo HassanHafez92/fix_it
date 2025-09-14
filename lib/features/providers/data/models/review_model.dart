@@ -36,4 +36,18 @@ class ReviewModel extends ReviewEntity {
       images: entity.images,
     );
   }
+
+  ReviewEntity toEntity() {
+    return ReviewEntity(
+      id: id,
+      providerId: providerId,
+      userId: userId,
+      userName: userName,
+      userImage: userImage,
+      rating: rating,
+      comment: comment,
+      createdAt: createdAt,
+      images: images,
+    );
+  }
 }

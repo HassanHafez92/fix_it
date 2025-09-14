@@ -14,14 +14,14 @@ import '../../domain/entities/review_entity.dart';
 /// - The [reviews] list is expected to be filtered and sorted by the caller.
 class ProviderReviewsSection extends StatelessWidget {
   final String providerId;
-  final List<ReviewEntity> reviews;
+  final List<ReviewEntity>? reviews;
   final bool isLoadingReviews;
   final String? reviewsError;
 
   const ProviderReviewsSection({
     super.key,
     required this.providerId,
-    required this.reviews,
+    this.reviews,
     required this.isLoadingReviews,
     this.reviewsError,
   });
@@ -46,7 +46,7 @@ class ProviderReviewsSection extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '(${reviews.length})',
+                  '(${reviews?.length ?? 0})',
                   style: GoogleFonts.cairo(
                     fontSize: 14,
                     color: Colors.grey[600],
@@ -59,10 +59,10 @@ class ProviderReviewsSection extends StatelessWidget {
               const Center(child: CircularProgressIndicator())
             else if (reviewsError != null)
               _buildErrorWidget(context, reviewsError!)
-            else if (reviews.isEmpty)
+            else if (reviews?.isEmpty ?? true)
               _buildEmptyWidget(context)
             else
-              ...reviews.map((review) => _buildReviewItem(review)),
+              ...(reviews ?? []).map((review) => _buildReviewItem(review)),
           ],
         ),
       ),

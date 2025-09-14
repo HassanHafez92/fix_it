@@ -1,8 +1,9 @@
 // ignore_for_file: avoid_print
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
+// import 'package:fix_it/l10n/app_localizations.dart'; // Commented out to use only easy_localization
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fix_it/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
@@ -36,47 +37,47 @@ import 'firebase_options.dart';
 /// - Describe common error conditions and how they are handled.
 
 class SimpleBlocObserver extends BlocObserver {
-/// onEvent
-///
-/// Description: Briefly explain what this method does.
-///
-/// Parameters:
-/// - (describe parameters)
-///
-/// Returns:
-/// - (describe return value)
+  /// onEvent
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
 
   @override
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
     print('BLOC EVENT: ${bloc.runtimeType} -> $event');
   }
-/// onChange
-///
-/// Description: Briefly explain what this method does.
-///
-/// Parameters:
-/// - (describe parameters)
-///
-/// Returns:
-/// - (describe return value)
 
+  /// onChange
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
 
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
     print('BLOC CHANGE: ${bloc.runtimeType} -> $change');
   }
-/// onTransition
-///
-/// Description: Briefly explain what this method does.
-///
-/// Parameters:
-/// - (describe parameters)
-///
-/// Returns:
-/// - (describe return value)
 
+  /// onTransition
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
@@ -165,6 +166,10 @@ Future<void> main() async {
       supportedLocales: const [Locale('en', 'US'), Locale('ar')],
       path: 'assets/translations',
       fallbackLocale: const Locale('en', 'US'),
+      assetLoader: RootBundleAssetLoader(),
+      saveLocale: false,
+      useOnlyLangCode: true,
+      startLocale: Locale('en'),
       child: const FixItApp(),
     ),
   );
@@ -270,20 +275,19 @@ Future<void> _initializeServices() async {
 /// Error scenarios:
 /// - Describe common error conditions and how they are handled.
 
-
 class FixItApp extends StatelessWidget {
   /// Creates the main Fix It application widget.
   const FixItApp({super.key});
-/// build
-///
-/// Description: Briefly explain what this method does.
-///
-/// Parameters:
-/// - (describe parameters)
-///
-/// Returns:
-/// - (describe return value)
 
+  /// build
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
 
   @override
   Widget build(BuildContext context) {
@@ -322,12 +326,8 @@ class FixItApp extends StatelessWidget {
 
             // Internationalization delegates
             // Provides localized text for Material Design components
-            // Keep generated AppLocalizations delegate while easy_localization
-            // is being used so existing call sites continue to work.
             localizationsDelegates: [
-              AppLocalizations.delegate,
-              if (EasyLocalization.of(context) != null)
-                ...EasyLocalization.of(context)!.delegates,
+              ...EasyLocalization.of(context)!.delegates,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
@@ -335,11 +335,10 @@ class FixItApp extends StatelessWidget {
 
             // Supported locales for the application
             // Supports multiple languages for international users
-            supportedLocales: EasyLocalization.of(context)?.supportedLocales ??
-                const [Locale('en', 'US'), Locale('ar')],
+            supportedLocales: EasyLocalization.of(context)!.supportedLocales,
 
-            // Prefer EasyLocalization's locale if available; fall back to Bloc state
-            locale: EasyLocalization.of(context)?.locale ?? localeState.locale,
+            // Use EasyLocalization's locale
+            locale: EasyLocalization.of(context)!.locale,
 
             // Apply text direction based on locale
             localeResolutionCallback: (deviceLocale, supported) {

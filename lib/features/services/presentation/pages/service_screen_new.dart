@@ -1,6 +1,19 @@
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // تطبيق مادي بسيط، وسيتم فرض RTL على مستوى الشاشة عبر Directionality
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ServicesScreen(),
+    );
+  }
+}
 
 class ServiceItem {
   final IconData icon;
@@ -140,7 +153,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
   Widget build(BuildContext context) {
     // فرض اتجاه RTL على كامل الشاشة
     return Directionality(
-      textDirection: ui.TextDirection.rtl,
+      textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -148,25 +161,24 @@ class _ServicesScreenState extends State<ServicesScreen> {
             onPressed: () {},
           ),
           centerTitle: true,
-          title: Text(
-            tr('allServices'),
-            style: const TextStyle(fontWeight: FontWeight.w700),
+          title: const Text(
+            'الخدمات',
+            style: TextStyle(fontWeight: FontWeight.w700),
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (i) => setState(() => _currentIndex = i),
           type: BottomNavigationBarType.fixed,
-          items: [
+          items: const [
             BottomNavigationBarItem(
-                icon: const Icon(Icons.home_rounded), label: tr('home')),
+                icon: Icon(Icons.home_rounded), label: 'الرئيسية'),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.search_rounded), label: tr('search')),
+                icon: Icon(Icons.search_rounded), label: 'البحث'),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.calendar_today_rounded),
-                label: tr('bookings')),
+                icon: Icon(Icons.calendar_today_rounded), label: 'الجدولات'),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.person_rounded), label: tr('account')),
+                icon: Icon(Icons.person_rounded), label: 'الملف الشخصي'),
           ],
         ),
         body: SafeArea(
@@ -184,9 +196,9 @@ class _ServicesScreenState extends State<ServicesScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: TextField(
                     onChanged: (v) => setState(() => _query = v),
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.search),
-                      hintText: tr('search'),
+                    decoration: const InputDecoration(
+                      icon: Icon(Icons.search),
+                      hintText: 'ابحث عن الخدمات',
                       border: InputBorder.none,
                     ),
                   ),

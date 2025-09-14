@@ -3,6 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../features/services/data/models/service_model.dart';
 import '../../features/providers/data/models/provider_model.dart';
+import '../../features/providers/data/models/review_model.dart';
 import '../../features/booking/data/models/booking_model.dart';
 import 'models/pagination_response_model.dart';
 
@@ -68,8 +69,14 @@ abstract class ApiClient {
   @GET("/providers/{id}")
   Future<ProviderModel> getProviderDetails(@Path("id") String providerId);
 
-  // @GET("/providers/{id}/reviews")
-  // Future<List<dynamic>> getProviderReviews(@Path("id") String providerId);
+  @GET("/providers/{id}/reviews")
+  Future<List<ReviewModel>> getProviderReviews(@Path("id") String providerId);
+
+  @POST("/providers/{id}/reviews")
+  Future<ReviewModel> submitProviderReview(
+    @Path("id") String providerId,
+    @Body() Map<String, dynamic> reviewData,
+  );
 
   @GET("/providers/nearby")
   Future<List<ProviderModel>> getNearbyProviders(

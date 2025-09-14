@@ -190,6 +190,74 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<List<ReviewModel>> getProviderReviews(String providerId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<ReviewModel>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/providers/${providerId}/reviews',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<ReviewModel> _value;
+    try {
+      if (_result.data != null) {
+        _value = _result.data!
+            .map((dynamic i) => ReviewModel.fromJson(i as Map<String, dynamic>))
+            .toList();
+      } else {
+        _value = [];
+      }
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ReviewModel> submitProviderReview(
+    String providerId,
+    Map<String, dynamic> reviewData,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(reviewData);
+    final _options = _setStreamType<ReviewModel>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/providers/${providerId}/reviews',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ReviewModel _value;
+    try {
+      if (_result.data != null) {
+        _value = ReviewModel.fromJson(_result.data!);
+      } else {
+        throw Exception('Failed to submit review: No data returned from server');
+      }
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<List<ProviderModel>> getNearbyProviders(
     double latitude,
     double longitude,
