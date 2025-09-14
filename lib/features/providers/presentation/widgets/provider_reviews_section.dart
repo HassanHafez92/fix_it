@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../domain/entities/review_entity.dart';
 
 class ProviderReviewsSection extends StatelessWidget {
@@ -29,7 +29,7 @@ class ProviderReviewsSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.reviewsLabel,
+                  tr('reviewsLabel'),
                   style: GoogleFonts.cairo(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -145,7 +145,7 @@ class ProviderReviewsSection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            AppLocalizations.of(context)!.noReviewsYet,
+            tr('noReviewsYet'),
             style: GoogleFonts.cairo(
               fontSize: 14,
               color: Colors.grey[600],
@@ -167,7 +167,7 @@ class ProviderReviewsSection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            AppLocalizations.of(context)!.failedToLoadReviews,
+            tr('failedToLoadReviews'),
             style: GoogleFonts.cairo(
               fontSize: 14,
               color: Colors.grey[600],

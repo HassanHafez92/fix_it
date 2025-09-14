@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../domain/entities/provider_entity.dart';
 
 class ProviderInfoCard extends StatelessWidget {
@@ -17,7 +17,7 @@ class ProviderInfoCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.of(context)!.contactInformation,
+              tr('contactInformation'),
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -25,14 +25,12 @@ class ProviderInfoCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            _buildInfoRow(Icons.phone, AppLocalizations.of(context)!.phone,
-                provider.phone),
+            _buildInfoRow(Icons.phone, tr('phone'), provider.phone),
             const SizedBox(height: 12),
-            _buildInfoRow(Icons.email, AppLocalizations.of(context)!.email,
-                provider.email),
+            _buildInfoRow(Icons.email, tr('email'), provider.email),
             const SizedBox(height: 12),
-            _buildInfoRow(Icons.location_on,
-                AppLocalizations.of(context)!.locationLabel, provider.location),
+            _buildInfoRow(
+                Icons.location_on, tr('locationLabel'), provider.location),
           ],
         ),
       ),

@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fix_it/core/utils/bloc_utils.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'dart:io';
 
 import '../../../../core/di/injection_container.dart' as di;
 import '../../../../core/services/file_upload_service.dart';
 import 'package:get_it/get_it.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../domain/entities/time_slot_entity.dart';
 import '../bloc/create_booking_bloc.dart';
@@ -64,7 +63,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
-          AppLocalizations.of(context)!.bookService,
+          tr('bookService'),
           style: GoogleFonts.cairo(
             color: theme.primaryColor,
             fontWeight: FontWeight.bold,
@@ -183,7 +182,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.of(context)!.selectDate,
+            tr('selectDate'),
             style: GoogleFonts.cairo(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -192,7 +191,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            AppLocalizations.of(context)!.choosePreferredDate,
+            tr('choosePreferredDate'),
             style: GoogleFonts.cairo(
               fontSize: 16,
               color: Colors.grey[600],
@@ -232,7 +231,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.of(context)!.selectTime,
+            tr('selectTime'),
             style: GoogleFonts.cairo(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -242,9 +241,10 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
           const SizedBox(height: 8),
           Text(
             selectedDate != null
-                ? AppLocalizations.of(context)!.availableTimesForDate(
-                    DateFormat('MMM dd, yyyy').format(selectedDate!))
-                : AppLocalizations.of(context)!.pleaseSelectDateFirst,
+                ? tr('availableTimesForDate', namedArgs: {
+                    'date': DateFormat('MMM dd, yyyy').format(selectedDate!)
+                  })
+                : tr('pleaseSelectDateFirst'),
             style: GoogleFonts.cairo(
               fontSize: 16,
               color: Colors.grey[600],
@@ -275,7 +275,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                             size: 64, color: Colors.red[400]),
                         const SizedBox(height: 16),
                         Text(
-                          AppLocalizations.of(context)!.failedToLoadTimeSlots,
+                          tr('failedToLoadTimeSlots'),
                           style: GoogleFonts.cairo(
                               fontSize: 18, color: Colors.grey[800]),
                         ),
@@ -287,7 +287,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                         ),
                         const SizedBox(height: 24),
                         ElevatedButton(
-                            onPressed: () {
+                          onPressed: () {
                             if (selectedDate != null &&
                                 widget.providerId != null) {
                               safeAddEvent<CreateBookingBloc>(
@@ -299,7 +299,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                               );
                             }
                           },
-                          child: Text(AppLocalizations.of(context)!.retry),
+                          child: Text(tr('retry')),
                         ),
                       ],
                     ),
@@ -307,7 +307,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                 }
                 return Center(
                   child: Text(
-                    AppLocalizations.of(context)!.selectDateToViewSlots,
+                    tr('selectDateToViewSlots'),
                     style: GoogleFonts.cairo(
                       fontSize: 16,
                       color: Colors.grey[600],
@@ -329,7 +329,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.of(context)!.bookingDetails,
+            tr('bookingDetails'),
             style: GoogleFonts.cairo(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -338,7 +338,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            AppLocalizations.of(context)!.addLocationAndDetails,
+            tr('addLocationAndDetails'),
             style: GoogleFonts.cairo(
               fontSize: 16,
               color: Colors.grey[600],
@@ -376,7 +376,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppLocalizations.of(context)!.confirmBooking,
+            tr('confirmBooking'),
             style: GoogleFonts.cairo(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -385,7 +385,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            AppLocalizations.of(context)!.reviewBookingBeforeConfirming,
+            tr('reviewBookingBeforeConfirming'),
             style: GoogleFonts.cairo(
               fontSize: 16,
               color: Colors.grey[600],
@@ -416,16 +416,16 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
           if (_currentStep > 0)
             Expanded(
               child: OutlinedButton(
-                  onPressed: _goToPreviousStep,
-                  child: Text(AppLocalizations.of(context)!.back),
-                ),
+                onPressed: _goToPreviousStep,
+                child: Text(tr('back')),
+              ),
             ),
           if (_currentStep > 0) const SizedBox(width: 16),
           Expanded(
             child: BlocBuilder<CreateBookingBloc, CreateBookingState>(
               builder: (context, state) {
                 return CustomButton(
-                  text: _currentStep == 3 ? AppLocalizations.of(context)!.confirmBooking : AppLocalizations.of(context)!.next,
+                  text: _currentStep == 3 ? tr('confirmBooking') : tr('next'),
                   enabled: _canProceed(),
                   onPressed: _handleNextStep,
                   isLoading: state is BookingCreating,

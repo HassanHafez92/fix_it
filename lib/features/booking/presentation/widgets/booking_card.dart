@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:intl/intl.dart';
 import 'package:fix_it/core/di/injection_container.dart' as di;
 import 'package:fix_it/features/providers/domain/usecases/get_provider_details_usecase.dart';
 import 'package:fix_it/features/chat/domain/repositories/chat_repository.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fix_it/core/utils/app_routes.dart';
 import '../../presentation/bloc/bookings_bloc.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../domain/entities/booking_entity.dart';
 import 'booking_status_badge.dart';
@@ -105,7 +104,7 @@ class BookingCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          AppLocalizations.of(context)!.serviceProvider,
+                          tr('serviceProvider'),
                           style: GoogleFonts.cairo(
                             fontSize: 12,
                             color: Colors.grey[600],
@@ -123,7 +122,7 @@ class BookingCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                        AppLocalizations.of(context)!.urgent,
+                        tr('urgent'),
                         style: GoogleFonts.cairo(
                           fontSize: 10,
                           color: Colors.white,
@@ -152,12 +151,12 @@ class BookingCard extends StatelessWidget {
                   Icon(Icons.access_time, color: Colors.grey[600], size: 16),
                   const SizedBox(width: 8),
                   Text(
-                        booking.timeSlot,
-                        style: GoogleFonts.cairo(
-                          fontSize: 14,
-                          color: Colors.grey[700],
-                        ),
-                      ),
+                    booking.timeSlot,
+                    style: GoogleFonts.cairo(
+                      fontSize: 14,
+                      color: Colors.grey[700],
+                    ),
+                  ),
                 ],
               ),
 
@@ -207,7 +206,7 @@ class BookingCard extends StatelessWidget {
   }
 
   Widget _buildActionButtons(BuildContext context, BookingEntity booking) {
-    final loc = AppLocalizations.of(context)!;
+    // use easy_localization tr() directly
 
     switch (booking.status) {
       case BookingStatus.pending:
@@ -217,7 +216,7 @@ class BookingCard extends StatelessWidget {
             TextButton(
               onPressed: () => _showCancelDialog(context, booking),
               child: Text(
-                AppLocalizations.of(context)!.cancel,
+                tr('cancel'),
                 style: GoogleFonts.cairo(
                   color: Colors.red,
                   fontWeight: FontWeight.w600,
@@ -229,7 +228,7 @@ class BookingCard extends StatelessWidget {
               onPressed: () {
                 final parentCtx = context;
                 final messenger = ScaffoldMessenger.of(parentCtx);
-                final loc = AppLocalizations.of(parentCtx)!;
+                // use easy_localization tr() directly
                 Navigator.pushNamed(
                   parentCtx,
                   AppRoutes.modifyBooking,
@@ -237,7 +236,8 @@ class BookingCard extends StatelessWidget {
                 ).then((result) {
                   if (result == true) {
                     di.sl<BookingsBloc>().add(GetUserBookingsEvent());
-                    messenger.showSnackBar(SnackBar(content: Text(loc.bookingUpdated)));
+                    messenger.showSnackBar(
+                        SnackBar(content: Text(tr('bookingUpdated'))));
                   }
                 });
               },
@@ -246,7 +246,7 @@ class BookingCard extends StatelessWidget {
                 minimumSize: const Size(80, 32),
               ),
               child: Text(
-                loc.modify,
+                tr('modify'),
                 style: GoogleFonts.cairo(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -263,7 +263,7 @@ class BookingCard extends StatelessWidget {
             TextButton(
               onPressed: () => _showCancelDialog(context, booking),
               child: Text(
-                AppLocalizations.of(context)!.cancel,
+                tr('cancel'),
                 style: GoogleFonts.cairo(
                   color: Colors.red,
                   fontWeight: FontWeight.w600,
@@ -280,7 +280,7 @@ class BookingCard extends StatelessWidget {
                 minimumSize: const Size(80, 32),
               ),
               child: Text(
-                AppLocalizations.of(context)!.contactProvider,
+                tr('contactProvider'),
                 style: GoogleFonts.cairo(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -293,7 +293,7 @@ class BookingCard extends StatelessWidget {
       case BookingStatus.inProgress:
         final messenger = ScaffoldMessenger.of(context);
         final nav = Navigator.of(context);
-        final loc = AppLocalizations.of(context)!;
+        // use easy_localization tr() directly
 
         return ElevatedButton(
           onPressed: () {
@@ -306,30 +306,36 @@ class BookingCard extends StatelessWidget {
                     children: [
                       ListTile(
                         leading: const Icon(Icons.map, color: Colors.blue),
-                        title: Text(loc.trackProvider, style: GoogleFonts.cairo()),
+                        title: Text(tr('trackProvider'),
+                            style: GoogleFonts.cairo()),
                         onTap: () async {
                           nav.pop();
                           try {
                             final lat = booking.latitude;
                             final lng = booking.longitude;
                             if (lat != 0 && lng != 0) {
-                              final uri = Uri.parse('https://www.google.com/maps/search/?api=1&query=$lat,$lng');
+                              final uri = Uri.parse(
+                                  'https://www.google.com/maps/search/?api=1&query=$lat,$lng');
                               if (await canLaunchUrl(uri)) {
                                 await launchUrl(uri);
                               } else {
-                                messenger.showSnackBar(SnackBar(content: Text(loc.couldNotOpenMaps)));
+                                messenger.showSnackBar(SnackBar(
+                                    content: Text(tr('couldNotOpenMaps'))));
                               }
                             } else {
-                              messenger.showSnackBar(SnackBar(content: Text(loc.locationNotAvailable)));
+                              messenger.showSnackBar(SnackBar(
+                                  content: Text(tr('locationNotAvailable'))));
                             }
                           } catch (e) {
-                            messenger.showSnackBar(SnackBar(content: Text(loc.couldNotOpenMaps)));
+                            messenger.showSnackBar(SnackBar(
+                                content: Text(tr('couldNotOpenMaps'))));
                           }
                         },
                       ),
                       ListTile(
                         leading: const Icon(Icons.phone, color: Colors.green),
-                        title: Text(loc.callProvider, style: GoogleFonts.cairo()),
+                        title: Text(tr('callProvider'),
+                            style: GoogleFonts.cairo()),
                         onTap: () {
                           nav.pop();
                           _showContactOptions(context, booking);
@@ -346,7 +352,7 @@ class BookingCard extends StatelessWidget {
             minimumSize: const Size(80, 32),
           ),
           child: Text(
-            loc.track,
+            tr('track'),
             style: GoogleFonts.cairo(
               fontSize: 12,
               fontWeight: FontWeight.w600,
@@ -359,7 +365,6 @@ class BookingCard extends StatelessWidget {
           onPressed: () {
             final parentCtx = context;
             final messenger = ScaffoldMessenger.of(parentCtx);
-            final loc = AppLocalizations.of(parentCtx)!;
             Navigator.pushNamed(
               parentCtx,
               AppRoutes.review,
@@ -369,10 +374,12 @@ class BookingCard extends StatelessWidget {
               },
             ).then((result) {
               if (result == true) {
-                messenger.showSnackBar(SnackBar(content: Text(loc.bookingUpdated)));
+                messenger.showSnackBar(
+                    SnackBar(content: Text(tr('bookingUpdated'))));
               }
             }).catchError((_) {
-              messenger.showSnackBar(SnackBar(content: Text(loc.couldNotOpenReviewScreen)));
+              messenger.showSnackBar(
+                  SnackBar(content: Text(tr('couldNotOpenReviewScreen'))));
             });
           },
           style: ElevatedButton.styleFrom(
@@ -380,7 +387,7 @@ class BookingCard extends StatelessWidget {
             minimumSize: const Size(80, 32),
           ),
           child: Text(
-            loc.review,
+            tr('review'),
             style: GoogleFonts.cairo(
               fontSize: 12,
               fontWeight: FontWeight.w600,
@@ -390,7 +397,7 @@ class BookingCard extends StatelessWidget {
 
       case BookingStatus.cancelled:
         return Text(
-          AppLocalizations.of(context)!.cancelled,
+          tr('cancelled'),
           style: GoogleFonts.cairo(
             fontSize: 12,
             color: Colors.grey[600],
@@ -400,7 +407,7 @@ class BookingCard extends StatelessWidget {
 
       case BookingStatus.rescheduled:
         return Text(
-          AppLocalizations.of(context)!.rescheduled,
+          tr('rescheduled'),
           style: GoogleFonts.cairo(
             fontSize: 12,
             color: Colors.orange[600],
@@ -463,7 +470,7 @@ class BookingCard extends StatelessWidget {
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(AppLocalizations.of(context)!.pleaseProvideCancellationReason),
+                    content: Text(tr('pleaseProvideCancellationReason')),
                     backgroundColor: Colors.red,
                   ),
                 );

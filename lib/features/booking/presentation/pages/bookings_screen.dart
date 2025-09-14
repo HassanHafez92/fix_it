@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fix_it/core/utils/app_routes.dart';
 
 import '../../domain/entities/booking_entity.dart';
@@ -38,7 +38,7 @@ class _BookingsScreenState extends State<BookingsScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
-          AppLocalizations.of(context)!.myBookings,
+          tr('myBookings'),
           style: GoogleFonts.cairo(
             color: theme.primaryColor,
             fontWeight: FontWeight.bold,
@@ -62,7 +62,8 @@ class _BookingsScreenState extends State<BookingsScreen> {
               setState(() {
                 selectedStatus = status;
               });
-              safeAddEvent<BookingsBloc>(context, FilterBookingsEvent(status: status));
+              safeAddEvent<BookingsBloc>(
+                  context, FilterBookingsEvent(status: status));
             },
           ),
 
@@ -72,9 +73,10 @@ class _BookingsScreenState extends State<BookingsScreen> {
               builder: (context, state) {
                 if (state is BookingsLoading) {
                   return const Center(child: CircularProgressIndicator());
-                } else if (state is BookingsLoaded || state is BookingsFiltered) {
-                  final bookings = state is BookingsLoaded 
-                      ? state.bookings 
+                } else if (state is BookingsLoaded ||
+                    state is BookingsFiltered) {
+                  final bookings = state is BookingsLoaded
+                      ? state.bookings
                       : (state as BookingsFiltered).bookings;
                   return _buildBookingsList(bookings);
                 } else if (state is BookingsError) {
@@ -94,7 +96,7 @@ class _BookingsScreenState extends State<BookingsScreen> {
         onPressed: () {
           Navigator.pushNamed(context, AppRoutes.createBooking);
         },
-        label: Text(AppLocalizations.of(context)!.newBooking),
+        label: Text(tr('newBooking')),
         icon: const Icon(Icons.add),
         backgroundColor: theme.primaryColor,
       ),
@@ -108,7 +110,7 @@ class _BookingsScreenState extends State<BookingsScreen> {
 
     return RefreshIndicator(
       onRefresh: () async {
-  safeAddEvent<BookingsBloc>(context, GetUserBookingsEvent());
+        safeAddEvent<BookingsBloc>(context, GetUserBookingsEvent());
       },
       child: ListView.builder(
         padding: const EdgeInsets.all(16),
@@ -141,13 +143,15 @@ class _BookingsScreenState extends State<BookingsScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            selectedStatus != null ? Icons.filter_list_off : Icons.calendar_today,
+            selectedStatus != null
+                ? Icons.filter_list_off
+                : Icons.calendar_today,
             size: 64,
             color: Colors.grey[400],
           ),
           const SizedBox(height: 16),
           Text(
-            selectedStatus != null 
+            selectedStatus != null
                 ? 'No ${_getStatusDisplayName(selectedStatus!)} bookings'
                 : 'No bookings yet',
             style: GoogleFonts.cairo(

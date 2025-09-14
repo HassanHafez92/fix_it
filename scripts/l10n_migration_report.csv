@@ -1,0 +1,88 @@
+file,match_types,parameterized_present,sample_snippet,suggested_replacement_notes
+lib/main.dart,"direct,l10n_local",no,"final l10n = AppLocalizations.of(context);","Keep generated delegate and local l10n in main.dart until all files migrated; remove the delegate at the end."
+
+# Booking (85 matches)
+lib/features/booking/presentation/pages/create_booking_screen.dart,"direct",yes,"AppLocalizations.of(context)!.availableTimesForDate(","Many simple keys + parameterized keys (availableTimesForDate). Replace simple keys with tr('key'). For parameterized keys use tr('key', namedArgs:{'date': dateStr}) after formatting date/time to strings."
+lib/features/booking/presentation/pages/booking_details_screen.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Remove local and replace l10n.x -> tr('x') or context.tr('x')."
+lib/features/booking/presentation/pages/bookings_screen.dart,"direct",no,"AppLocalizations.of(context)!.myBookings","Replace with tr('myBookings')."
+lib/features/booking/presentation/widgets/booking_form.dart,"direct",yes,"SnackBar(content: Text('${AppLocalizations.of(context)!.failedToPickImage}: $e'))","Convert to tr('failedToPickImage', namedArgs:{'error': e.toString()}). Ensure runtime args are strings."
+lib/features/booking/presentation/widgets/booking_card.dart,"mixed",no,"final loc = AppLocalizations.of(context)!; ... AppLocalizations.of(context)!.cancel","Remove local vars or replace with tr(). Use context.tr('...') where context is available."
+lib/features/booking/presentation/widgets/booking_summary_step.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace l10n references with tr()."
+
+# Providers (72 matches)
+lib/features/providers/presentation/pages/provider_search_screen.dart,"direct",no,"'${AppLocalizations.of(context)!.sort} by ${AppLocalizations.of(context)!.rating}'","Replace each AppLocalizations call with tr('...') and do interpolation with Dart string templates; be careful about RTL ordering."
+lib/features/providers/presentation/pages/providers_screen.dart,"direct",no,"AppLocalizations.of(context)!.serviceProviders","Replace with tr('serviceProviders') or appropriate key.">
+lib/features/providers/presentation/pages/provider_details_screen.dart,"direct",no,"label: Text(AppLocalizations.of(context)!.callLabel)","Replace with tr('callLabel')."
+lib/features/providers/presentation/pages/provider_availability_screen.dart,"direct",yes,"AppLocalizations.of(context)!.confirmBookingQuestion(","Parameterized message — convert to tr('confirmBookingQuestion', namedArgs:{'date': dateStr,'time': timeStr})."
+lib/features/providers/presentation/widgets/provider_info_card.dart,"direct",no,"AppLocalizations.of(context)!.contactInformation","Replace with tr('contactInformation')."
+lib/features/providers/presentation/widgets/provider_filter_bar.dart,"direct",no,"AppLocalizations.of(context)!.min / max / price","Replace with tr() keys and handle interpolation/spacing for localized order."
+lib/features/providers/presentation/widgets/provider_reviews_section.dart,"direct",no,"AppLocalizations.of(context)!.noReviewsYet","Replace with tr('noReviewsYet')."
+lib/features/providers/presentation/widgets/provider_card.dart,"direct",no,"AppLocalizations.of(context)!.availableLabel","Replace with tr('availableLabel')."
+lib/features/providers/presentation/pages/review_screen.dart,"direct",no,"Text(AppLocalizations.of(context)!.shareYourExperience)","Replace with tr('shareYourExperience')."
+
+# Services (47 matches)
+lib/features/services/presentation/pages/service_details_screen.dart,"direct",no,"AppLocalizations.of(context)!.serviceDetails","Replace with tr('serviceDetails') and other keys: available, price, duration, gallery, bookNow, contactProvider, retry."
+lib/features/services/presentation/pages/services_screen.dart,"direct",no,"AppLocalizations.of(context)!.noServicesFound","Replace with tr('noServicesFound')."
+lib/features/services/presentation/pages/service_selection_screen.dart,"direct",no,"Text(AppLocalizations.of(context)!.services)","Replace with tr('services')."
+lib/features/services/presentation/widgets/service_card.dart,"direct",yes,"'${service.duration}${AppLocalizations.of(context)!.minutesShort}'","Replace minutesShort with tr('minutesShort') and format numbers/durations to strings before interpolation."
+lib/features/services/presentation/pages/simple_service_details_screen.dart,"direct",no,"Text(AppLocalizations.of(context)!.close)","Replace with tr('close')."
+lib/features/services/presentation/pages/search_screen.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace local l10n with tr() calls."
+
+# Home (53 matches)
+lib/features/home/presentation/widgets/dashboard_profile_tab.dart,"direct",no,"AppLocalizations.of(context)!.profileTitle","Replace with tr('profileTitle')."
+lib/features/home/presentation/widgets/dashboard_chat_tab.dart,"direct",no,"AppLocalizations.of(context)!.messages","Replace with tr('messages')."
+lib/features/home/presentation/widgets/dashboard_home_tab.dart,"direct",no,"Text(AppLocalizations.of(context)!.settings)","Replace with tr('settings')."
+lib/features/home/presentation/widgets/dashboard_bookings_tab.dart,"direct",no,"AppLocalizations.of(context)!.bookService","Replace with tr('bookService')."
+lib/features/home/presentation/pages/home_screen.dart,"direct",no,"AppLocalizations.of(context)!.appTitle","Replace with tr('appTitle') and related keys.">
+
+# Help & Support (26 matches)
+lib/features/help_support/presentation/pages/help_screen.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace local l10n usage with tr() calls."
+lib/features/help_support/presentation/widgets/contact_section.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace with tr('contactUs') etc."
+lib/features/help_support/presentation/widgets/faq_section.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace with tr()."
+lib/features/help_support/presentation/widgets/help_search_bar.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace with tr()."
+lib/features/help_support/presentation/pages/privacy_policy_screen.dart,"direct",no,"Text(AppLocalizations.of(context)!.privacyPolicy)","Replace with tr('privacyPolicy')."
+lib/features/help_support/presentation/pages/terms_of_service_screen.dart,"direct",no,"Text(AppLocalizations.of(context)!.termsOfService)","Replace with tr('termsOfService')."
+
+# Notifications (16 matches)
+lib/features/notifications/presentation/widgets/notification_helper.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace with tr('...') and adjust code that builds notification text."
+lib/features/notifications/presentation/widgets/notification_card.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace with tr() per field."
+lib/features/notifications/presentation/widgets/notification_filter_chips.dart,"direct",no,"label: AppLocalizations.of(context)!.all","Replace with tr('all')."
+lib/features/notifications/presentation/pages/notifications_screen.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace local l10n references with tr()."
+lib/features/notifications/presentation/widgets/empty_notifications.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace with tr()."
+
+# Profile (6 matches)
+lib/features/profile/presentation/widgets/profile_header.dart,"l10n_local",yes,"final l10n = AppLocalizations.of(context)!; return l10n.days(difference.inDays.toString());","Parameterized — convert to tr('days', namedArgs:{'count': countStr}) or keep a small helper that formats number then calls tr()."
+
+# Payment (1 match)
+lib/features/payment/presentation/pages/payment_methods_screen.dart,"direct",no,"Text(AppLocalizations.of(context)!.paymentMethods)","Replace with tr('paymentMethods')."
+
+# Auth (10 matches)
+lib/features/auth/presentation/pages/sign_in_screen.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace with tr()."
+lib/features/auth/presentation/pages/client_sign_up_screen.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace with tr()."
+lib/features/auth/presentation/pages/technician_sign_up_screen.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace with tr()."
+lib/features/auth/presentation/pages/welcome_screen.dart,"l10n_local",no,"final l10n = AppLocalizations.of(context)!;","Replace with tr()."
+
+# Misc / generated l10n sources
+lib/l10n/app_localizations.dart,"direct",no,"AppLocalizations.of(context)","Generated file — keep until migration complete. Do not edit generated files."
+lib/main.dart.bak,"l10n_local",no,"final l10n = AppLocalizations.of(context);","Backup file; no action required except when cleaning up."
+
+# Recommendations
+"","","","","Recommendation: migrate feature-by-feature. Suggested order: booking (largest + parameterized), providers, home, services, help_support, notifications, profile, auth, payment. Maintain the generated AppLocalizations delegate in app until all files migrated. For parameterized messages, format args to strings before calling tr() and use namedArgs (recommended) for clarity."
+
+
+lib/features/services/presentation/pages/service_details_screen.dart,direct,"AppLocalizations.of(context)!.available","replace with tr('available') or context.tr('available')"
+lib/features/services/presentation/pages/service_details_screen.dart,direct,"AppLocalizations.of(context)!.price","replace with tr('price')"
+lib/features/services/presentation/pages/service_details_screen.dart,direct,"AppLocalizations.of(context)!.duration","replace with tr('duration')"
+lib/features/services/presentation/pages/service_details_screen.dart,direct,"AppLocalizations.of(context)!.descriptionLabel","replace with tr('descriptionLabel')"
+lib/features/services/presentation/widgets/service_card.dart,direct,"AppLocalizations.of(context)!.minutesShort","replace with tr('minutesShort')"
+lib/features/services/presentation/pages/service_selection_screen.dart,direct,"AppLocalizations.of(context)!.services","replace with tr('services')"
+lib/features/services/presentation/pages/services_screen.dart,direct,"AppLocalizations.of(context)!.noServicesFound","replace with tr('noServicesFound')"
+lib/features/providers/presentation/pages/provider_search_screen.dart,direct,"AppLocalizations.of(context)!.providers","replace with tr('providers') or tr('serviceProviders') depending on context"
+lib/features/providers/presentation/pages/provider_availability_screen.dart,direct,"AppLocalizations.of(context)!.confirmBookingQuestion","parameterized: tr('confirmBookingQuestion', namedArgs:{'date': dateStr,'time': timeStr})"
+lib/features/home/presentation/widgets/dashboard_profile_tab.dart,direct,"AppLocalizations.of(context)!.profileTitle","replace with tr('profileTitle')"
+lib/features/home/presentation/widgets/dashboard_chat_tab.dart,direct,"AppLocalizations.of(context)!.messages","replace with tr('messages')"
+lib/features/help_support/presentation/widgets/contact_section.dart,l10n_local,"final l10n = AppLocalizations.of(context)!; ... l10n.contactUs","replace with tr('contactUs')"
+lib/features/notifications/presentation/widgets/notification_card.dart,l10n_local,"final l10n = AppLocalizations.of(context)!; ... l10n.someNotificationText","replace with tr('...')"
+lib/features/profile/presentation/widgets/profile_header.dart,l10n_local,"final l10n = AppLocalizations.of(context)!; ... l10n.days(...)","parameterized: map to tr('days', namedArgs:{'count': countStr})"
+lib/features/payment/presentation/pages/payment_methods_screen.dart,direct,"AppLocalizations.of(context)!.paymentMethods","replace with tr('paymentMethods')"
+

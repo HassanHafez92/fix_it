@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:fix_it/core/theme/app_theme.dart';
 import 'package:fix_it/features/booking/presentation/bloc/booking_bloc/booking_bloc.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 
 class BookingSummaryStep extends StatelessWidget {
   final VoidCallback onNext;
@@ -32,7 +30,7 @@ class BookingSummaryStep extends StatelessWidget {
     BuildContext context,
     BookingSummary state,
   ) {
-    final l10n = AppLocalizations.of(context)!;
+    // Use easy_localization tr() directly
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -48,9 +46,7 @@ class BookingSummaryStep extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-
               const SizedBox(height: 8),
-
               Text(
                 'Please review your booking details',
                 style: TextStyle(
@@ -61,9 +57,7 @@ class BookingSummaryStep extends StatelessWidget {
             ],
           ),
         ),
-
         const Divider(),
-
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
@@ -87,9 +81,7 @@ class BookingSummaryStep extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-
                         const SizedBox(height: 8),
-
                         Row(
                           children: [
                             Container(
@@ -105,9 +97,7 @@ class BookingSummaryStep extends StatelessWidget {
                                 color: AppTheme.primaryColor,
                               ),
                             ),
-
                             const SizedBox(width: 16),
-
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,7 +109,6 @@ class BookingSummaryStep extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-
                                   if (state.service.category != null) ...[
                                     const SizedBox(height: 4),
                                     Text(
@@ -158,9 +147,7 @@ class BookingSummaryStep extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-
                         const SizedBox(height: 8),
-
                         Row(
                           children: [
                             CircleAvatar(
@@ -172,9 +159,7 @@ class BookingSummaryStep extends StatelessWidget {
                                 size: 30,
                               ),
                             ),
-
                             const SizedBox(width: 16),
-
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,9 +171,7 @@ class BookingSummaryStep extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-
                                   const SizedBox(height: 4),
-
                                   Row(
                                     children: [
                                       Icon(
@@ -233,9 +216,7 @@ class BookingSummaryStep extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-
                         const SizedBox(height: 8),
-
                         Row(
                           children: [
                             Container(
@@ -251,9 +232,7 @@ class BookingSummaryStep extends StatelessWidget {
                                 color: AppTheme.primaryColor,
                               ),
                             ),
-
                             const SizedBox(width: 16),
-
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -265,9 +244,7 @@ class BookingSummaryStep extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-
                                   const SizedBox(height: 4),
-
                                   Text(
                                     DateFormat.jm().format(state.dateTime),
                                     style: TextStyle(
@@ -303,9 +280,7 @@ class BookingSummaryStep extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-
                         const SizedBox(height: 8),
-
                         Row(
                           children: [
                             Container(
@@ -321,9 +296,7 @@ class BookingSummaryStep extends StatelessWidget {
                                 color: AppTheme.primaryColor,
                               ),
                             ),
-
                             const SizedBox(width: 16),
-
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -335,9 +308,7 @@ class BookingSummaryStep extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-
                                   const SizedBox(height: 4),
-
                                   Text(
                                     '${state.city}, ${state.postalCode}',
                                     style: TextStyle(
@@ -350,14 +321,10 @@ class BookingSummaryStep extends StatelessWidget {
                             ),
                           ],
                         ),
-
                         if (state.notes.isNotEmpty) ...[
                           const SizedBox(height: 16),
-
                           const Divider(),
-
                           const SizedBox(height: 8),
-
                           Text(
                             'Additional Notes',
                             style: const TextStyle(
@@ -365,9 +332,7 @@ class BookingSummaryStep extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-
                           const SizedBox(height: 8),
-
                           Text(
                             state.notes,
                             style: TextStyle(
@@ -399,9 +364,7 @@ class BookingSummaryStep extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-
                         const SizedBox(height: 8),
-
                         Row(
                           children: [
                             Container(
@@ -412,28 +375,28 @@ class BookingSummaryStep extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Icon(
-                                _getPaymentMethodIcon(state.selectedPaymentMethod?.type ?? 'credit_card'),
+                                _getPaymentMethodIcon(
+                                    state.selectedPaymentMethod?.type ??
+                                        'credit_card'),
                                 size: 24,
                                 color: Colors.grey[700],
                               ),
                             ),
-
                             const SizedBox(width: 16),
-
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    _getPaymentMethodTitle(state.selectedPaymentMethod?.type ?? 'credit_card'),
+                                    _getPaymentMethodTitle(
+                                        state.selectedPaymentMethod?.type ??
+                                            'credit_card'),
                                     style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-
                                   const SizedBox(height: 4),
-
                                   Text(
                                     state.selectedPaymentMethod?.details ?? '',
                                     style: TextStyle(
@@ -469,9 +432,7 @@ class BookingSummaryStep extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-
                         const SizedBox(height: 16),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -490,9 +451,7 @@ class BookingSummaryStep extends StatelessWidget {
                             ),
                           ],
                         ),
-
                         const SizedBox(height: 8),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -511,13 +470,9 @@ class BookingSummaryStep extends StatelessWidget {
                             ),
                           ],
                         ),
-
                         const SizedBox(height: 16),
-
                         const Divider(),
-
                         const SizedBox(height: 8),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -557,7 +512,7 @@ class BookingSummaryStep extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      l10n.confirmBooking,
+                      tr('confirmBooking'),
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
