@@ -4,13 +4,26 @@ abstract class ProviderAvailabilityState extends Equatable {
   const ProviderAvailabilityState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class ProviderAvailabilityInitial extends ProviderAvailabilityState {}
 
 class ProviderAvailabilityLoading extends ProviderAvailabilityState {}
 
+/// BookingRequested
+///
+/// Transient state emitted when a booking request has been successfully sent.
+class BookingRequested extends ProviderAvailabilityState {
+  const BookingRequested();
+
+  @override
+  List<Object?> get props => [];
+}
+
+/// ProviderAvailabilityLoaded
+///
+/// Contains provider availability and booking state.
 class ProviderAvailabilityLoaded extends ProviderAvailabilityState {
   final String providerName;
   final double? providerRating;
@@ -47,7 +60,14 @@ class ProviderAvailabilityLoaded extends ProviderAvailabilityState {
   }
 
   @override
-  List<Object> get props => [providerName, providerRating ?? 0, providerTotalRatings ?? 0, availability, bookedSlots, selectedDate ?? DateTime.now()];
+  List<Object?> get props => [
+        providerName,
+        providerRating,
+        providerTotalRatings,
+        availability,
+        bookedSlots,
+        selectedDate
+      ];
 }
 
 class ProviderAvailabilityError extends ProviderAvailabilityState {
@@ -56,7 +76,5 @@ class ProviderAvailabilityError extends ProviderAvailabilityState {
   const ProviderAvailabilityError({required this.message});
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
-
-class BookingRequested extends ProviderAvailabilityState {}

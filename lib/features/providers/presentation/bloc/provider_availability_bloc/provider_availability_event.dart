@@ -1,5 +1,8 @@
 part of 'provider_availability_bloc.dart';
 
+/// ProviderAvailabilityEvent
+///
+/// Events related to provider availability and booking operations.
 abstract class ProviderAvailabilityEvent extends Equatable {
   const ProviderAvailabilityEvent();
 
@@ -7,6 +10,7 @@ abstract class ProviderAvailabilityEvent extends Equatable {
   List<Object> get props => [];
 }
 
+/// LoadProviderAvailabilityEvent
 class LoadProviderAvailabilityEvent extends ProviderAvailabilityEvent {
   final String providerId;
 
@@ -18,6 +22,7 @@ class LoadProviderAvailabilityEvent extends ProviderAvailabilityEvent {
   List<Object> get props => [providerId];
 }
 
+/// BookTimeSlotEvent
 class BookTimeSlotEvent extends ProviderAvailabilityEvent {
   final String providerId;
   final DateTime dateTime;

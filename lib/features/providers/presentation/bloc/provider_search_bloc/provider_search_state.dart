@@ -1,5 +1,8 @@
 part of 'provider_search_bloc.dart';
 
+/// ProviderSearchState
+///
+/// States emitted by [ProviderSearchBloc].
 abstract class ProviderSearchState extends Equatable {
   const ProviderSearchState();
 
@@ -7,10 +10,15 @@ abstract class ProviderSearchState extends Equatable {
   List<Object> get props => [];
 }
 
+/// ProviderSearchInitial
 class ProviderSearchInitial extends ProviderSearchState {}
 
+/// ProviderSearchLoading
 class ProviderSearchLoading extends ProviderSearchState {}
 
+/// ProviderSearchLoaded
+///
+/// Contains the loaded providers and current filter state.
 class ProviderSearchLoaded extends ProviderSearchState {
   final List<Map<String, dynamic>> providers;
   final List<Map<String, dynamic>> filteredProviders;
@@ -56,17 +64,18 @@ class ProviderSearchLoaded extends ProviderSearchState {
 
   @override
   List<Object> get props => [
-    providers,
-    filteredProviders,
-    services,
-    locations,
-    selectedService ?? '',
-    selectedLocation ?? '',
-    minRating,
-    searchQuery,
-  ];
+        providers,
+        filteredProviders,
+        services,
+        locations,
+        selectedService ?? '',
+        selectedLocation ?? '',
+        minRating,
+        searchQuery,
+      ];
 }
 
+/// ProviderSearchError
 class ProviderSearchError extends ProviderSearchState {
   final String message;
 

@@ -503,6 +503,8 @@ void _initLocale() {
   // Register LocaleBloc as lazy singleton so the same instance is used
   // across the app (main and widgets) and saved locale is loaded once.
   sl.registerLazySingleton<LocaleBloc>(() => LocaleBloc());
+  // Register an alias for LocaleBloc as localBloc to maintain compatibility
+  sl.registerLazySingleton<LocaleBloc>(() => sl<LocaleBloc>(), instanceName: 'localBloc');
   // Theme cubit controls app ThemeMode
   sl.registerLazySingleton<ThemeCubit>(
       () => ThemeCubit(sl<SharedPreferences>()));

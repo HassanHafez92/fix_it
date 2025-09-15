@@ -1,5 +1,11 @@
 import 'package:equatable/equatable.dart';
 
+/// ReviewEntity
+///
+/// Domain model for provider reviews.
+///
+/// Business Rules:
+///  - Reviews are authored by users and attached to a single provider.
 class ReviewEntity extends Equatable {
   final String id;
   final String providerId;

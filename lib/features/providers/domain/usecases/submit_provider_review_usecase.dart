@@ -6,6 +6,12 @@ import '../../../../core/usecases/usecase.dart';
 import '../entities/review_entity.dart';
 import '../repositories/provider_repository.dart';
 
+/// SubmitProviderReviewUseCase
+///
+/// Submits a review for a provider.
+///
+/// Business Rules:
+///  - Rating must be between accepted bounds (validated by repository/backend).
 class SubmitProviderReviewUseCase
     implements UseCase<ReviewEntity, SubmitProviderReviewParams> {
   final ProviderRepository repository;
@@ -24,6 +30,13 @@ class SubmitProviderReviewUseCase
   }
 }
 
+/// SubmitProviderReviewParams
+///
+/// Parameter details:
+///  - providerId (required): id of the provider being reviewed.
+///  - rating (required): numeric rating value.
+///  - comment: optional textual feedback from the user.
+///  - bookingId: optional booking id to link the review to a completed booking.
 class SubmitProviderReviewParams extends Equatable {
   final String providerId;
   final double rating;

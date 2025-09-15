@@ -1,5 +1,8 @@
 part of 'provider_details_bloc.dart';
 
+/// ProviderDetailsState
+///
+/// States used by the provider details bloc.
 abstract class ProviderDetailsState extends Equatable {
   const ProviderDetailsState();
 
@@ -11,6 +14,9 @@ class ProviderDetailsInitial extends ProviderDetailsState {}
 
 class ProviderDetailsLoading extends ProviderDetailsState {}
 
+/// ProviderDetailsLoaded
+///
+/// Contains provider profile, reviews, services and availability data.
 class ProviderDetailsLoaded extends ProviderDetailsState {
   final Map<String, dynamic> provider;
   final List<Map<String, dynamic>> reviews;

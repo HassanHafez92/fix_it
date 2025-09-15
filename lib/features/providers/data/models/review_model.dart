@@ -5,6 +5,17 @@ import '../../domain/entities/review_entity.dart';
 part 'review_model.g.dart';
 
 @JsonSerializable()
+
+/// ReviewModel
+///
+/// Represents a review of a provider. This model is used for data transfer
+/// and serialization between the API and local data layer.
+///
+/// Business Rules:
+/// - Fields mirror the remote API response. Use `fromJson` / `toJson` for
+///   serialization.
+/// - Treat instances as immutable data carriers; mapping to domain entities
+///   is done via `toEntity`.
 class ReviewModel extends ReviewEntity {
   const ReviewModel({
     required super.id,

@@ -26,21 +26,25 @@ class AuthWrapper extends StatelessWidget {
           return bloc;
         } catch (e) {
           // Return a default bloc that will show the welcome screen
-          return AuthBloc(authService: di.sl<AuthService>())..add( AppStartedEvent());
+          return AuthBloc(authService: di.sl<AuthService>())
+            ..add(AppStartedEvent());
         }
       },
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
-          
+          // Debug: print auth state changes to help diagnose startup hangs
+          // ignore: avoid_print
+          print('AuthWrapper: current auth state -> $state');
+
           // Handle any unexpected states
-          if (state is! AuthInitial && 
-              state is! AuthLoading && 
-              state is! AuthAuthenticated && 
-              state is! AuthUnauthenticated && 
+          if (state is! AuthInitial &&
+              state is! AuthLoading &&
+              state is! AuthAuthenticated &&
+              state is! AuthUnauthenticated &&
               state is! AuthError) {
             return const WelcomeScreen();
           }
-          
+
           // Show loading screen while checking authentication
           if (state is AuthInitial || state is AuthLoading) {
             return Scaffold(
@@ -51,7 +55,7 @@ class AuthWrapper extends StatelessWidget {
                     const CircularProgressIndicator(),
                     const SizedBox(height: 16),
                     Text(
-                      'Loading...',
+                      'Loading... (state: ${state.runtimeType})',
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,

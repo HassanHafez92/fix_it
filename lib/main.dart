@@ -27,14 +27,16 @@ import 'firebase_options.dart';
 // Simple Bloc observer to help debug Bloc events/state changes at runtime
 /// SimpleBlocObserver
 ///
-/// Business rules:
-/// - Describe the business rules that this class enforces.
+/// Business Rules:
+/// - Record Bloc lifecycle events for debugging; avoid logging sensitive data.
+/// - Keep observer lightweight to not affect runtime performance.
 ///
 /// Dependencies:
-/// - List important dependencies or preconditions.
+/// - Assumes Blocs are registered and functioning within the app DI.
 ///
 /// Error scenarios:
-/// - Describe common error conditions and how they are handled.
+/// - Observer should not throw; errors are logged and swallowed to not
+///   disrupt Bloc processing.
 
 class SimpleBlocObserver extends BlocObserver {
   /// onEvent
@@ -104,6 +106,9 @@ class SimpleBlocObserver extends BlocObserver {
 /// **Error Handling:**
 /// If any critical service fails to initialize, the error is logged
 /// but the app continues to launch to prevent complete failure.
+///
+/// Returns:
+/// - A [Future] that completes when the app has finished launching.
 Future<void> main() async {
   print('🚀 Starting Fix It app...');
   // Ensure Flutter framework is properly initialized before running async operations
@@ -254,26 +259,18 @@ Future<void> _initializeServices() async {
 /// **Routing:**
 /// Uses [AppRoutes.onGenerateRoute] for centralized route management
 /// and starts with [WelcomeScreen] as the initial route.
-/// FixItApp
 ///
-/// Business rules:
-/// - Describe the business rules that this class enforces.
-///
-/// Dependencies:
-/// - List important dependencies or preconditions.
-///
-/// Error scenarios:
-/// - Describe common error conditions and how they are handled.
-/// FixItApp
-///
-/// Business rules:
-/// - Describe the business rules that this class enforces.
+/// Business Rules:
+/// - Initializes app-level services and wiring before UI is started.
+/// - Preserves hybrid localization wiring: both generated-l10n and
+///   easy_localization may be present and must be kept compatible.
 ///
 /// Dependencies:
-/// - List important dependencies or preconditions.
+/// - Relies on DI container initialized in `di.init()` and services
+///   registered via the injection container.
 ///
 /// Error scenarios:
-/// - Describe common error conditions and how they are handled.
+/// - Initialization failures are logged but do not abort app startup.
 
 class FixItApp extends StatelessWidget {
   /// Creates the main Fix It application widget.

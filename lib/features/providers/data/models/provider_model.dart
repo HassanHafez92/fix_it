@@ -5,6 +5,13 @@ import '../../domain/entities/provider_entity.dart';
 part 'provider_model.g.dart';
 
 @JsonSerializable()
+
+/// ProviderModel
+///
+/// Data model used by datasources and mappers. Mirrors JSON payloads from the API.
+///
+/// Business Rules:
+///  - Use [toEntity] to convert to domain [ProviderEntity] for usecases and presentation.
 class ProviderModel {
   final String id;
   final String name;

@@ -4,7 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'provider_search_event.dart';
 part 'provider_search_state.dart';
 
-class ProviderSearchBloc extends Bloc<ProviderSearchEvent, ProviderSearchState> {
+/// ProviderSearchBloc
+///
+/// Bloc responsible for loading and filtering providers in the search UI.
+///
+/// Business Rules:
+///  - Emits loading, loaded, and error states for the search flow.
+class ProviderSearchBloc
+    extends Bloc<ProviderSearchEvent, ProviderSearchState> {
   ProviderSearchBloc() : super(ProviderSearchInitial()) {
     on<LoadProvidersEvent>(_onLoadProviders);
     on<SearchProvidersEvent>(_onSearchProviders);
@@ -30,7 +37,8 @@ class ProviderSearchBloc extends Bloc<ProviderSearchEvent, ProviderSearchState> 
           'email': 'john.smith@example.com',
           'phone': '+1 (555) 123-4567',
           'profilePictureUrl': '',
-          'bio': 'Experienced professional with over 10 years in the industry. Specialized in home repairs and maintenance.',
+          'bio':
+              'Experienced professional with over 10 years in the industry. Specialized in home repairs and maintenance.',
           'rating': 4.8,
           'totalRatings': 124,
           'totalBookings': 320,
@@ -46,7 +54,8 @@ class ProviderSearchBloc extends Bloc<ProviderSearchEvent, ProviderSearchState> 
           'email': 'sarah.johnson@example.com',
           'phone': '+1 (555) 987-6543',
           'profilePictureUrl': '',
-          'bio': 'Certified technician with expertise in electrical systems and home appliance repairs.',
+          'bio':
+              'Certified technician with expertise in electrical systems and home appliance repairs.',
           'rating': 4.6,
           'totalRatings': 89,
           'totalBookings': 210,
@@ -62,7 +71,8 @@ class ProviderSearchBloc extends Bloc<ProviderSearchEvent, ProviderSearchState> 
           'email': 'michael.williams@example.com',
           'phone': '+1 (555) 456-7890',
           'profilePictureUrl': '',
-          'bio': 'HVAC specialist providing installation, maintenance, and repair services for all heating and cooling systems.',
+          'bio':
+              'HVAC specialist providing installation, maintenance, and repair services for all heating and cooling systems.',
           'rating': 4.9,
           'totalRatings': 156,
           'totalBookings': 410,
@@ -78,7 +88,8 @@ class ProviderSearchBloc extends Bloc<ProviderSearchEvent, ProviderSearchState> 
           'email': 'emily.davis@example.com',
           'phone': '+1 (555) 234-5678',
           'profilePictureUrl': '',
-          'bio': 'Professional painter offering interior and exterior painting services with attention to detail.',
+          'bio':
+              'Professional painter offering interior and exterior painting services with attention to detail.',
           'rating': 4.7,
           'totalRatings': 67,
           'totalBookings': 180,
@@ -94,7 +105,8 @@ class ProviderSearchBloc extends Bloc<ProviderSearchEvent, ProviderSearchState> 
           'email': 'robert.brown@example.com',
           'phone': '+1 (555) 345-6789',
           'profilePictureUrl': '',
-          'bio': 'Expert carpenter specializing in custom furniture, cabinets, and home renovation projects.',
+          'bio':
+              'Expert carpenter specializing in custom furniture, cabinets, and home renovation projects.',
           'rating': 4.5,
           'totalRatings': 92,
           'totalBookings': 230,
@@ -149,19 +161,19 @@ class ProviderSearchBloc extends Bloc<ProviderSearchEvent, ProviderSearchState> 
         var filteredProviders = currentState.providers.where((provider) {
           final name = provider['name'].toString().toLowerCase();
           final bio = provider['bio'].toString().toLowerCase();
-          final services = (provider['services'] as List)
-              .join(' ')
-              .toLowerCase();
+          final services =
+              (provider['services'] as List).join(' ').toLowerCase();
 
-          return name.contains(searchQuery) || 
-                 bio.contains(searchQuery) || 
-                 services.contains(searchQuery);
+          return name.contains(searchQuery) ||
+              bio.contains(searchQuery) ||
+              services.contains(searchQuery);
         }).toList();
 
         // Apply existing filters
         if (currentState.selectedService != null) {
           filteredProviders = filteredProviders.where((provider) {
-            return (provider['services'] as List).contains(currentState.selectedService);
+            return (provider['services'] as List)
+                .contains(currentState.selectedService);
           }).toList();
         }
 
@@ -215,13 +227,12 @@ class ProviderSearchBloc extends Bloc<ProviderSearchEvent, ProviderSearchState> 
           filteredProviders = filteredProviders.where((provider) {
             final name = provider['name'].toString().toLowerCase();
             final bio = provider['bio'].toString().toLowerCase();
-            final services = (provider['services'] as List)
-                .join(' ')
-                .toLowerCase();
+            final services =
+                (provider['services'] as List).join(' ').toLowerCase();
 
-            return name.contains(searchQuery) || 
-                   bio.contains(searchQuery) || 
-                   services.contains(searchQuery);
+            return name.contains(searchQuery) ||
+                bio.contains(searchQuery) ||
+                services.contains(searchQuery);
           }).toList();
         }
 
@@ -275,19 +286,19 @@ class ProviderSearchBloc extends Bloc<ProviderSearchEvent, ProviderSearchState> 
           filteredProviders = filteredProviders.where((provider) {
             final name = provider['name'].toString().toLowerCase();
             final bio = provider['bio'].toString().toLowerCase();
-            final services = (provider['services'] as List)
-                .join(' ')
-                .toLowerCase();
+            final services =
+                (provider['services'] as List).join(' ').toLowerCase();
 
-            return name.contains(searchQuery) || 
-                   bio.contains(searchQuery) || 
-                   services.contains(searchQuery);
+            return name.contains(searchQuery) ||
+                bio.contains(searchQuery) ||
+                services.contains(searchQuery);
           }).toList();
         }
 
         if (currentState.selectedService != null) {
           filteredProviders = filteredProviders.where((provider) {
-            return (provider['services'] as List).contains(currentState.selectedService);
+            return (provider['services'] as List)
+                .contains(currentState.selectedService);
           }).toList();
         }
 
@@ -335,19 +346,19 @@ class ProviderSearchBloc extends Bloc<ProviderSearchEvent, ProviderSearchState> 
           filteredProviders = filteredProviders.where((provider) {
             final name = provider['name'].toString().toLowerCase();
             final bio = provider['bio'].toString().toLowerCase();
-            final services = (provider['services'] as List)
-                .join(' ')
-                .toLowerCase();
+            final services =
+                (provider['services'] as List).join(' ').toLowerCase();
 
-            return name.contains(searchQuery) || 
-                   bio.contains(searchQuery) || 
-                   services.contains(searchQuery);
+            return name.contains(searchQuery) ||
+                bio.contains(searchQuery) ||
+                services.contains(searchQuery);
           }).toList();
         }
 
         if (currentState.selectedService != null) {
           filteredProviders = filteredProviders.where((provider) {
-            return (provider['services'] as List).contains(currentState.selectedService);
+            return (provider['services'] as List)
+                .contains(currentState.selectedService);
           }).toList();
         }
 

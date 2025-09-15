@@ -58,12 +58,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _performAuthCheck(Emitter<AuthState> emit) async {
     try {
+      // Debug: trace auth check start
+      // ignore: avoid_print
+      print('AuthBloc: starting _performAuthCheck');
       // Add a timeout to prevent the app from getting stuck
       final userProfile = await Future.any([
         authService.getCurrentUserProfile(),
         Future.delayed(const Duration(seconds: 5),
             () => throw TimeoutException('Authentication check timed out'))
       ]);
+      // Debug: report the result of the profile fetch
+      // ignore: avoid_print
+      print(
+          'AuthBloc: _performAuthCheck result -> ${userProfile == null ? 'null' : 'profile found'}');
 
       if (userProfile != null) {
         final userEntity = UserEntity(
@@ -88,10 +95,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         // the Firebase user. This avoids marking the user unauthenticated
         // simply because Firestore is inaccessible.
         try {
+          // Debug: attempt to read Firebase auth state when profile missing
+          // ignore: avoid_print
+          print(
+              'AuthBloc: profile null — checking Firebase authStateChanges...');
           // Attempt to read an authenticated Firebase user from the auth
           // state stream. If none is available quickly, fall back to null.
           final fb.User? fbUser = await authService.authStateChanges
               .firstWhere((u) => u != null, orElse: () => null);
+
+          // Debug: report whether a Firebase user was found
+          // ignore: avoid_print
+          print(
+              'AuthBloc: firebase auth state -> ${fbUser == null ? 'null' : 'user found'}');
 
           if (fbUser != null) {
             final userEntity = UserEntity(

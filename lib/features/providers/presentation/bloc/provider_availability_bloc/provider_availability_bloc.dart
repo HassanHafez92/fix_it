@@ -5,7 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'provider_availability_event.dart';
 part 'provider_availability_state.dart';
 
-class ProviderAvailabilityBloc extends Bloc<ProviderAvailabilityEvent, ProviderAvailabilityState> {
+/// ProviderAvailabilityBloc
+///
+/// Bloc used to fetch and manage a provider's availability and booking requests.
+class ProviderAvailabilityBloc
+    extends Bloc<ProviderAvailabilityEvent, ProviderAvailabilityState> {
   ProviderAvailabilityBloc() : super(ProviderAvailabilityInitial()) {
     on<LoadProviderAvailabilityEvent>(_onLoadProviderAvailability);
     on<BookTimeSlotEvent>(_onBookTimeSlot);
@@ -45,15 +49,21 @@ class ProviderAvailabilityBloc extends Bloc<ProviderAvailabilityEvent, ProviderA
 
       // Add some booked slots for tomorrow
       final tomorrow = DateTime(now.year, now.month, now.day + 1);
-      bookedSlots.add(DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 10, 0));
-      bookedSlots.add(DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 11, 30));
-      bookedSlots.add(DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 14, 0));
+      bookedSlots
+          .add(DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 10, 0));
+      bookedSlots
+          .add(DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 11, 30));
+      bookedSlots
+          .add(DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 14, 0));
 
       // Add some booked slots for the day after tomorrow
       final dayAfter = DateTime(now.year, now.month, now.day + 2);
-      bookedSlots.add(DateTime(dayAfter.year, dayAfter.month, dayAfter.day, 9, 30));
-      bookedSlots.add(DateTime(dayAfter.year, dayAfter.month, dayAfter.day, 13, 0));
-      bookedSlots.add(DateTime(dayAfter.year, dayAfter.month, dayAfter.day, 15, 30));
+      bookedSlots
+          .add(DateTime(dayAfter.year, dayAfter.month, dayAfter.day, 9, 30));
+      bookedSlots
+          .add(DateTime(dayAfter.year, dayAfter.month, dayAfter.day, 13, 0));
+      bookedSlots
+          .add(DateTime(dayAfter.year, dayAfter.month, dayAfter.day, 15, 30));
 
       emit(ProviderAvailabilityLoaded(
         providerName: 'John Smith',
@@ -81,7 +91,8 @@ class ProviderAvailabilityBloc extends Bloc<ProviderAvailabilityEvent, ProviderA
         await Future.delayed(const Duration(seconds: 1));
 
         // Add the booked slot to the list
-        final updatedBookedSlots = List<DateTime>.from(currentState.bookedSlots);
+        final updatedBookedSlots =
+            List<DateTime>.from(currentState.bookedSlots);
         updatedBookedSlots.add(event.dateTime);
 
         emit(currentState.copyWith(

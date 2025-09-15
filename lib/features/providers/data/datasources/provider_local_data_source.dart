@@ -5,13 +5,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/provider_model.dart';
 import '../models/review_model.dart';
 
+/// ProviderLocalDataSource
+///
+/// Abstract local datasource for caching provider-related data.
+///
+/// Business Rules:
+///  - Implementations must store and retrieve provider lists, details and reviews.
 abstract class ProviderLocalDataSource {
   Future<List<ProviderModel>> getCachedProviders();
   Future<void> cacheProviders(List<ProviderModel> providers);
   Future<ProviderModel?> getCachedProviderDetails(String providerId);
   Future<void> cacheProviderDetails(ProviderModel provider);
   Future<List<ReviewModel>> getCachedProviderReviews(String providerId);
-  Future<void> cacheProviderReviews(String providerId, List<ReviewModel> reviews);
+  Future<void> cacheProviderReviews(
+      String providerId, List<ReviewModel> reviews);
   Future<List<ProviderModel>> getCachedFeaturedProviders();
   Future<void> cacheFeaturedProviders(List<ProviderModel> providers);
   Future<List<String>> getFavoriteProviderIds();
@@ -21,6 +28,12 @@ abstract class ProviderLocalDataSource {
 }
 
 class ProviderLocalDataSourceImpl implements ProviderLocalDataSource {
+  /// ProviderLocalDataSourceImpl
+  ///
+  /// Concrete SharedPreferences-backed implementation of [ProviderLocalDataSource].
+  ///
+  /// Business Rules:
+  ///  - Keys are namespaced and should not collide with other features.
   final SharedPreferences sharedPreferences;
 
   static const String _providersKey = 'CACHED_PROVIDERS';
@@ -43,13 +56,15 @@ class ProviderLocalDataSourceImpl implements ProviderLocalDataSource {
 
   @override
   Future<void> cacheProviders(List<ProviderModel> providers) async {
-    final jsonString = json.encode(providers.map((provider) => provider.toJson()).toList());
+    final jsonString =
+        json.encode(providers.map((provider) => provider.toJson()).toList());
     await sharedPreferences.setString(_providersKey, jsonString);
   }
 
   @override
   Future<ProviderModel?> getCachedProviderDetails(String providerId) async {
-    final jsonString = sharedPreferences.getString('$_providerDetailsKey$providerId');
+    final jsonString =
+        sharedPreferences.getString('$_providerDetailsKey$providerId');
     if (jsonString != null) {
       return ProviderModel.fromJson(json.decode(jsonString));
     }
@@ -59,12 +74,14 @@ class ProviderLocalDataSourceImpl implements ProviderLocalDataSource {
   @override
   Future<void> cacheProviderDetails(ProviderModel provider) async {
     final jsonString = json.encode(provider.toJson());
-    await sharedPreferences.setString('$_providerDetailsKey${provider.id}', jsonString);
+    await sharedPreferences.setString(
+        '$_providerDetailsKey${provider.id}', jsonString);
   }
 
   @override
   Future<List<ReviewModel>> getCachedProviderReviews(String providerId) async {
-    final jsonString = sharedPreferences.getString('$_providerReviewsKey$providerId');
+    final jsonString =
+        sharedPreferences.getString('$_providerReviewsKey$providerId');
     if (jsonString != null) {
       final List<dynamic> jsonList = json.decode(jsonString);
       return jsonList.map((json) => ReviewModel.fromJson(json)).toList();
@@ -73,9 +90,12 @@ class ProviderLocalDataSourceImpl implements ProviderLocalDataSource {
   }
 
   @override
-  Future<void> cacheProviderReviews(String providerId, List<ReviewModel> reviews) async {
-    final jsonString = json.encode(reviews.map((review) => review.toJson()).toList());
-    await sharedPreferences.setString('$_providerReviewsKey$providerId', jsonString);
+  Future<void> cacheProviderReviews(
+      String providerId, List<ReviewModel> reviews) async {
+    final jsonString =
+        json.encode(reviews.map((review) => review.toJson()).toList());
+    await sharedPreferences.setString(
+        '$_providerReviewsKey$providerId', jsonString);
   }
 
   @override
@@ -90,7 +110,8 @@ class ProviderLocalDataSourceImpl implements ProviderLocalDataSource {
 
   @override
   Future<void> cacheFeaturedProviders(List<ProviderModel> providers) async {
-    final jsonString = json.encode(providers.map((provider) => provider.toJson()).toList());
+    final jsonString =
+        json.encode(providers.map((provider) => provider.toJson()).toList());
     await sharedPreferences.setString(_featuredProvidersKey, jsonString);
   }
 
@@ -120,8 +141,8 @@ class ProviderLocalDataSourceImpl implements ProviderLocalDataSource {
   Future<void> clearCache() async {
     final keys = sharedPreferences.getKeys();
     for (final key in keys) {
-      if (key.startsWith(_providersKey) || 
-          key.startsWith(_providerDetailsKey) || 
+      if (key.startsWith(_providersKey) ||
+          key.startsWith(_providerDetailsKey) ||
           key.startsWith(_providerReviewsKey) ||
           key.startsWith(_featuredProvidersKey)) {
         await sharedPreferences.remove(key);

@@ -5,6 +5,13 @@ import 'package:easy_localization/easy_localization.dart';
 
 import '../../domain/entities/provider_entity.dart';
 
+/// ProviderCard
+///
+/// Compact card widget displaying a provider summary (name, rating,
+/// availability). Tapping navigates to provider details.
+///
+/// Business Rules:
+/// - Lightweight: does not perform network calls directly.
 class ProviderCard extends StatelessWidget {
   final ProviderEntity provider;
   final VoidCallback? onTap;

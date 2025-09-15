@@ -2,6 +2,13 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+/// ServiceItem
+///
+/// Represents a service category entry displayed in the services grid.
+///
+/// Business Rules:
+/// - UI-only data holder used for display; actual service catalog comes
+///   from backend models.
 class ServiceItem {
   final IconData icon;
   final String title;
@@ -16,6 +23,13 @@ class ServiceItem {
   });
 }
 
+/// ServicesScreen
+///
+/// Displays the full list of available services with search/filter
+/// capabilities.
+///
+/// Business Rules:
+/// - Supports RTL layout; serves as a UI entry point to service discovery.
 class ServicesScreen extends StatefulWidget {
   const ServicesScreen({super.key});
 

@@ -47,7 +47,12 @@ void safeAddEvent<T>(BuildContext context, dynamic event) {
           try {
             bloc = sl.get<T>();
           } catch (_) {
-            bloc = null;
+            // Try with instance name for special cases like localBloc
+            try {
+              bloc = sl<T>(instanceName: 'localBloc');
+            } catch (_) {
+              bloc = null;
+            }
           }
         }
 

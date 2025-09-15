@@ -17,19 +17,14 @@ import '../widgets/custom_button.dart';
 ///
 /// Error scenarios:
 /// - Describe common error conditions and how they are handled.
-/// WelcomeScreen
+/// A stateless widget that represents the welcome screen of the application.
 ///
-/// Business rules:
-/// - Describe the business rules that this class enforces.
+/// This screen is the first screen that the user sees when they open the app
+/// for the first time. It provides options to sign in or create a new account.
 ///
-/// Dependencies:
-/// - List important dependencies or preconditions.
-///
-/// Error scenarios:
-/// - Describe common error conditions and how they are handled.
-
-
-
+/// ### Business Rules:
+/// - This screen should be displayed only to unauthenticated users.
+/// - The user can navigate to the sign-in screen or the user type selection screen.
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 /// build

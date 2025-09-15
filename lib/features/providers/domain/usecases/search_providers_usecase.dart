@@ -6,6 +6,12 @@ import '../../../../core/usecases/usecase.dart';
 import '../entities/provider_entity.dart';
 import '../repositories/provider_repository.dart';
 
+/// SearchProvidersUseCase
+///
+/// Searches providers using a combination of query, filters and geolocation.
+///
+/// Business Rules:
+///  - When latitude/longitude are provided, results are ordered by distance.
 class SearchProvidersUseCase
     implements UseCase<List<ProviderEntity>, SearchProvidersParams> {
   final ProviderRepository repository;
@@ -29,6 +35,17 @@ class SearchProvidersUseCase
   }
 }
 
+/// SearchProvidersParams
+///
+/// Parameter details:
+///  - query: optional free-text query to match provider names and services.
+///  - serviceCategory: optional filter for a specific service type.
+///  - latitude/longitude: optional coordinates to search around.
+///  - radius: optional search radius in km.
+///  - minRating: optional filter to only include providers above a rating threshold.
+///  - availableAt: optional DateTime to filter providers available at a specific time.
+///  - maxPrice: optional upper bound on hourly rate.
+///  - sort: optional sort key (e.g., "distance", "rating").
 class SearchProvidersParams extends Equatable {
   final String? query;
   final String? serviceCategory;

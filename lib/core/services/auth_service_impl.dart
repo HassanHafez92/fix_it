@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'auth_service.dart';
@@ -127,8 +128,9 @@ class AuthServiceImpl implements AuthService {
     }
 
     try {
-      DocumentSnapshot doc =
-          await _firestore.collection('users').doc(user.uid).get();
+      // Protect against long-running Firestore calls by adding a timeout.
+      final futureDoc = _firestore.collection('users').doc(user.uid).get();
+      DocumentSnapshot doc = await futureDoc.timeout(const Duration(seconds: 5));
 
       if (doc.exists) {
         final data = doc.data() as Map<String, dynamic>;
@@ -138,6 +140,12 @@ class AuthServiceImpl implements AuthService {
         }
         return UserProfileModel.fromJson(data);
       }
+      return null;
+    } on TimeoutException catch (_) {
+      // Timeout when fetching profile; return null so auth flow can fall back
+      // to the Firebase auth state check and the UI can continue.
+      // ignore: avoid_print
+      print('AuthService: getCurrentUserProfile() timed out');
       return null;
     } catch (e) {
       // If Firestore permission denied, treat as missing profile instead of
@@ -149,7 +157,11 @@ class AuthServiceImpl implements AuthService {
             'Firestore permission denied while fetching user profile: ${e.message}');
         return null;
       }
-      throw Exception('Failed to get user profile: $e');
+      // For other errors, log and return null to avoid blocking app startup.
+      // This keeps the auth flow resilient while still surfacing the error in logs.
+      // ignore: avoid_print
+      print('AuthService: Failed to get user profile: $e');
+      return null;
     }
   }
 

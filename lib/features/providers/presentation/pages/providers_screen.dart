@@ -14,6 +14,12 @@ import '../widgets/provider_card.dart';
 import '../widgets/provider_search_bar.dart';
 import '../widgets/provider_filter_bar.dart';
 
+/// ProvidersScreen
+///
+/// Displays a searchable list of service providers and active filters.
+///
+/// Business Rules:
+///  - Uses [ProviderSearchBloc] for loading and filtering providers.
 class ProvidersScreen extends StatefulWidget {
   final String? serviceCategory;
 

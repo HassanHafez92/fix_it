@@ -8,6 +8,12 @@ import '../../domain/repositories/provider_repository.dart';
 import '../datasources/provider_local_data_source.dart';
 import '../datasources/provider_remote_data_source.dart';
 
+/// ProviderRepositoryImpl
+///
+/// Concrete implementation of [ProviderRepository] that coordinates remote and local data sources.
+///
+/// Business Rules:
+///  - Prefer remote data when network is available; fall back to cache when offline.
 class ProviderRepositoryImpl implements ProviderRepository {
   final ProviderRemoteDataSource remoteDataSource;
   final ProviderLocalDataSource localDataSource;

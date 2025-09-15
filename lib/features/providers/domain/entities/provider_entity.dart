@@ -1,5 +1,12 @@
 import 'package:equatable/equatable.dart';
 
+/// ProviderEntity
+///
+/// Represents a provider (service professional) in the domain layer.
+///
+/// Business Rules:
+///  - Instances are immutable value objects used across usecases and presentation.
+///  - Distance and ETA are optional and only set by proximity/search flows.
 class ProviderEntity extends Equatable {
   final String id;
   final String name;

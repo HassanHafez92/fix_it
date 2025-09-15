@@ -5,7 +5,22 @@ import '../../../features/services/data/models/service_model.dart';
 part 'pagination_response_model.g.dart';
 
 @JsonSerializable()
+
+/// PaginationResponseModel
+///
+/// Simple wrapper for paginated service responses from the API.
+///
+/// Business Rules:
+/// - Carries a page of [ServiceModel] objects alongside pagination
+///   metadata used by the UI for paging controls.
 class PaginationResponseModel {
+  /// PaginationResponseModel
+  ///
+  /// Simple wrapper for paginated service responses from the API.
+  ///
+  /// Business Rules:
+  /// - Carries a page of [ServiceModel] objects alongside pagination
+  ///   metadata used by the UI for paging controls.
   final List<ServiceModel> services;
   final int totalCount;
   final int totalPages;

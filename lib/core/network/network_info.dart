@@ -3,11 +3,24 @@
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
+/// NetworkInfo
+///
+/// Abstraction to check current network connectivity and listen to
+/// connectivity changes.
+///
+/// Business Rules:
+/// - Use `isConnected` before performing network operations that require
+///   internet access. Implementations should perform a lightweight
+///   reachability check when possible.
 abstract class NetworkInfo {
   Future<bool> get isConnected;
   Stream<List<ConnectivityResult>> get onConnectivityChanged;
 }
 
+/// NetworkInfoImpl
+///
+/// Implementation of [NetworkInfo] that relies on connectivity_plus and
+/// a DNS lookup to perform a simple reachability check.
 class NetworkInfoImpl implements NetworkInfo {
   final Connectivity _connectivity = Connectivity();
 

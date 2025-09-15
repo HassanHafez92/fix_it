@@ -18,6 +18,12 @@ import '../widgets/provider_reviews_section.dart';
 import '../../../auth/presentation/widgets/custom_button.dart';
 
 /// Screen that shows provider details, services and reviews.
+///
+/// Business Rules:
+/// - Expects a `providerId` argument and will load details via
+///   [ProviderDetailsBloc].
+/// - Actions like booking/call/email must verify runtime permissions and
+///   availability before triggering network actions.
 class ProviderDetailsScreen extends StatefulWidget {
   final String providerId;
 

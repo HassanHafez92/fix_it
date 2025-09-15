@@ -4,6 +4,12 @@ import '../../../../core/error/failures.dart';
 import '../entities/provider_entity.dart';
 import '../entities/review_entity.dart';
 
+/// ProviderRepository
+///
+/// Domain repository interface for provider-related operations.
+///
+/// Business Rules:
+///  - Implementations should encapsulate data source selection and caching logic.
 abstract class ProviderRepository {
   Future<Either<Failure, List<ProviderEntity>>> searchProviders({
     String? query,

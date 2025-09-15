@@ -5,7 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'provider_details_event.dart';
 part 'provider_details_state.dart';
 
-class ProviderDetailsBloc extends Bloc<ProviderDetailsEvent, ProviderDetailsState> {
+/// ProviderDetailsBloc
+///
+/// Bloc that loads provider profile, reviews, services and availability.
+///
+/// Business Rules:
+///  - Aggregates multiple data requests into a single state for the details screen.
+class ProviderDetailsBloc
+    extends Bloc<ProviderDetailsEvent, ProviderDetailsState> {
   ProviderDetailsBloc() : super(ProviderDetailsInitial()) {
     on<LoadProviderDetailsEvent>(_onLoadProviderDetails);
     on<LoadProviderReviewsEvent>(_onLoadProviderReviews);
@@ -29,7 +36,8 @@ class ProviderDetailsBloc extends Bloc<ProviderDetailsEvent, ProviderDetailsStat
         'email': 'john.smith@example.com',
         'phone': '+1 (555) 123-4567',
         'profilePictureUrl': '',
-        'bio': 'Experienced professional with over 10 years in the industry. Specialized in home repairs and maintenance.',
+        'bio':
+            'Experienced professional with over 10 years in the industry. Specialized in home repairs and maintenance.',
         'rating': 4.8,
         'totalRatings': 124,
         'totalBookings': 320,
@@ -65,7 +73,8 @@ class ProviderDetailsBloc extends Bloc<ProviderDetailsEvent, ProviderDetailsStat
             'userName': 'Alice Johnson',
             'userProfilePictureUrl': '',
             'rating': 5,
-            'comment': 'John did an excellent job fixing my plumbing issue. Very professional and knowledgeable.',
+            'comment':
+                'John did an excellent job fixing my plumbing issue. Very professional and knowledgeable.',
             'date': DateTime(2023, 10, 15),
           },
           {
@@ -73,7 +82,8 @@ class ProviderDetailsBloc extends Bloc<ProviderDetailsEvent, ProviderDetailsStat
             'userName': 'Bob Williams',
             'userProfilePictureUrl': '',
             'rating': 4,
-            'comment': 'Good service overall. Arrived on time and completed the work as expected.',
+            'comment':
+                'Good service overall. Arrived on time and completed the work as expected.',
             'date': DateTime(2023, 9, 28),
           },
           {
@@ -81,7 +91,8 @@ class ProviderDetailsBloc extends Bloc<ProviderDetailsEvent, ProviderDetailsStat
             'userName': 'Carol Davis',
             'userProfilePictureUrl': '',
             'rating': 5,
-            'comment': 'Highly recommend! Fixed my electrical problem quickly and efficiently.',
+            'comment':
+                'Highly recommend! Fixed my electrical problem quickly and efficiently.',
             'date': DateTime(2023, 9, 10),
           },
         ];
@@ -127,7 +138,8 @@ class ProviderDetailsBloc extends Bloc<ProviderDetailsEvent, ProviderDetailsStat
           {
             'id': '3',
             'name': 'HVAC Maintenance',
-            'description': 'Regular maintenance for heating and cooling systems',
+            'description':
+                'Regular maintenance for heating and cooling systems',
             'price': 120.0,
             'duration': 180,
             'category': 'HVAC',

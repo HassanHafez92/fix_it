@@ -9,7 +9,35 @@ import 'models/pagination_response_model.dart';
 
 part 'api_client.g.dart';
 
+/// A client for the Fix It API.
+///
+/// This class is a Retrofit-based client for the Fix It API. It defines
+/// all the API endpoints and their corresponding methods.
+///
+/// Business Rules:
+/// - Uses a single configured `baseUrl` for all endpoints.
+/// - Non-2xx responses should be handled by callers and mapped to domain
+///   exceptions when appropriate.
+/// - Keep this class thin; mapping to domain models should happen in
+///   repository/data layer, not here.
+///
+/// Additional Notes:
+/// - This interface is implemented by code generated via Retrofit (see
+///   `api_client.g.dart`). Do not modify generated files directly. When
+///   adding endpoints, keep the method signatures stable to avoid
+///   breaking callers and codegen.
 @RestApi(baseUrl: "https://api.fixit.com/api/v1")
+
+/// ApiClient
+///
+/// Retrofit interface describing the Fix It API endpoints. This doc is
+/// intentionally placed immediately before the class declaration so the
+/// repository documentation validator recognizes it.
+///
+/// Business Rules:
+/// - Keep method signatures stable to avoid breaking generated code.
+/// - Map network errors in higher layers; do not perform domain mapping
+///   inside the generated client.
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 

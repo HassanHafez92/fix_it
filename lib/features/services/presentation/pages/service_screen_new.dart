@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
+/// The main application widget.
+///
+/// Business Rules:
+/// - Lightweight preview wrapper used for the new services UI.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -15,6 +19,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// Represents a service item in the services screen.
+///
+/// Business Rules:
+/// - UI-only holder mirroring the older `ServiceItem` structure.
 class ServiceItem {
   final IconData icon;
   final String title;
@@ -29,6 +37,13 @@ class ServiceItem {
   });
 }
 
+/// A screen that displays a list of all available services.
+///
+/// The user can search for a specific service using the search bar.
+///
+/// Business Rules:
+/// - Experimental/preview UI; should match behavior of the main
+///   `ServicesScreen` before replacing production routes.
 class ServicesScreen extends StatefulWidget {
   const ServicesScreen({super.key});
 
