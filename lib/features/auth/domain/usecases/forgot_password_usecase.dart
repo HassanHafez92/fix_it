@@ -116,6 +116,8 @@ class ForgotPasswordUseCase implements UseCase<void, ForgotPasswordParams> {
 }
 
 /// Parameters required for the [ForgotPasswordUseCase] operation.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 ///
 /// Encapsulates the email address for which a password reset is requested.
 /// This class ensures type safety and provides a clear contract for the

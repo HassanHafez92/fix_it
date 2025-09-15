@@ -1,8 +1,15 @@
+/// ThemeCubit
+///
+/// Business Rules:
+/// - Add the main business rules or invariants enforced by this class.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Simple cubit that holds the application's [ThemeMode] and persists the
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 /// user's preference in [SharedPreferences].
 class ThemeCubit extends Cubit<ThemeMode> {
   final SharedPreferences _prefs;

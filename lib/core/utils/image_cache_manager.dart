@@ -1,7 +1,14 @@
+/// ImageCacheManager
+///
+/// Business Rules:
+/// - Add the main business rules or invariants enforced by this class.
+
 
 import 'package:flutter/material.dart';
 
 /// A utility class for managing image cache
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 class ImageCacheManager {
   /// Clears all image caches
   static Future<void> clearAllCache() async {

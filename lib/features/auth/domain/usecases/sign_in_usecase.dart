@@ -198,6 +198,8 @@ class SignInUseCase implements UseCase<UserEntity, SignInParams> {
 }
 
 /// Parameters required for the [SignInUseCase] operation.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 ///
 /// Encapsulates the email and password credentials needed for user
 /// authentication. This class ensures type safety and provides a

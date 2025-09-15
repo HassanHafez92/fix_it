@@ -8,6 +8,8 @@ import 'package:flutter/foundation.dart';
 import '../error/failures.dart';
 
 /// CacheService handles caching of frequently accessed data
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 class CacheService {
   static const String _cacheBoxName = 'app_cache';
   static const int _defaultCacheSize = 50 * 1024 * 1024; // 50MB
@@ -193,6 +195,8 @@ extension CacheServiceExtension on CacheService {
 }
 
 /// Custom exceptions for cache service
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 class CacheFailure implements Failure {
   final String _message;
 

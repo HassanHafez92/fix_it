@@ -4,6 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'image_cache_manager.dart';
 
 /// A utility class for optimized image loading
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 class ImageUtils {
   /// Creates a progressive image loading widget with optimized settings
   static Widget progressiveImage({

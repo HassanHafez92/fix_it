@@ -11,6 +11,8 @@ import '../datasources/auth_firebase_data_source.dart';
 import '../../../../core/services/auth_service.dart';
 
 /// Production implementation of [AuthRepository] using Firebase and local storage.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 ///
 /// This repository implementation provides authentication services by coordinating
 /// between Firebase Authentication, Cloud Firestore, and local data storage.

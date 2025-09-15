@@ -10,6 +10,8 @@ import '../../features/auth/data/datasources/auth_local_data_source.dart';
 import '../../features/booking/data/repositories/booking_repository_impl.dart';
 
 /// SyncManager handles background synchronization of data
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 class SyncManager {
   static const int _syncIntervalMinutes = 30;
 

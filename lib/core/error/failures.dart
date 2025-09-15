@@ -32,7 +32,12 @@ import 'package:equatable/equatable.dart';
 ///   (user) => emit(AuthSuccess(user)),
 /// );
 /// ```
-abstract class Failure extends Equatable {
+abstract/// Failure
+///
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
+///
+class Failure extends Equatable {
   /// Creates a new [Failure] instance.
   const Failure();
 
@@ -52,6 +57,8 @@ abstract class Failure extends Equatable {
 }
 
 /// Represents failures that occur on the server side.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 /// 
 /// This failure type is used when the server returns an error response
 /// (typically HTTP 5xx status codes) or when there are issues with
@@ -91,6 +98,8 @@ class ServerFailure extends Failure {
 }
 
 /// Represents failures related to local data caching.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 /// 
 /// This failure type is used when operations involving local data storage
 /// fail, such as reading from or writing to local databases, shared preferences,
@@ -133,6 +142,8 @@ class CacheFailure extends Failure {
 }
 
 /// Represents failures related to network connectivity.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 /// 
 /// This failure type is used when network-related issues prevent the
 /// application from communicating with external services, such as REST APIs,
@@ -178,6 +189,8 @@ class NetworkFailure extends Failure {
 }
 
 /// Represents failures related to user authentication and authorization.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 /// 
 /// This failure type is used when authentication or authorization operations
 /// fail, such as invalid credentials, expired tokens, insufficient permissions,
@@ -234,6 +247,8 @@ class AuthenticationFailure extends Failure {
 }
 
 /// Represents failures related to input validation.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 /// 
 /// This failure type is used when user input or data validation fails,
 /// such as invalid email formats, weak passwords, missing required fields,
@@ -287,6 +302,8 @@ class ValidationFailure extends Failure {
 }
 
 /// Represents unexpected or unhandled failures.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 /// 
 /// This failure type is used as a fallback when an unexpected error occurs
 /// that doesn't fit into other specific failure categories. It should be used
@@ -343,6 +360,8 @@ class UnknownFailure extends Failure {
 }
 
 /// Represents failures related to business logic rules.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 ///
 /// This failure type is used when business rules are violated or
 /// business logic constraints are not met.

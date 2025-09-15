@@ -190,6 +190,8 @@ class SignUpUseCase implements UseCase<UserEntity, SignUpParams> {
 }
 
 /// Parameters required for the [SignUpUseCase] operation.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 ///
 /// Encapsulates all user registration data including authentication credentials
 /// and profile information. This class ensures type safety and provides proper

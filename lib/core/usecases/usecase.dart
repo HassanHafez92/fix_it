@@ -20,7 +20,12 @@ import '../error/failures.dart';
 /// 
 /// **Example Implementation:**
 /// ```dart
-/// class SignInUseCase implements UseCase<UserEntity, SignInParams> {
+////// SignInUseCase
+///
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
+///
+class SignInUseCase implements UseCase<UserEntity, SignInParams> {
 ///   final AuthRepository repository;
 ///   
 ///   SignInUseCase(this.repository);
@@ -34,7 +39,12 @@ import '../error/failures.dart';
 ///   }
 /// }
 /// 
-/// class SignInParams extends Equatable {
+////// SignInParams
+///
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
+///
+class SignInParams extends Equatable {
 ///   final String email;
 ///   final String password;
 ///   
@@ -47,7 +57,12 @@ import '../error/failures.dart';
 /// 
 /// **Usage in BLoC:**
 /// ```dart
-/// class AuthBloc extends Bloc<AuthEvent, AuthState> {
+////// AuthBloc
+///
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
+///
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
 ///   final SignInUseCase signInUseCase;
 ///   
 ///   Future<void> _onSignInRequested(SignInRequested event, Emitter<AuthState> emit) async {
@@ -65,7 +80,12 @@ import '../error/failures.dart';
 ///   }
 /// }
 /// ```
-abstract class UseCase<Type, Params> {
+abstract/// UseCase
+///
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
+///
+class UseCase<Type, Params> {
   /// Executes the use case with the provided parameters.
   /// 
   /// This method contains the core business logic for the specific operation.
@@ -96,7 +116,12 @@ abstract class UseCase<Type, Params> {
 /// 
 /// **Example Usage:**
 /// ```dart
-/// class GetCurrentUserUseCase implements UseCase<UserEntity, NoParams> {
+////// GetCurrentUserUseCase
+///
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
+///
+class GetCurrentUserUseCase implements UseCase<UserEntity, NoParams> {
 ///   final AuthRepository repository;
 ///   
 ///   GetCurrentUserUseCase(this.repository);
@@ -110,7 +135,12 @@ abstract class UseCase<Type, Params> {
 /// // Usage
 /// final result = await getCurrentUserUseCase(const NoParamsImpl());
 /// ```
-abstract class NoParams extends Equatable {
+abstract/// NoParams
+///
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
+///
+class NoParams extends Equatable {
   /// Creates a new instance of [NoParams].
   const NoParams();
 
@@ -122,6 +152,8 @@ abstract class NoParams extends Equatable {
 }
 
 /// Concrete implementation of [NoParams] for use cases without parameters.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 /// 
 /// Use this class when calling use cases that don't require any input parameters.
 /// The class is designed as a singleton-like pattern where you can use the same

@@ -5,6 +5,8 @@ import 'package:fix_it/core/di/injection_container.dart' as di;
 import 'package:fix_it/core/services/text_direction_service.dart';
 
 /// A widget that wraps its child with the correct text direction
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 /// This ensures consistent RTL/LTR behavior across all parts of the app
 /// Use this widget in screens or components that need to ensure proper text direction
 class DirectionalityWrapper extends StatelessWidget {
@@ -16,6 +18,15 @@ class DirectionalityWrapper extends StatelessWidget {
   });
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     // Listen to LocaleBloc so the wrapper rebuilds when locale changes.
     return BlocBuilder<LocaleBloc, LocaleState>(
@@ -33,6 +44,8 @@ class DirectionalityWrapper extends StatelessWidget {
 }
 
 /// A builder widget that provides the current text direction to its builder
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 /// Useful for widgets that need to adjust their layout based on text direction
 class DirectionBuilder extends StatelessWidget {
   final Widget Function(BuildContext context, TextDirection textDirection)
@@ -44,6 +57,15 @@ class DirectionBuilder extends StatelessWidget {
   });
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return BlocBuilder<LocaleBloc, LocaleState>(
       builder: (context, localeState) {

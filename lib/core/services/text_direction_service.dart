@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 /// A service to manage text direction throughout the app
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 /// This ensures consistent RTL/LTR behavior across all screens
 class TextDirectionService {
   static final TextDirectionService _instance = TextDirectionService._internal();

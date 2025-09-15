@@ -1,4 +1,6 @@
 /// Custom exceptions for the application.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 ///
 /// This file defines custom exception classes used throughout the app
 /// for better error handling and debugging.
@@ -14,6 +16,8 @@ class CacheException implements Exception {
 }
 
 /// Exception thrown when there's a server-related error
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 class ServerException implements Exception {
   final String message;
   final int? statusCode;
@@ -25,6 +29,8 @@ class ServerException implements Exception {
 }
 
 /// Exception thrown when there's a network-related error
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 class NetworkException implements Exception {
   final String message;
 
@@ -35,6 +41,8 @@ class NetworkException implements Exception {
 }
 
 /// Exception thrown when data format is invalid
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 class DataFormatException implements Exception {
   final String message;
 
@@ -45,6 +53,8 @@ class DataFormatException implements Exception {
 }
 
 /// Exception thrown when authentication fails
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 class AuthException implements Exception {
   final String message;
 

@@ -1,3 +1,8 @@
+/// AppRoutes
+///
+/// Business Rules:
+/// - Add the main business rules or invariants enforced by this class.
+
 import 'package:fix_it/features/notifications/presentation/bloc/notifications_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +47,8 @@ import 'package:fix_it/features/help_support/presentation/pages/terms_of_service
 import 'package:fix_it/features/help_support/presentation/pages/contact_support_screen.dart';
 
 /// AppRoutes: small, incremental route helper improvements.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 /// - Keeps route name/arguments preserved on created routes
 /// - Provides a small typed-args helper for safe casting
 class AppRoutes {

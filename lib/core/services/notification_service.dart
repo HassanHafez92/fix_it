@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// Service responsible for FCM token management and basic message handling.
+/// **Business Rules:**
+/// - Add the main business rules or invariants enforced by this class.
 class NotificationService {
   final FirebaseMessaging _messaging;
   final FirebaseAuth _auth;
