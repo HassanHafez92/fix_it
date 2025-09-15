@@ -1,3 +1,8 @@
+/// LocalizationService
+///
+/// Business Rules:
+/// - Add the main business rules or invariants enforced by this class.
+
 import 'package:fix_it/l10n/app_localizations.dart';
 /// LocalizationService
 ///
