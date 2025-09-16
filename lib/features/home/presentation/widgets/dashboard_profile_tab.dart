@@ -42,6 +42,15 @@ class _DashboardProfileTabState extends State<DashboardProfileTab> {
   }
 
   @override
+/// initState
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void initState() {
     super.initState();
     // Do not access InheritedWidgets/Providers here. Dispatch bloc events
@@ -60,6 +69,15 @@ class _DashboardProfileTabState extends State<DashboardProfileTab> {
   }
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 

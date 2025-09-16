@@ -47,6 +47,15 @@ class ContactSection extends StatelessWidget {
 
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Column(
@@ -142,6 +151,15 @@ class _ContactMethodItem extends StatelessWidget {
 
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),

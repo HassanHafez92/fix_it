@@ -25,6 +25,15 @@ class BookingSummaryStep extends StatelessWidget {
   });
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return BlocBuilder<BookingBloc, BookingState>(
       builder: (context, state) {

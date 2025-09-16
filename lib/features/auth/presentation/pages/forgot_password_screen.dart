@@ -8,6 +8,15 @@ import 'package:fix_it/core/utils/bloc_utils.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
 
+/// ForgotPasswordScreen
+///
+/// Business Rules:
+/// - Collects an email address and requests a password reset via [AuthBloc].
+/// - Shows success and error feedback via SnackBar and navigates back on
+///   success.
+///
+/// Dependencies:
+/// - Depends on [AuthBloc] to perform the password reset operation.
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
 
@@ -20,12 +29,32 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _emailController = TextEditingController();
 
   @override
+
+  /// dispose
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
   void dispose() {
     _emailController.dispose();
     super.dispose();
   }
 
   @override
+
+  /// build
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 

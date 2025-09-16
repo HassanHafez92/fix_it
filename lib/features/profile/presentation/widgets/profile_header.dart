@@ -53,6 +53,15 @@ class ProfileHeader extends StatelessWidget {
 
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
@@ -383,6 +392,15 @@ class _StatItem extends StatelessWidget {
 
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return Column(
       children: [

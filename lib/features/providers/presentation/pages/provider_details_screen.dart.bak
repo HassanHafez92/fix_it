@@ -1,0 +1,464 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../../../core/services/favorites_service.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:fix_it/core/utils/bloc_utils.dart';
+
+import '../../domain/entities/provider_entity.dart';
+import '../bloc/provider_details_bloc.dart';
+import '../widgets/provider_info_card.dart';
+import '../widgets/provider_services_card.dart';
+import '../widgets/provider_reviews_section.dart';
+import '../../../auth/presentation/widgets/custom_button.dart';
+
+/// Screen that shows provider details, services and reviews.
+///
+/// Business Rules:
+/// - Expects a `providerId` argument and will load details via
+///   [ProviderDetailsBloc].
+/// - Actions like booking/call/email must verify runtime permissions and
+///   availability before triggering network actions.
+class ProviderDetailsScreen extends StatefulWidget {
+  final String providerId;
+
+  const ProviderDetailsScreen({super.key, required this.providerId});
+
+  @override
+  State<ProviderDetailsScreen> createState() => _ProviderDetailsScreenState();
+}
+
+class _ProviderDetailsScreenState extends State<ProviderDetailsScreen> {
+  bool _isFavorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  Future<void> _init() async {
+    final fav = await FavoritesService.getInstance();
+    final isFav = fav.isFavorite(widget.providerId);
+    if (!mounted) return;
+    setState(() => _isFavorite = isFav);
+    safeAddEvent<ProviderDetailsBloc>(
+      context,
+      GetProviderDetailsEvent(providerId: widget.providerId),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // ProviderDetailsBloc is expected to be provided higher in the tree.
+    return Scaffold(
+      body: BlocBuilder<ProviderDetailsBloc, ProviderDetailsState>(
+        builder: (context, state) {
+          if (state is ProviderDetailsLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is ProviderDetailsLoaded) {
+            return _buildProviderDetails(context, state);
+          } else if (state is ProviderDetailsError) {
+            return _buildErrorWidget(context, state.message);
+          }
+          return const SizedBox();
+        },
+      ),
+    );
+  }
+
+  Widget _buildProviderDetails(
+      BuildContext context, ProviderDetailsLoaded state) {
+    final provider = state.provider;
+
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          expandedHeight: 300,
+          pinned: true,
+          flexibleSpace: FlexibleSpaceBar(
+            background: Stack(
+              fit: StackFit.expand,
+              children: [
+                CachedNetworkImage(
+                  imageUrl: provider.profileImage,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => Container(
+                    color: Colors.grey[300],
+                    child: const Center(child: CircularProgressIndicator()),
+                  ),
+                  errorWidget: (context, url, error) {
+                    debugPrint('Provider header image failed: $url -> $error');
+                    return Container(
+                      color: Colors.grey[300],
+                      child:
+                          Icon(Icons.person, size: 64, color: Colors.grey[600]),
+                    );
+                  },
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.7)
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 20,
+                  left: 20,
+                  right: 20,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              provider.name,
+                              style: GoogleFonts.cairo(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          if (provider.isVerified)
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.verified,
+                                      color: Colors.white, size: 16),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    'Verified',
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Icon(Icons.star, color: Colors.amber, size: 20),
+                          const SizedBox(width: 4),
+                          Text(
+                            '${provider.rating}',
+                            style: GoogleFonts.cairo(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            '(${provider.reviewCount} reviews)',
+                            style: GoogleFonts.cairo(
+                              fontSize: 14,
+                              color: Colors.white.withOpacity(0.9),
+                            ),
+                          ),
+                          const Spacer(),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: provider.isAvailable
+                                  ? Colors.green
+                                  : Colors.red,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              provider.isAvailable ? 'Available' : 'Busy',
+                              style: GoogleFonts.cairo(
+                                fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+            onPressed: () => Navigator.pop(context),
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                _isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: Colors.white,
+              ),
+              onPressed: () async {
+                final fav = await FavoritesService.getInstance();
+                await fav.toggleFavorite(widget.providerId);
+                if (mounted) setState(() => _isFavorite = !_isFavorite);
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.share, color: Colors.white),
+              onPressed: () async {
+                final messenger = ScaffoldMessenger.of(context);
+                final errorText = tr('oopsSomethingWrong');
+                try {
+                  final uri = Uri.base;
+                  final shareUrl =
+                      uri.resolve('/provider/${provider.id}').toString();
+                  final buffer = StringBuffer()
+                    ..writeln(provider.name)
+                    ..writeln()
+                    ..writeln(provider.bio)
+                    ..writeln()
+                    ..writeln('View: $shareUrl');
+                  if (provider.profileImage.isNotEmpty) {
+                    buffer.writeln(provider.profileImage);
+                  }
+                  await Share.share(buffer.toString(), subject: provider.name);
+                } catch (e) {
+                  messenger.showSnackBar(
+                    SnackBar(content: Text(errorText)),
+                  );
+                }
+              },
+            ),
+          ],
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ProviderInfoCard(provider: provider),
+                const SizedBox(height: 16),
+                ProviderServicesCard(services: provider.services),
+                const SizedBox(height: 16),
+                _buildAboutSection(provider),
+                const SizedBox(height: 16),
+                ProviderReviewsSection(
+                  providerId: provider.id,
+                  reviews: state.reviews,
+                  isLoadingReviews: state.isLoadingReviews,
+                  reviewsError: state.reviewsError,
+                ),
+                const SizedBox(height: 24),
+                _buildActionButtons(context, provider),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAboutSection(ProviderEntity provider) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'About',
+              style: GoogleFonts.cairo(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[800],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              provider.bio,
+              style: GoogleFonts.cairo(
+                fontSize: 14,
+                color: Colors.grey[700],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInfoItem(
+                    icon: Icons.work_history,
+                    label: 'Experience',
+                    value: '${provider.experienceYears} years',
+                  ),
+                ),
+                Expanded(
+                  child: _buildInfoItem(
+                    icon: Icons.attach_money,
+                    label: 'Hourly Rate',
+                    value: '\$${provider.hourlyRate.toStringAsFixed(0)}/hr',
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            _buildInfoItem(
+              icon: Icons.location_on,
+              label: 'Location',
+              value: provider.location,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoItem({
+    required IconData icon,
+    required String label,
+    required String value,
+  }) {
+    return Row(
+      children: [
+        Icon(icon, size: 20, color: Colors.grey[600]),
+        const SizedBox(width: 8),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: GoogleFonts.cairo(
+                fontSize: 12,
+                color: Colors.grey[500],
+              ),
+            ),
+            Text(
+              value,
+              style: GoogleFonts.cairo(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey[800],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButtons(BuildContext context, ProviderEntity provider) {
+    return Column(
+      children: [
+        CustomButton(
+          text: tr('bookService'),
+          enabled: provider.isAvailable,
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              '/book_provider',
+              arguments: provider.id,
+            );
+          },
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: OutlinedButton.icon(
+                onPressed: () => _launchPhone(provider.phone),
+                icon: const Icon(Icons.phone),
+                label: Text(tr('callLabel')),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: OutlinedButton.icon(
+                onPressed: () => _launchEmail(provider.email),
+                icon: const Icon(Icons.email),
+                label: Text(tr('emailLabel')),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildErrorWidget(BuildContext context, String message) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.error_outline,
+            size: 64,
+            color: Colors.red[400],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            tr('failedToLoadProviderDetails'),
+            style: GoogleFonts.cairo(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[800],
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            message,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.cairo(
+              fontSize: 14,
+              color: Colors.grey[600],
+            ),
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton(
+            onPressed: () {
+              safeAddEvent<ProviderDetailsBloc>(
+                context,
+                GetProviderDetailsEvent(providerId: widget.providerId),
+              );
+            },
+            child: Text(tr('retry')),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _launchPhone(String phone) async {
+    final uri = Uri.parse('tel:$phone');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    }
+  }
+
+  Future<void> _launchEmail(String email) async {
+    final uri = Uri.parse('mailto:$email');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    }
+  }
+}

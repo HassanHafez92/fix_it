@@ -10,28 +10,21 @@ import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
 import 'package:fix_it/core/utils/bloc_utils.dart';
 import 'package:fix_it/core/utils/app_routes.dart';
+
 /// SignInScreen
 ///
-/// Business rules:
-/// - Describe the business rules that this class enforces.
+/// Business Rules:
+/// - Collects user credentials and triggers the authentication flow via
+///   [AuthBloc].
+/// - Prevents submission when form validation fails.
+/// - On successful authentication the user is routed to the home screen.
 ///
 /// Dependencies:
-/// - List important dependencies or preconditions.
+/// - Depends on [AuthBloc] to emit authenticated/error states used by the UI.
 ///
 /// Error scenarios:
-/// - Describe common error conditions and how they are handled.
-/// SignInScreen
-///
-/// Business rules:
-/// - Describe the business rules that this class enforces.
-///
-/// Dependencies:
-/// - List important dependencies or preconditions.
-///
-/// Error scenarios:
-/// - Describe common error conditions and how they are handled.
-
-
+/// - Validation errors surface inline; backend/auth failures present a
+///   snackbar with a human-friendly message.
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -45,35 +38,55 @@ class _SignInScreenState extends State<SignInScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
-/// dispose
-///
-/// Description: Briefly explain what this method does.
-///
-/// Parameters:
-/// - (describe parameters)
-///
-/// Returns:
-/// - (describe return value)
 
+  /// dispose
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
 
   @override
+
+  /// dispose
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
-/// build
-///
-/// Description: Briefly explain what this method does.
-///
-/// Parameters:
-/// - (describe parameters)
-///
-/// Returns:
-/// - (describe return value)
 
+  /// build
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
 
   @override
+
+  /// build
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;

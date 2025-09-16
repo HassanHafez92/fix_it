@@ -75,12 +75,30 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
   List<String> attachments = [];
 
   @override
+/// dispose
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 

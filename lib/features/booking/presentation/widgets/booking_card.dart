@@ -33,6 +33,15 @@ class BookingCard extends StatelessWidget {
   });
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
@@ -87,12 +96,16 @@ class BookingCard extends StatelessWidget {
                         color: Colors.grey[300],
                         child: const Icon(Icons.person, size: 20),
                       ),
-                      errorWidget: (context, url, error) => Container(
-                        width: 40,
-                        height: 40,
-                        color: Colors.grey[300],
-                        child: const Icon(Icons.person, size: 20),
-                      ),
+                      errorWidget: (context, url, error) {
+                        debugPrint(
+                            'Booking card provider image failed: $url -> $error');
+                        return Container(
+                          width: 40,
+                          height: 40,
+                          color: Colors.grey[300],
+                          child: const Icon(Icons.person, size: 20),
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(width: 12),

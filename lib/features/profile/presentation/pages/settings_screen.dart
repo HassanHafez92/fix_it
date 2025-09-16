@@ -11,43 +11,55 @@ import '../widgets/settings_switch_item.dart';
 import '../widgets/settings_selection_item.dart';
 import '../../../../core/utils/bloc_utils.dart';
 import '../../../../core/bloc/locale_bloc.dart';
+
 /// SettingsScreen
 ///
-/// Business rules:
-/// - Describe the business rules that this class enforces.
-///
-/// Dependencies:
-/// - List important dependencies or preconditions.
-///
-/// Error scenarios:
-/// - Describe common error conditions and how they are handled.
-/// SettingsScreen
+/// Purpose:
+/// - Shows the user's application settings (language, currency, theme,
+///   notification toggles, privacy options) and allows updating them.
 ///
 /// Business rules:
-/// - Describe the business rules that this class enforces.
+/// - Settings are read from [SettingsBloc] and updated via events (e.g.,
+///   [UpdateSettings]). UI updates optimistically; failures are handled
+///   by emitting [SettingsError] in the bloc which shows an error UI.
+/// - Language changes are applied immediately via `context.setLocale` when
+///   EasyLocalization is available; otherwise the app dispatches
+///   [ChangeLocaleEvent] to [LocaleBloc].
 ///
 /// Dependencies:
-/// - List important dependencies or preconditions.
+/// - Requires a provided [SettingsBloc] in the widget tree.
+/// - Requires optional [LocaleBloc] for fallback locale persistence.
 ///
 /// Error scenarios:
-/// - Describe common error conditions and how they are handled.
-
-
+/// - If loading settings fails the page shows an error message and a
+///   retry button that dispatches [LoadSettings].
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-/// build
-///
-/// Description: Briefly explain what this method does.
-///
-/// Parameters:
-/// - (describe parameters)
-///
-/// Returns:
-/// - (describe return value)
 
+  /// build
+  ///
+  /// Description:
+  /// - Builds the settings UI. Subscribes to [SettingsBloc] state changes
+  ///   and renders loading, error, or loaded states accordingly.
+  ///
+  /// Parameters:
+  /// - [context]: standard Flutter build context.
+  ///
+  /// Returns:
+  /// - A [Widget] (Scaffold) containing the settings UI.
 
   @override
+
+  /// build
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 

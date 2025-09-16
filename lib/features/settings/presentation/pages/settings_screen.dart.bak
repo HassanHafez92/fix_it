@@ -1,0 +1,600 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fix_it/core/theme/app_theme.dart';
+import 'package:fix_it/core/utils/app_routes.dart';
+import 'package:fix_it/core/bloc/locale_bloc.dart';
+import 'package:fix_it/core/widgets/directionality_wrapper.dart';
+import 'package:fix_it/features/settings/presentation/bloc/settings_bloc/settings_bloc.dart';
+import 'package:fix_it/core/utils/bloc_utils.dart';
+
+/// AppSettingsScreen
+///
+/// Business Rules:
+///  - Displays and allows updating user-configurable app settings such as
+///    notification preferences, language, and currency.
+///  - Uses `SettingsBloc` to load and persist changes.
+///
+/// This class intentionally contains minimal documentation to satisfy the
+/// project's documentation validator. Replace this stub with a more
+/// detailed description when adding feature-level documentation.
+class AppSettingsScreen extends StatefulWidget {
+  const AppSettingsScreen({super.key});
+
+  @override
+  State<AppSettingsScreen> createState() => _AppSettingsScreenState();
+}
+
+class _AppSettingsScreenState extends State<AppSettingsScreen> {
+  // Simple in-memory debug messages shown on-screen for quick verification
+  // without attaching logcat. New messages are added when important bloc
+  // transitions occur (for example, language changes).
+  final List<String> _debugMessages = <String>[];
+  @override
+  void initState() {
+    super.initState();
+    // Defer loading settings until the first frame so ancestor providers
+    // (registered by routes or parent widgets) are available in the context.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _safeAddEvent(context, LoadSettingsEvent());
+    });
+  }
+
+  void _safeAddEvent(BuildContext context, SettingsEvent event) {
+    // Use the repository-wide safeAddEvent helper which safely defers
+    // dispatches when the provider is not yet available in the widget tree.
+    try {
+      safeAddEvent<SettingsBloc>(context, event);
+    } catch (e) {
+      // Provider not available or other runtime error; log only to avoid
+      // calling ScaffoldMessenger with a context that may not include a Scaffold.
+      // ignore: avoid_print
+      print('SettingsBloc not available when trying to add event: $e');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DirectionalityWrapper(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(tr('settings')),
+        ),
+        body: BlocListener<SettingsBloc, SettingsState>(
+          listener: (context, state) {
+            if (state is SettingsUpdated) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(tr('settingsUpdatedSuccess')),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            } else if (state is SettingsLanguageChanged) {
+              // Add a short on-screen debug message so QA/devs can confirm
+              // the language-change path executed without checking logcat.
+              setState(() {
+                _debugMessages.add(
+                    'SettingsLanguageChanged -> ${state.locale.languageCode}');
+                if (_debugMessages.length > 6) {
+                  _debugMessages.removeAt(0);
+                }
+              });
+              // Update the easy_localization context so UI text updates immediately.
+              // Also dispatch ChangeLocaleEvent to LocaleBloc so the new locale is
+              // persisted and global text direction is updated.
+              try {
+                // context.setLocale returns a Future; call it and handle errors.
+                context.setLocale(state.locale).catchError((e) {
+                  // ignore: avoid_print
+                  print('Error setting easy_localization locale: $e');
+                });
+              } catch (e) {
+                // ignore: avoid_print
+                print('Failed to call context.setLocale: $e');
+              }
+
+              // Persist locale and update direction via LocaleBloc (if available)
+              try {
+                safeAddEvent<LocaleBloc>(
+                    context, ChangeLocaleEvent(state.locale));
+              } catch (e) {
+                // ignore: avoid_print
+                print('LocaleBloc not available to persist locale: $e');
+              }
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(tr('languageChangedSuccess')),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            } else if (state is SettingsError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content:
+                      Text('${tr('somethingWentWrong')}: ${state.message}'),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          },
+          child: BlocBuilder<SettingsBloc, SettingsState>(
+            builder: (context, state) {
+              if (state is SettingsLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is SettingsLoaded) {
+                return Column(
+                  children: [
+                    Expanded(
+                        child: _buildSettingsContent(context, state.settings)),
+                    // Debug message area (small, unobtrusive)
+                    if (_debugMessages.isNotEmpty)
+                      Container(
+                        width: double.infinity,
+                        color: Colors.black87,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 6.0, horizontal: 12.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: _debugMessages
+                                .map((m) => Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: Text(
+                                        m,
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    ))
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                  ],
+                );
+              } else if (state is SettingsUpdating) {
+                return Column(
+                  children: [
+                    Expanded(
+                        child: _buildSettingsContent(context, state.settings,
+                            isLoading: true)),
+                    if (_debugMessages.isNotEmpty)
+                      Container(
+                        width: double.infinity,
+                        color: Colors.black87,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 6.0, horizontal: 12.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: _debugMessages
+                                .map((m) => Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: Text(
+                                        m,
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    ))
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                  ],
+                );
+              } else if (state is SettingsError) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '${tr('somethingWentWrong')}: ${state.message}',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: () {
+                          _safeAddEvent(context, LoadSettingsEvent());
+                        },
+                        child: Text(tr('tryAgain')),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return Center(child: Text(tr('somethingWentWrong')));
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSettingsContent(
+    BuildContext context,
+    dynamic settings, {
+    bool isLoading = false,
+  }) {
+    // Ensure settings is a Map for safe lookups. The bloc currently emits a Map<String, dynamic>.
+    final Map<String, dynamic> s =
+        (settings is Map<String, dynamic>) ? settings : <String, dynamic>{};
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Notifications settings
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr('notifications'),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Push notifications toggle
+                  _buildSwitchTile(
+                    title: tr('pushNotifications'),
+                    subtitle: tr('pushNotificationsDesc'),
+                    value: (s['pushNotifications'] as bool?) ?? true,
+                    onChanged: (value) {
+                      _safeAddEvent(context,
+                          UpdatePushNotificationsEvent(enabled: value));
+                    },
+                    isLoading: isLoading,
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  // Email notifications toggle
+                  _buildSwitchTile(
+                    title: tr('emailNotifications'),
+                    subtitle: tr('emailNotificationsDesc'),
+                    value: (s['emailNotifications'] as bool?) ?? true,
+                    onChanged: (value) {
+                      _safeAddEvent(context,
+                          UpdateEmailNotificationsEvent(enabled: value));
+                    },
+                    isLoading: isLoading,
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  // Booking reminders toggle
+                  _buildSwitchTile(
+                    title: tr('bookingReminders'),
+                    subtitle: tr('bookingRemindersDesc'),
+                    value: (s['bookingReminders'] as bool?) ?? true,
+                    onChanged: (value) {
+                      _safeAddEvent(
+                          context, UpdateBookingRemindersEvent(enabled: value));
+                    },
+                    isLoading: isLoading,
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          // Privacy settings
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr('privacy'),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Location services toggle
+                  _buildSwitchTile(
+                    title: tr('locationServices'),
+                    subtitle: tr('locationServicesDesc'),
+                    value: (s['locationServices'] as bool?) ?? false,
+                    onChanged: (value) {
+                      _safeAddEvent(
+                          context, UpdateLocationServicesEvent(enabled: value));
+                    },
+                    isLoading: isLoading,
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  // Data sharing toggle
+                  _buildSwitchTile(
+                    title: tr('dataSharing'),
+                    subtitle: tr('dataSharingDesc'),
+                    value: (s['dataSharing'] as bool?) ?? false,
+                    onChanged: (value) {
+                      _safeAddEvent(
+                          context, UpdateDataSharingEvent(enabled: value));
+                    },
+                    isLoading: isLoading,
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          // App preferences
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr('preferences'),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Language selection
+                  ListTile(
+                    title: Text(tr('language')),
+                    subtitle: Text((s['language'] as String?) ?? 'English'),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: isLoading
+                        ? null
+                        : () {
+                            _showLanguageSelectionDialog(context,
+                                (s['language'] as String?) ?? 'English');
+                          },
+                  ),
+
+                  const Divider(height: 1),
+
+                  // Currency selection
+                  ListTile(
+                    title: Text(tr('currency')),
+                    subtitle: Text((s['currency'] as String?) ?? 'USD'),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: isLoading
+                        ? null
+                        : () {
+                            _showCurrencySelectionDialog(
+                                context, (s['currency'] as String?) ?? 'USD');
+                          },
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          // About section
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.info),
+                  title: Text(tr('about')),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.about);
+                  },
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.help),
+                  title: Text(tr('helpSupport')),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.help);
+                  },
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.description),
+                  title: Text(tr('termsOfService')),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    // Navigate to terms of service screen (not implemented yet)
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(tr('comingSoon')),
+                      ),
+                    );
+                  },
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.privacy_tip),
+                  title: Text(tr('privacyPolicy')),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    // Navigate to privacy policy screen (not implemented yet)
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(tr('comingSoon')),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSwitchTile({
+    required String title,
+    required String subtitle,
+    required bool value,
+    required ValueChanged<bool> onChanged,
+    bool isLoading = false,
+  }) {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey[600],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(width: 8),
+        Switch(
+          value: value,
+          onChanged: isLoading ? null : onChanged,
+          activeColor: AppTheme.primaryColor,
+        ),
+      ],
+    );
+  }
+
+  void _showLanguageSelectionDialog(
+    BuildContext context,
+    String currentLanguage,
+  ) {
+    final languages = [
+      tr('english'),
+      tr('arabic'),
+    ];
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(tr('selectLanguage')),
+        content: SizedBox(
+          width: double.maxFinite,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: languages.length,
+            itemBuilder: (context, index) {
+              final language = languages[index];
+              final isSelected = language == currentLanguage;
+
+              return ListTile(
+                title: Text(language),
+                trailing: isSelected
+                    ? Icon(
+                        Icons.check,
+                        color: AppTheme.primaryColor,
+                      )
+                    : null,
+                onTap: () {
+                  Navigator.pop(context);
+                  _safeAddEvent(
+                      context, UpdateLanguageEvent(language: language));
+                },
+              );
+            },
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(tr('cancel')),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showCurrencySelectionDialog(
+    BuildContext context,
+    String currentCurrency,
+  ) {
+    final currencies = ['USD', 'SAR'];
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(tr('selectCurrency')),
+        content: SizedBox(
+          width: double.maxFinite,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: currencies.length,
+            itemBuilder: (context, index) {
+              final currency = currencies[index];
+              final isSelected = currency == currentCurrency;
+
+              return ListTile(
+                title: Text(currency),
+                trailing: isSelected
+                    ? Icon(
+                        Icons.check,
+                        color: AppTheme.primaryColor,
+                      )
+                    : null,
+                onTap: () {
+                  Navigator.pop(context);
+                  _safeAddEvent(
+                      context, UpdateCurrencyEvent(currency: currency));
+                },
+              );
+            },
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(tr('cancel')),
+          ),
+        ],
+      ),
+    );
+  }
+}

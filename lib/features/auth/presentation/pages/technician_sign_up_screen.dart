@@ -9,28 +9,16 @@ import 'package:fix_it/core/utils/bloc_utils.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
 import 'package:fix_it/l10n/app_localizations.dart';
+
 /// TechnicianSignUpScreen
 ///
-/// Business rules:
-/// - Describe the business rules that this class enforces.
+/// Business Rules:
+/// - Collects technician-specific registration details (profession,
+///   contact info, portfolio) and validates inputs.
+/// - On successful registration the user is navigated to the home screen.
 ///
 /// Dependencies:
-/// - List important dependencies or preconditions.
-///
-/// Error scenarios:
-/// - Describe common error conditions and how they are handled.
-/// TechnicianSignUpScreen
-///
-/// Business rules:
-/// - Describe the business rules that this class enforces.
-///
-/// Dependencies:
-/// - List important dependencies or preconditions.
-///
-/// Error scenarios:
-/// - Describe common error conditions and how they are handled.
-
-
+/// - Uses [TechnicianSignUpBloc] to submit registrations and handle errors.
 
 class TechnicianSignUpScreen extends StatefulWidget {
   const TechnicianSignUpScreen({super.key});
@@ -51,18 +39,28 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
   bool _obscureConfirmPassword = true;
   bool _acceptTerms = false;
   String? _selectedProfession;
-/// dispose
-///
-/// Description: Briefly explain what this method does.
-///
-/// Parameters:
-/// - (describe parameters)
-///
-/// Returns:
-/// - (describe return value)
 
+  /// dispose
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
 
   @override
+
+  /// dispose
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
@@ -72,18 +70,28 @@ class _TechnicianSignUpScreenState extends State<TechnicianSignUpScreen> {
     _confirmPasswordController.dispose();
     super.dispose();
   }
-/// build
-///
-/// Description: Briefly explain what this method does.
-///
-/// Parameters:
-/// - (describe parameters)
-///
-/// Returns:
-/// - (describe return value)
 
+  /// build
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
 
   @override
+
+  /// build
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;

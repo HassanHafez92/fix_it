@@ -9,28 +9,24 @@ import '../bloc/client_sign_up/client_sign_up_bloc.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
 import 'package:fix_it/l10n/app_localizations.dart';
+
 /// ClientSignUpScreen
 ///
-/// Business rules:
-/// - Describe the business rules that this class enforces.
+/// Business Rules:
+/// - Presents a form to collect client registration details (name, email,
+///   phone, password) and validates inputs before submission.
+/// - Enforces password confirmation and acceptance of terms before allowing
+///   registration.
+/// - On success the flow navigates to the main dashboard or a verification
+///   step depending on backend requirements.
 ///
 /// Dependencies:
-/// - List important dependencies or preconditions.
+/// - Relies on `ClientSignUpBloc` for form submission and backend integration.
 ///
-/// Error scenarios:
-/// - Describe common error conditions and how they are handled.
-/// ClientSignUpScreen
-///
-/// Business rules:
-/// - Describe the business rules that this class enforces.
-///
-/// Dependencies:
-/// - List important dependencies or preconditions.
-///
-/// Error scenarios:
-/// - Describe common error conditions and how they are handled.
-
-
+/// Error Scenarios:
+/// - Validation errors surfaced to the user via form field validators.
+/// - Network or backend failures are reported via Bloc states and shown as
+///   error messages.
 
 class ClientSignUpScreen extends StatefulWidget {
   const ClientSignUpScreen({super.key});
@@ -49,18 +45,28 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   bool _acceptTerms = false;
-/// dispose
-///
-/// Description: Briefly explain what this method does.
-///
-/// Parameters:
-/// - (describe parameters)
-///
-/// Returns:
-/// - (describe return value)
 
+  /// dispose
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
 
   @override
+
+  /// dispose
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
@@ -69,18 +75,28 @@ class _ClientSignUpScreenState extends State<ClientSignUpScreen> {
     _confirmPasswordController.dispose();
     super.dispose();
   }
-/// build
-///
-/// Description: Briefly explain what this method does.
-///
-/// Parameters:
-/// - (describe parameters)
-///
-/// Returns:
-/// - (describe return value)
 
+  /// build
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
 
   @override
+
+  /// build
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;

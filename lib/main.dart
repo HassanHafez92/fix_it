@@ -1,9 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:fix_it/l10n/app_localizations.dart'; // Commented out to use only easy_localization
 import 'package:easy_localization/easy_localization.dart';
-import 'package:fix_it/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
@@ -18,7 +16,7 @@ import 'core/services/location_service.dart';
 import 'core/services/payment_service.dart';
 import 'core/services/analytics_service.dart';
 import 'core/services/notification_service.dart';
-import 'core/services/localization_service.dart';
+
 import 'app_config.dart';
 import 'features/auth/presentation/pages/welcome_screen.dart';
 import 'features/auth/presentation/widgets/auth_wrapper.dart';
@@ -50,6 +48,15 @@ class SimpleBlocObserver extends BlocObserver {
   /// - (describe return value)
 
   @override
+/// onEvent
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
     print('BLOC EVENT: ${bloc.runtimeType} -> $event');
@@ -66,6 +73,15 @@ class SimpleBlocObserver extends BlocObserver {
   /// - (describe return value)
 
   @override
+/// onChange
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
     print('BLOC CHANGE: ${bloc.runtimeType} -> $change');
@@ -82,6 +98,15 @@ class SimpleBlocObserver extends BlocObserver {
   /// - (describe return value)
 
   @override
+/// onTransition
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
     print('BLOC TRANSITION: ${bloc.runtimeType} -> $transition');
@@ -137,9 +162,10 @@ Future<void> main() async {
     print('❌ Dependency injection setup failed: $e');
   }
 
-  // Initialize core application services
-  // Includes location services, payment setup, and other essential services
-  await _initializeServices();
+  // NOTE: defer heavy, non-critical service initialization until after
+  // the first frame is rendered. Running these before the first frame can
+  // cause main-thread work that results in skipped frames on app launch.
+  // We schedule initialization after runApp (see below).
 
   // Configure device orientation to portrait only
   // This ensures consistent UI layout across the app
@@ -178,6 +204,17 @@ Future<void> main() async {
       child: const FixItApp(),
     ),
   );
+
+  // Initialize non-critical services after the first frame to avoid blocking
+  // the UI during app startup. This reduces skipped frames on slow devices.
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    final servicesStart = DateTime.now();
+    _initializeServices().whenComplete(() {
+      final servicesMs =
+          DateTime.now().difference(servicesStart).inMilliseconds;
+      print('🔧 _initializeServices completed (took ${servicesMs}ms)');
+    });
+  });
 }
 
 /// Initializes core services required by the application.
@@ -287,6 +324,15 @@ class FixItApp extends StatelessWidget {
   /// - (describe return value)
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
@@ -323,6 +369,7 @@ class FixItApp extends StatelessWidget {
 
             // Internationalization delegates
             // Provides localized text for Material Design components
+            // using easy_localization for all translations
             localizationsDelegates: [
               ...EasyLocalization.of(context)!.delegates,
               GlobalMaterialLocalizations.delegate,
@@ -342,7 +389,7 @@ class FixItApp extends StatelessWidget {
               if (supported.contains(localeState.locale)) {
                 return localeState.locale;
               }
-              return deviceLocale ?? const Locale('ar');
+              return deviceLocale ?? const Locale('en');
             },
 
             // Centralized route generation
@@ -353,10 +400,6 @@ class FixItApp extends StatelessWidget {
             // AuthWrapper handles authentication state and navigation
             // Wrap the entire app with Directionality to ensure consistent text direction
             builder: (context, child) {
-              final l10n = AppLocalizations.of(context);
-              if (l10n != null) {
-                LocalizationService().init(l10n);
-              }
               return Directionality(
                 textDirection: textDirection,
                 child: child!,

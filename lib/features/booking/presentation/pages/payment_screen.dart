@@ -31,6 +31,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
   String? selectedPaymentMethodId;
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

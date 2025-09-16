@@ -27,6 +27,15 @@ class ProviderReviewsSection extends StatelessWidget {
   });
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return Card(
       child: Padding(

@@ -37,6 +37,15 @@ class _ProviderDetailsScreenState extends State<ProviderDetailsScreen> {
   bool _isFavorite = false;
 
   @override
+/// initState
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void initState() {
     super.initState();
     _init();
@@ -54,6 +63,15 @@ class _ProviderDetailsScreenState extends State<ProviderDetailsScreen> {
   }
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     // ProviderDetailsBloc is expected to be provided higher in the tree.
     return Scaffold(
@@ -92,11 +110,14 @@ class _ProviderDetailsScreenState extends State<ProviderDetailsScreen> {
                     color: Colors.grey[300],
                     child: const Center(child: CircularProgressIndicator()),
                   ),
-                  errorWidget: (context, url, error) => Container(
-                    color: Colors.grey[300],
-                    child:
-                        Icon(Icons.person, size: 64, color: Colors.grey[600]),
-                  ),
+                  errorWidget: (context, url, error) {
+                    debugPrint('Provider header image failed: $url -> $error');
+                    return Container(
+                      color: Colors.grey[300],
+                      child:
+                          Icon(Icons.person, size: 64, color: Colors.grey[600]),
+                    );
+                  },
                 ),
                 Container(
                   decoration: BoxDecoration(

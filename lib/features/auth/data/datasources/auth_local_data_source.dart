@@ -75,6 +75,10 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   });
 
   @override
+/// cacheUserData
+///
+/// @param user 
+/// Returns: 
   Future<void> cacheUserData(UserModel user) async {
     try {
       final userJson = json.encode(user.toJson());
@@ -85,9 +89,14 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
+/// getCachedUserData
+///
+/// Returns: 
   Future<UserModel?> getCachedUserData() async {
     try {
       final userJson = sharedPreferences.getString(AppConstants.userDataKey);
+/// if
+///
       if (userJson != null) {
         final userMap = json.decode(userJson) as Map<String, dynamic>;
         return UserModel.fromJson(userMap);
@@ -99,6 +108,9 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
+/// clearUserData
+///
+/// Returns: 
   Future<void> clearUserData() async {
     try {
       await sharedPreferences.remove(AppConstants.userDataKey);
@@ -108,6 +120,10 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
+/// cacheAuthToken
+///
+/// @param token 
+/// Returns: 
   Future<void> cacheAuthToken(String token) async {
     try {
       await secureStorage.write(key: AppConstants.authTokenKey, value: token);
@@ -117,6 +133,9 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
+/// getCachedAuthToken
+///
+/// Returns: 
   Future<String?> getCachedAuthToken() async {
     try {
       return await secureStorage.read(key: AppConstants.authTokenKey);
@@ -126,6 +145,9 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
+/// clearAuthToken
+///
+/// Returns: 
   Future<void> clearAuthToken() async {
     try {
       await secureStorage.delete(key: AppConstants.authTokenKey);
@@ -135,6 +157,9 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
+/// isUserLoggedIn
+///
+/// Returns: 
   Future<bool> isUserLoggedIn() async {
     try {
       final token = await getCachedAuthToken();

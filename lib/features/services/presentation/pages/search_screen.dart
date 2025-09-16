@@ -50,6 +50,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
 
   @override
+/// initState
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void initState() {
     super.initState();
     // Focus on search field when screen opens
@@ -69,6 +78,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
 
   @override
+/// dispose
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void dispose() {
     _searchController.dispose();
     _searchFocusNode.dispose();
@@ -86,6 +104,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(

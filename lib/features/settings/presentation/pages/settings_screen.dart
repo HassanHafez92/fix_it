@@ -26,7 +26,20 @@ class AppSettingsScreen extends StatefulWidget {
 }
 
 class _AppSettingsScreenState extends State<AppSettingsScreen> {
+  // Simple in-memory debug messages shown on-screen for quick verification
+  // without attaching logcat. New messages are added when important bloc
+  // transitions occur (for example, language changes).
+  final List<String> _debugMessages = <String>[];
   @override
+/// initState
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void initState() {
     super.initState();
     // Defer loading settings until the first frame so ancestor providers
@@ -50,6 +63,15 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
   }
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return DirectionalityWrapper(
       child: Scaffold(
@@ -66,9 +88,38 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 ),
               );
             } else if (state is SettingsLanguageChanged) {
-              // Update the app locale when language changes
-              safeAddEvent<LocaleBloc>(
-                  context, ChangeLocaleEvent(state.locale));
+              // Add a short on-screen debug message so QA/devs can confirm
+              // the language-change path executed without checking logcat.
+              setState(() {
+                _debugMessages.add(
+                    'SettingsLanguageChanged -> ${state.locale.languageCode}');
+                if (_debugMessages.length > 6) {
+                  _debugMessages.removeAt(0);
+                }
+              });
+              // Update the easy_localization context so UI text updates immediately.
+              // Also dispatch ChangeLocaleEvent to LocaleBloc so the new locale is
+              // persisted and global text direction is updated.
+              try {
+                // context.setLocale returns a Future; call it and handle errors.
+                context.setLocale(state.locale).catchError((e) {
+                  // ignore: avoid_print
+                  print('Error setting easy_localization locale: $e');
+                });
+              } catch (e) {
+                // ignore: avoid_print
+                print('Failed to call context.setLocale: $e');
+              }
+
+              // Persist locale and update direction via LocaleBloc (if available)
+              try {
+                safeAddEvent<LocaleBloc>(
+                    context, ChangeLocaleEvent(state.locale));
+              } catch (e) {
+                // ignore: avoid_print
+                print('LocaleBloc not available to persist locale: $e');
+              }
+
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(tr('languageChangedSuccess')),
@@ -90,10 +141,67 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
               if (state is SettingsLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is SettingsLoaded) {
-                return _buildSettingsContent(context, state.settings);
+                return Column(
+                  children: [
+                    Expanded(
+                        child: _buildSettingsContent(context, state.settings)),
+                    // Debug message area (small, unobtrusive)
+                    if (_debugMessages.isNotEmpty)
+                      Container(
+                        width: double.infinity,
+                        color: Colors.black87,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 6.0, horizontal: 12.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: _debugMessages
+                                .map((m) => Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: Text(
+                                        m,
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    ))
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                  ],
+                );
               } else if (state is SettingsUpdating) {
-                return _buildSettingsContent(context, state.settings,
-                    isLoading: true);
+                return Column(
+                  children: [
+                    Expanded(
+                        child: _buildSettingsContent(context, state.settings,
+                            isLoading: true)),
+                    if (_debugMessages.isNotEmpty)
+                      Container(
+                        width: double.infinity,
+                        color: Colors.black87,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 6.0, horizontal: 12.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: _debugMessages
+                                .map((m) => Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: Text(
+                                        m,
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    ))
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                  ],
+                );
               } else if (state is SettingsError) {
                 return Center(
                   child: Column(

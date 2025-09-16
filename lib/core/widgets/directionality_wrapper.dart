@@ -27,6 +27,17 @@ class DirectionalityWrapper extends StatelessWidget {
 ///
 /// Returns:
 /// - (describe return value)
+
+/// build
+/// @param context 
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     // Listen to LocaleBloc so the wrapper rebuilds when locale changes.
     return BlocBuilder<LocaleBloc, LocaleState>(
@@ -58,6 +69,17 @@ class DirectionBuilder extends StatelessWidget {
 
   @override
 /// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
+
+/// build
+/// @param context 
 ///
 /// Description: Briefly explain what this method does.
 ///

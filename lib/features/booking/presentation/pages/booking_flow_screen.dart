@@ -37,6 +37,15 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
   int _currentStep = 0;
 
   @override
+/// initState
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void initState() {
     super.initState();
     _pageController = PageController();
@@ -55,6 +64,15 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
   }
 
   @override
+/// dispose
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void dispose() {
     _pageController.dispose();
     super.dispose();
@@ -98,6 +116,15 @@ class _BookingFlowScreenState extends State<BookingFlowScreen> {
   }
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return BlocListener<BookingBloc, BookingState>(
       listener: (context, state) {

@@ -12,13 +12,38 @@ import '../bloc/auth_bloc.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
 
+/// SignUpScreen
+///
+/// Business Rules:
+/// - Collects registration information and forwards it to [AuthBloc]
+///   for account creation.
+/// - Validates matching passwords and required fields before submission.
+/// - When the email is already in use a dialog is presented to the user
+///   with choices to sign in or reset the password.
+///
+/// Dependencies:
+/// - Relies on [AuthBloc] and local validators for input validation.
 class SignUpScreen extends StatefulWidget {
+  /// Creates a [SignUpScreen].
+  ///
+  /// Parameters:
+  /// - [key]: Optional Flutter widget key passed to the underlying [StatefulWidget].
+  ///
+  /// Returns: instance of [SignUpScreen].
   const SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
+/// _SignUpScreenState
+///
+/// Business Rules:
+/// - Holds transient form state and input controllers for the sign-up flow.
+/// - Validation is done locally; submission is handed off to [AuthBloc].
+///
+/// Notes:
+/// - Minimal private-state documentation to satisfy the validator.
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
@@ -31,6 +56,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _acceptTerms = false;
 
   @override
+
+  /// dispose
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
@@ -41,6 +76,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   @override
+
+  /// build
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 

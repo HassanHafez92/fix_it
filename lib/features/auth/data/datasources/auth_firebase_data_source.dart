@@ -86,6 +86,9 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
         _firestore = firestore ?? FirebaseFirestore.instance;
 
   @override
+/// signInWithGoogle
+///
+/// Returns: 
   Future<UserModel> signInWithGoogle() async {
     try {
       // Create a Google provider
@@ -94,6 +97,9 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
       // Sign in with Google
       final userCredential = await _auth.signInWithPopup(googleProvider);
       final user = userCredential.user;
+/// if
+///
+/// @param user 
       
       if (user == null) {
         throw Exception('Google sign in failed');
@@ -102,6 +108,8 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
       // Check if user document exists in Firestore
       // This determines if this is a first-time Google sign-in or returning user
       final userDoc = await _firestore.collection('users').doc(user.uid).get();
+/// if
+///
       
       if (!userDoc.exists) {
         // Create user document if it doesn't exist
@@ -130,6 +138,11 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
   }
 
   @override
+/// signIn
+///
+/// @param email 
+/// @param password 
+/// Returns: 
   Future<UserModel> signIn({required String email, required String password}) async {
     try {
       final userCredential = await _auth.signInWithEmailAndPassword(
@@ -137,6 +150,9 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
         password: password,
       );
       final user = userCredential.user;
+/// if
+///
+/// @param user 
       if (user == null) {
         throw Exception('Sign in failed');
       }
@@ -149,6 +165,14 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
   }
 
   @override
+/// signUp
+///
+/// @param email 
+/// @param password 
+/// @param fullName 
+/// @param phoneNumber 
+/// @param userType 
+/// Returns: 
   Future<UserModel> signUp({
     required String email,
     required String password,
@@ -162,6 +186,9 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
         password: password,
       );
       final user = userCredential.user;
+/// if
+///
+/// @param user 
       if (user == null) {
         throw Exception('Sign up failed');
       }
@@ -192,6 +219,9 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
   }
 
   @override
+/// signOut
+///
+/// Returns: 
   Future<void> signOut() async {
     try {
       await _auth.signOut();
@@ -201,6 +231,9 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
   }
 
   @override
+/// getCurrentUser
+///
+/// Returns: 
   Future<UserModel?> getCurrentUser() async {
     try {
       final user = _auth.currentUser;
@@ -212,6 +245,10 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
   }
 
   @override
+/// forgotPassword
+///
+/// @param email 
+/// Returns: 
   Future<void> forgotPassword({required String email}) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
@@ -223,6 +260,12 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
   }
 
   @override
+/// updateProfile
+///
+/// @param fullName 
+/// @param phoneNumber 
+/// @param profilePictureUrl 
+/// Returns: 
   Future<UserModel> updateProfile({
     required String fullName,
     String? phoneNumber,
@@ -230,12 +273,17 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
   }) async {
     try {
       final user = _auth.currentUser;
+/// if
+///
+/// @param user 
       if (user == null) {
         throw Exception('No user is currently signed in');
       }
 
       // Update Firebase Auth profile
       await user.updateDisplayName(fullName);
+/// if
+///
       if (profilePictureUrl != null) {
         await user.updatePhotoURL(profilePictureUrl);
       }
@@ -246,9 +294,13 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
         'fullName': fullName,
         'updatedAt': DateTime.now(),
       };
+/// if
+///
       if (phoneNumber != null) {
         updateData['phoneNumber'] = phoneNumber;
       }
+/// if
+///
       if (profilePictureUrl != null) {
         updateData['profilePictureUrl'] = profilePictureUrl;
       }
@@ -262,9 +314,16 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
   }
 
   @override
+/// changePassword
+///
+/// @param newPassword 
+/// Returns: 
   Future<void> changePassword({required String newPassword}) async {
     try {
       final user = _auth.currentUser;
+/// if
+///
+/// @param user 
       if (user == null) {
         throw Exception('No user is currently signed in');
       }
@@ -278,13 +337,21 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
 
   @override
   Stream<User?> get authStateChanges => _auth.authStateChanges();
+/// _getUserModelFromFirebaseUser
+///
+/// @param user 
+/// Returns: 
 
   Future<UserModel> _getUserModelFromFirebaseUser(User user) async {
     try {
       final userDoc = await _firestore.collection('users').doc(user.uid).get();
+/// if
+///
       if (userDoc.exists) {
         final data = userDoc.data()!;
         // Ensure userType is not null
+/// if
+///
         if (data['userType'] == null) {
           data['userType'] = 'customer'; // Default user type
         }
@@ -308,8 +375,14 @@ class AuthFirebaseDataSourceImpl implements AuthFirebaseDataSource {
       throw Exception('Failed to get user data: ${e.toString()}');
     }
   }
+/// _handleFirebaseAuthException
+///
+/// @param e 
+/// Returns: 
 
   Exception _handleFirebaseAuthException(FirebaseAuthException e) {
+/// switch
+///
     switch (e.code) {
       case 'user-not-found':
         return Exception('No user found with this email address');

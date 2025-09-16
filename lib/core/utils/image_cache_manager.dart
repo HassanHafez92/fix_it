@@ -11,6 +11,9 @@ import 'package:flutter/material.dart';
 /// - Add the main business rules or invariants enforced by this class.
 class ImageCacheManager {
   /// Clears all image caches
+
+  /// Clears all image caches
+/// Returns: 
   static Future<void> clearAllCache() async {
     try {
       // Clear Flutter's image cache
@@ -25,6 +28,10 @@ class ImageCacheManager {
   }
 
   /// Clears only the in-memory image cache
+
+
+  /// Clears only the in-memory image cache
+/// Returns: 
   static void clearMemoryCache() {
     try {
       PaintingBinding.instance.imageCache.clear();
@@ -35,6 +42,10 @@ class ImageCacheManager {
   }
 
   /// Preloads images for better perceived performance
+
+
+  /// Preloads images for better perceived performance
+/// Returns: 
   static Future<void> preloadImages(List<String> imageUrls) async {
     // In a real app, this would be called from a widget context
     // For now, we'll just log the preload request
@@ -45,21 +56,39 @@ class ImageCacheManager {
   }
 
   /// Gets the current memory cache size
+
+
+  /// Gets the current memory cache size
+/// Returns: 
   static int getMemoryCacheSize() {
     return PaintingBinding.instance.imageCache.currentSizeBytes;
   }
 
   /// Gets the maximum allowed memory cache size
+
+
+  /// Gets the maximum allowed memory cache size
+/// Returns: 
   static int getMaxMemoryCacheSize() {
     return PaintingBinding.instance.imageCache.maximumSizeBytes;
   }
 
   /// Sets the maximum memory cache size
+
+
+  /// Sets the maximum memory cache size
+/// @param sizeInBytes 
+/// Returns: 
   static void setMaxMemoryCacheSize(int sizeInBytes) {
     PaintingBinding.instance.imageCache.maximumSizeBytes = sizeInBytes;
   }
 
   /// Clears old cache items based on age
+
+
+  /// Clears old cache items based on age
+/// @param maxAgeInDays 
+/// Returns: 
   static Future<void> clearOldCache(int maxAgeInDays) async {
     try {
       // This would remove cache items older than maxAgeInDays in a real implementation

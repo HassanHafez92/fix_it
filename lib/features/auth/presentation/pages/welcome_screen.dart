@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/constants/app_constants.dart';
 import 'package:fix_it/core/utils/app_routes.dart';
 import '../widgets/custom_button.dart';
+
 /// WelcomeScreen
 ///
 /// Business rules:
@@ -27,6 +28,18 @@ import '../widgets/custom_button.dart';
 /// - The user can navigate to the sign-in screen or the user type selection screen.
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
+
+  /// build
+  ///
+  /// Description: Briefly explain what this method does.
+  ///
+  /// Parameters:
+  /// - (describe parameters)
+  ///
+  /// Returns:
+  /// - (describe return value)
+
+  @override
 /// build
 ///
 /// Description: Briefly explain what this method does.
@@ -36,19 +49,24 @@ class WelcomeScreen extends StatelessWidget {
 ///
 /// Returns:
 /// - (describe return value)
-
-
-  @override
   Widget build(BuildContext context) {
+    // ignore: avoid_print
+    print('WelcomeScreen: build start');
     // ignore: unused_local_variable
     final size = MediaQuery.of(context).size;
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
     if (l10n == null) {
-      // Return a simple loading indicator if localization is not available
-      return const Scaffold(
+      // If localization isn't ready yet, return a lightweight placeholder
+      // so we can visually confirm the welcome screen was built.
+      return Scaffold(
         body: Center(
-          child: CircularProgressIndicator(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              Text('Welcome (localization not ready)'),
+            ],
+          ),
         ),
       );
     }

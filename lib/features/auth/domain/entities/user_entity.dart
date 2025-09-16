@@ -1,3 +1,8 @@
+/// UserEntity
+///
+/// Business Rules:
+/// - Add the main business rules or invariants enforced by this class.
+
 import 'package:equatable/equatable.dart';
 
 /// Represents a user in the Fix It application.

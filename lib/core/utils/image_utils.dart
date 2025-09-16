@@ -28,6 +28,14 @@ class ImageUtils {
     Widget? customPlaceholder,
     Widget? customErrorWidget,
   }) {
+/// CachedNetworkImage
+///
+/// @param imageUrl 
+/// @param width 
+/// @param height 
+/// @param fit 
+/// @param url 
+/// Returns: 
     return CachedNetworkImage(
       imageUrl: imageUrl,
       width: width,
@@ -71,6 +79,15 @@ class ImageUtils {
   }
 
   /// Creates a thumbnail with optimized settings for list items
+
+
+  /// Creates a thumbnail with optimized settings for list items
+/// @param imageUrl 
+/// @param width 
+/// @param height 
+/// @param fit 
+/// @param cacheKey 
+/// Returns: 
   static Widget thumbnail({
     required String imageUrl,
     double width = 60,
@@ -95,6 +112,16 @@ class ImageUtils {
   }
 
   /// Creates a hero image for transitions with optimized settings
+
+
+  /// Creates a hero image for transitions with optimized settings
+/// @param imageUrl 
+/// @param tag 
+/// @param width 
+/// @param height 
+/// @param fit 
+/// @param cacheKey 
+/// Returns: 
   static Widget heroImage({
     required String imageUrl,
     required String tag,
@@ -123,6 +150,15 @@ class ImageUtils {
   }
 
   /// Creates a grid image with optimized settings
+
+
+  /// Creates a grid image with optimized settings
+/// @param imageUrl 
+/// @param width 
+/// @param height 
+/// @param fit 
+/// @param cacheKey 
+/// Returns: 
   static Widget gridImage({
     required String imageUrl,
     double? width,
@@ -147,11 +183,19 @@ class ImageUtils {
   }
 
   /// Preloads images for better perceived performance
+
+
+  /// Preloads images for better perceived performance
+/// Returns: 
   static Future<void> preloadImages(List<String> imageUrls) async {
     await ImageCacheManager.preloadImages(imageUrls);
   }
 
   /// Clears all image caches
+
+
+  /// Clears all image caches
+/// Returns: 
   static Future<void> clearAllCache() async {
     await ImageCacheManager.clearAllCache();
   }

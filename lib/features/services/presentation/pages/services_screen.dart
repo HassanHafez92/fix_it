@@ -151,6 +151,15 @@ class _ServicesScreenState extends State<ServicesScreen> {
   ];
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     // فرض اتجاه RTL على كامل الشاشة
     return Directionality(
@@ -235,6 +244,15 @@ class _ServiceCard extends StatelessWidget {
   const _ServiceCard({required this.item});
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(

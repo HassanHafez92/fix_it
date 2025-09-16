@@ -1,16 +1,43 @@
+// ignore_for_file: avoid_print, duplicate_ignore
+
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'auth_service.dart';
+import '../../app_config.dart';
 import '../../features/profile/data/models/user_profile_model.dart';
 import 'google_auth_service.dart';
 
+/// AuthServiceImpl
+///
+/// Business Rules:
+///  - Provides the concrete implementation for authentication-related
+///    operations using Firebase Auth and Firestore.
+///  - Methods should be resilient: failures while reading Firestore return
+///    `null` where appropriate to avoid blocking app startup.
+///
+/// Note: This class intentionally contains pragmatic error handling to make
+/// the app tolerant of Firestore permission issues in development/test envs.
 class AuthServiceImpl implements AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final GoogleAuthService _googleAuthService = GoogleAuthService();
 
   @override
+
+  /// Creates a new user account using email and password.
+  ///
+  /// Returns the Firebase [UserCredential] for the created account on
+  /// success.
+  ///
+  /// Throws an [Exception] on failure (for example, when the email is
+  /// already in use, the password is weak, or network errors occur).
+  ///
+  /// Business rules:
+  /// - `email` must be a valid email address.
+  /// - `password` must meet server-side requirements.
+  /// - `name` and `userType` are stored in the Firestore `users` document
+  ///   created for the new user.
   Future<UserCredential> signUpWithEmailAndPassword({
     required String email,
     required String password,
@@ -122,15 +149,40 @@ class AuthServiceImpl implements AuthService {
 
   @override
   Future<UserProfileModel?> getCurrentUserProfile() async {
+    /// Returns the current user's profile read from Firestore.
+    ///
+    /// Returns:
+    ///  - `UserProfileModel` when a profile document exists and is readable.
+    ///  - `null` when no Firebase user is signed in, the document does not
+    ///    exist, the Firestore read times out, or permissions prevent access.
+    ///
+    /// This method intentionally returns `null` instead of throwing for many
+    /// error cases so that UI startup flows can continue and fallback UI
+    /// behavior can handle missing profile data.
     final User? user = _firebaseAuth.currentUser;
     if (user == null) {
+      // ignore: avoid_print
+      print('AuthService: no Firebase user currently signed in');
       return null;
     }
 
+    // Detailed debug & timing to help diagnose startup auth flows
+    final start = DateTime.now();
+    // ignore: avoid_print
+    print('AuthService: getCurrentUserProfile() started for uid=${user.uid}');
+
     try {
       // Protect against long-running Firestore calls by adding a timeout.
+      // ignore: avoid_print
+      print('AuthService: About to call Firestore get()');
       final futureDoc = _firestore.collection('users').doc(user.uid).get();
-      DocumentSnapshot doc = await futureDoc.timeout(const Duration(seconds: 5));
+      DocumentSnapshot doc = await futureDoc
+          .timeout(Duration(seconds: AppConfig.authProfileTimeoutSeconds));
+
+      final tookMs = DateTime.now().difference(start).inMilliseconds;
+      // ignore: avoid_print
+      print(
+          'AuthService: Firestore get() completed in ${tookMs}ms; exists=${doc.exists}');
 
       if (doc.exists) {
         final data = doc.data() as Map<String, dynamic>;
@@ -140,12 +192,16 @@ class AuthServiceImpl implements AuthService {
         }
         return UserProfileModel.fromJson(data);
       }
+
       return null;
-    } on TimeoutException catch (_) {
+    } on TimeoutException catch (e, s) {
       // Timeout when fetching profile; return null so auth flow can fall back
       // to the Firebase auth state check and the UI can continue.
       // ignore: avoid_print
-      print('AuthService: getCurrentUserProfile() timed out');
+      print(
+          'AuthService: getCurrentUserProfile() timed out after ${AppConfig.authProfileTimeoutSeconds}s');
+      print('AuthService: TimeoutException: $e');
+      print('AuthService: Stacktrace: $s');
       return null;
     } catch (e) {
       // If Firestore permission denied, treat as missing profile instead of

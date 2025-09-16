@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 
+/// main
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
 void main() => runApp(const MyApp());
 
 /// The main application widget.
@@ -10,6 +19,15 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     // تطبيق مادي بسيط، وسيتم فرض RTL على مستوى الشاشة عبر Directionality
     return const MaterialApp(
@@ -165,6 +183,15 @@ class _ServicesScreenState extends State<ServicesScreen> {
   ];
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     // فرض اتجاه RTL على كامل الشاشة
     return Directionality(
@@ -248,6 +275,15 @@ class _ServiceCard extends StatelessWidget {
   const _ServiceCard({required this.item});
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(

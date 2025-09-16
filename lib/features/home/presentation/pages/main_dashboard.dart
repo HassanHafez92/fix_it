@@ -49,12 +49,30 @@ class _MainDashboardState extends State<MainDashboard> {
   final List<GlobalKey> _tabKeys = List.generate(5, (index) => GlobalKey());
 
   @override
+/// initState
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void initState() {
     super.initState();
     _pageController = PageController();
   }
 
   @override
+/// dispose
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void dispose() {
     _pageController.dispose();
     super.dispose();
@@ -77,6 +95,15 @@ class _MainDashboardState extends State<MainDashboard> {
   }
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 

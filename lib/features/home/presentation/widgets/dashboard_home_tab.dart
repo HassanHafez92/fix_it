@@ -33,6 +33,15 @@ class DashboardHomeTab extends StatefulWidget {
 
 class _DashboardHomeTabState extends State<DashboardHomeTab> {
   @override
+/// initState
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void initState() {
     super.initState();
     // Load recent bookings and notifications after first frame to ensure providers are available
@@ -60,6 +69,15 @@ class _DashboardHomeTabState extends State<DashboardHomeTab> {
   }
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 

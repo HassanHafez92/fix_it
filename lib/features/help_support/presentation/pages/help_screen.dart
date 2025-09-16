@@ -56,6 +56,15 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
 
 
   @override
+/// initState
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
@@ -72,6 +81,15 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
 
 
   @override
+/// dispose
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void dispose() {
     _tabController.dispose();
     _searchController.dispose();
@@ -89,6 +107,15 @@ class _HelpScreenState extends State<HelpScreen> with TickerProviderStateMixin {
 
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
@@ -553,6 +580,15 @@ class _CategoryChip extends StatelessWidget {
 
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
@@ -610,6 +646,15 @@ class _AboutSection extends StatelessWidget {
 
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,

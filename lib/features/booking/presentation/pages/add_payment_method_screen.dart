@@ -29,6 +29,15 @@ class _AddPaymentMethodScreenState extends State<AddPaymentMethodScreen> {
   bool _isDefault = false;
 
   @override
+/// dispose
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void dispose() {
     _cardNumberController.dispose();
     _expiryDateController.dispose();
@@ -38,6 +47,15 @@ class _AddPaymentMethodScreenState extends State<AddPaymentMethodScreen> {
   }
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

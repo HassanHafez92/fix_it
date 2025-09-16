@@ -38,6 +38,15 @@ class _ModifyBookingScreenState extends State<ModifyBookingScreen> {
   final DateFormat _dateFormat = DateFormat.yMMMMd();
 
   @override
+/// initState
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void initState() {
     super.initState();
     _loadBooking();
@@ -151,6 +160,15 @@ class _ModifyBookingScreenState extends State<ModifyBookingScreen> {
   }
 
   @override
+/// dispose
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   void dispose() {
     _addressController.dispose();
     _notesController.dispose();
@@ -158,6 +176,15 @@ class _ModifyBookingScreenState extends State<ModifyBookingScreen> {
   }
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

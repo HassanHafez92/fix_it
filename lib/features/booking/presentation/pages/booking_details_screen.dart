@@ -75,6 +75,15 @@ class BookingDetailsScreen extends StatelessWidget {
   /// - (describe return value)
 
   @override
+/// build
+///
+/// Description: Briefly explain what this method does.
+///
+/// Parameters:
+/// - (describe parameters)
+///
+/// Returns:
+/// - (describe return value)
   Widget build(BuildContext context) {
     // use easy_localization tr() directly
     return BlocProvider(
@@ -359,12 +368,16 @@ class BookingDetailsScreen extends StatelessWidget {
                       color: Colors.grey[300],
                       child: const Icon(Icons.person),
                     ),
-                    errorWidget: (context, url, error) => Container(
-                      width: 50,
-                      height: 50,
-                      color: Colors.grey[300],
-                      child: const Icon(Icons.person),
-                    ),
+                    errorWidget: (context, url, error) {
+                      debugPrint(
+                          'Booking details provider image failed: $url -> $error');
+                      return Container(
+                        width: 50,
+                        height: 50,
+                        color: Colors.grey[300],
+                        child: const Icon(Icons.person),
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(width: 12),
